@@ -1,3 +1,0 @@
-SyntaxError in line 4 of /home/sjannalda/bgbm/projects/PlastidPipeline/workflow/rules/Trimming.smk:
-invalid syntax
-  File "/home/sjannalda/bgbm/projects/PlastidPipeline/workflow/Snakefile", line 17, in <module>

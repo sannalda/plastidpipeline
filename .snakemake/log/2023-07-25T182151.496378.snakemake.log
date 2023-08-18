@@ -1,5 +1,0 @@
-Multiple includes of /home/sjannalda/bgbm/projects/PlastidPipeline/workflow/rules/Assembly.smk ignored
-Building DAG of jobs...
-WildcardError in line 3 of /home/sjannalda/bgbm/projects/PlastidPipeline/workflow/rules/Annotation.smk:
-Wildcards in input files cannot be determined from output files:
-'assembly_params'

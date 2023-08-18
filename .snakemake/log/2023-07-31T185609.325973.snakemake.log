@@ -1,6 +1,0 @@
-Building DAG of jobs...
-MissingInputException in rule all  in line 8 of /home/sjannalda/bgbm/projects/PlastidPipeline/workflow/Snakefile:
-Missing input files for rule all:
-    affected files:
-        SRR17032105/assembly/SRR17032105.standardardized.fasta
-        SRR17032105/backmapping/SRR17032105.backmapping.sam

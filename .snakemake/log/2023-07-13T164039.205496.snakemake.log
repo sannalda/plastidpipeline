@@ -1,9 +1,0 @@
-Building DAG of jobs...
-InputFunctionException in line 140 of /home/sjannalda/bgbm/projects/PlastidPipeline/workflow/Snakefile:
-Error:
-  AttributeError: 'OutputFiles' object has no attribute 'replace'
-Wildcards:
-  sample=AM0909
-  read=1
-Traceback:
-  File "/home/sjannalda/bgbm/projects/PlastidPipeline/workflow/Snakefile", line 147, in <lambda>

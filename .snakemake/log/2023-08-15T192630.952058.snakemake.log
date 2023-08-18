@@ -1,8 +1,0 @@
-Building DAG of jobs...
-MissingInputException in rule TrimReads  in line 1 of /home/sjannalda/bgbm/projects/PlastidPipeline/workflow/rules/Trimming.smk:
-Missing input files for rule TrimReads:
-    output: ERR5529299/data/ERR5529299_1.trimmed.fastq, ERR5529299/data/ERR5529299_2.trimmed.fastq, ERR5529299/data/ERR5529299_U1.trimmed.fastq, ERR5529299/data/ERR5529299_U2.trimmed.fastq
-    wildcards: sample=ERR5529299
-    affected files:
-        /scratch/sjannalda/projects/PlastidPipelineTesting/data/ERR5529299_1.fastq
-        /scratch/sjannalda/projects/PlastidPipelineTesting/data/ERR5529299_2.fastq

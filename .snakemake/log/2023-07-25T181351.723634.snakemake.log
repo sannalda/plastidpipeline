@@ -1,4 +1,0 @@
-WildcardError in line 42 of /home/sjannalda/bgbm/projects/PlastidPipeline/workflow/rules/Trimming.smk:
-No values given for wildcard 'sample'.
-  File "/home/sjannalda/bgbm/projects/PlastidPipeline/workflow/Snakefile", line 15, in <module>
-  File "/home/sjannalda/bgbm/projects/PlastidPipeline/workflow/rules/Trimming.smk", line 42, in <module>

@@ -1,4 +1,0 @@
-Building DAG of jobs...
-WildcardError in line 7 of /home/sjannalda/bgbm/projects/PlastidPipeline/workflow/Snakefile:
-Wildcards in input files cannot be determined from output files:
-'sample'

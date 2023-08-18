@@ -1,5 +1,0 @@
-Building DAG of jobs...
-MissingInputException in rule all  in line 3 of /home/sjannalda/bgbm/projects/PlastidPipeline/workflow/Snakefile:
-Missing input files for rule all:
-    affected files:
-        test_1.sorted.file.fastq

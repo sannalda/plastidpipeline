@@ -1,9 +1,0 @@
-Building DAG of jobs...
-InputFunctionException in line 21 of /home/sjannalda/bgbm/projects/PlastidPipeline/workflow/rules/Trimming.smk:
-Error:
-  AttributeError: 'OutputFiles' object has no attribute 'read'
-Wildcards:
-  sample=SRR12432532
-  read=1
-Traceback:
-  File "/home/sjannalda/bgbm/projects/PlastidPipeline/workflow/rules/Trimming.smk", line 28, in <lambda>

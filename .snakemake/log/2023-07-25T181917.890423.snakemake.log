@@ -1,4 +1,0 @@
-WildcardError in line 21 of /home/sjannalda/bgbm/projects/PlastidPipeline/workflow/rules/Assembly.smk:
-No values given for wildcard 'sample'.
-  File "/home/sjannalda/bgbm/projects/PlastidPipeline/workflow/Snakefile", line 19, in <module>
-  File "/home/sjannalda/bgbm/projects/PlastidPipeline/workflow/rules/Assembly.smk", line 21, in <module>

@@ -1,9 +1,0 @@
-Building DAG of jobs...
-InputFunctionException in line 1 of /home/sjannalda/bgbm/projects/PlastidPipeline/workflow/rules/Preprocessing.smk:
-Error:
-  NameError: name 'read' is not defined
-Wildcards:
-  sample=SRR17032105
-  read=1
-Traceback:
-  File "/home/sjannalda/bgbm/projects/PlastidPipeline/workflow/rules/Preprocessing.smk", line 4, in <lambda>

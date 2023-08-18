@@ -1,4 +1,0 @@
-KeyError in line 28 of /home/sjannalda/bgbm/projects/PlastidPipeline/workflow/rules/Preprocessing.smk:
-'qc_folder'
-  File "/home/sjannalda/bgbm/projects/PlastidPipeline/workflow/Snakefile", line 15, in <module>
-  File "/home/sjannalda/bgbm/projects/PlastidPipeline/workflow/rules/Preprocessing.smk", line 28, in <module>

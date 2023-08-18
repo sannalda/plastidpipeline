@@ -1,3 +1,0 @@
-TypeError in line 163 of /home/sjannalda/bgbm/projects/PlastidPipeline/workflow/Snakefile:
-'function' object is not iterable
-  File "/home/sjannalda/bgbm/projects/PlastidPipeline/workflow/Snakefile", line 163, in <module>

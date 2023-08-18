@@ -1,3 +1,0 @@
-CreateRuleException in line 123 of /home/sjannalda/bgbm/projects/PlastidPipeline/workflow/Snakefile:
-The name StartQC_multiqc is already used by another rule
-  File "/home/sjannalda/bgbm/projects/PlastidPipeline/workflow/Snakefile", line 123, in <module>
