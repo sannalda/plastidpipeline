@@ -1,0 +1,43 @@
+Building DAG of jobs...
+Using shell: /usr/bin/bash
+Provided cluster nodes: 500
+Job stats:
+job                                    count    min threads    max threads
+-----------------------------------  -------  -------------  -------------
+AnnotationPostStandardization              1              1              1
+AnnotationPreStandardization               1              1              1
+Backmapping                                1              8              8
+BackmappingQC                              1              1              1
+BuildReferenceAnnotationBackmapping        1              4              4
+StandardizationAnnotation                  1              1              1
+all                                        1              1              1
+total                                      7              1              8
+
+Select jobs to execute...
+
+[Fri Aug 18 01:24:02 2023]
+localrule AnnotationPreStandardization:
+    input: ERR5554746/assembly/ERR5554746.original.fasta
+    output: ERR5554746/annotation/ERR5554746.original.gb
+    jobid: 11
+    wildcards: sample=ERR5554746
+    resources: mem_mb=1000, disk_mb=1000, tmpdir=/tmp, time=0-00:05:00, qos=standard
+
+python -c "import sys; print('.'.join(map(str, sys.version_info[:2])))"
+Activating conda environment: /scratch/sjannalda/projects/PlastidPipelineTesting/.snakemake/conda/88e10d067ec5bb27f95f79bb2c24d708
+python /scratch/sjannalda/projects/PlastidPipelineTesting/.snakemake/scripts/tmptabeawv9.GeSeqAutomation.py
+Activating conda environment: /scratch/sjannalda/projects/PlastidPipelineTesting/.snakemake/conda/88e10d067ec5bb27f95f79bb2c24d708
+[Fri Aug 18 01:24:21 2023]
+Error in rule AnnotationPreStandardization:
+    jobid: 11
+    output: ERR5554746/annotation/ERR5554746.original.gb
+    conda-env: /scratch/sjannalda/projects/PlastidPipelineTesting/.snakemake/conda/88e10d067ec5bb27f95f79bb2c24d708
+
+RuleException:
+CalledProcessError in line 9 of /home/sjannalda/bgbm/projects/PlastidPipeline/workflow/rules/Annotation.smk:
+Command 'source /home/sjannalda/mambaforge-pypy3/envs/PlastidPipeline/bin/activate '/scratch/sjannalda/projects/PlastidPipelineTesting/.snakemake/conda/88e10d067ec5bb27f95f79bb2c24d708'; set -euo pipefail;  python /scratch/sjannalda/projects/PlastidPipelineTesting/.snakemake/scripts/tmptabeawv9.GeSeqAutomation.py' returned non-zero exit status 1.
+  File "/home/sjannalda/bgbm/projects/PlastidPipeline/workflow/rules/Annotation.smk", line 9, in __rule_AnnotationPreStandardization
+  File "/home/sjannalda/mambaforge-pypy3/envs/PlastidPipeline/lib/python3.6/concurrent/futures/thread.py", line 56, in run
+Job failed, going on with independent jobs.
+Exiting because a job execution failed. Look above for error message
+Complete log: /home/sjannalda/bgbm/projects/PlastidPipeline/.snakemake/log/2023-08-18T012353.891219.snakemake.log

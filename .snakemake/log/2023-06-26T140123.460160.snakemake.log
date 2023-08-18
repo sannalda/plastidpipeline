@@ -1,0 +1,28 @@
+Building DAG of jobs...
+Using shell: /usr/bin/bash
+Provided cores: 1 (use --cores to define parallelism)
+Rules claiming more threads will be scaled down.
+Job stats:
+job         count    min threads    max threads
+--------  -------  -------------  -------------
+Assembly        1              1              1
+all             1              1              1
+total           2              1              1
+
+Select jobs to execute...
+
+[Mon Jun 26 14:01:25 2023]
+rule Assembly:
+    input: database/SeedDatabase/embplant_pt.fasta, data/AM0909_1.filt.fastq, data/AM0909_2.filt.fastq
+    output: assembly/embplant_pt.K105.complete.graph1.1.path_sequence.fasta
+    jobid: 1
+    reason: Missing output files: assembly/embplant_pt.K105.complete.graph1.1.path_sequence.fasta
+    resources: tmpdir=/localscratch/tmp/sjannalda/tmp.13492482.0, mem_mb=10000, time=0-3:00:00
+
+Waiting at most 5 seconds for missing files.
+MissingOutputException in rule Assembly  in line 59 of /home/sjannalda/bgbm/projects/PlastidPipeline/workflow/Snakefile:
+Job Missing files after 5 seconds. This might be due to filesystem latency. If that is the case, consider to increase the wait time with --latency-wait:
+assembly/embplant_pt.K105.complete.graph1.1.path_sequence.fasta completed successfully, but some output files are missing. 1
+Shutting down, this might take some time.
+Exiting because a job execution failed. Look above for error message
+Complete log: ../../../../home/sjannalda/bgbm/projects/PlastidPipeline/.snakemake/log/2023-06-26T140123.460160.snakemake.log

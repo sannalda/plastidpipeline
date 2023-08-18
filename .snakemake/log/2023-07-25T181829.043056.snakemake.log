@@ -1,0 +1,4 @@
+WildcardError in line 61 of /home/sjannalda/bgbm/projects/PlastidPipeline/workflow/rules/Processing.smk:
+No values given for wildcard 'sample'.
+  File "/home/sjannalda/bgbm/projects/PlastidPipeline/workflow/Snakefile", line 17, in <module>
+  File "/home/sjannalda/bgbm/projects/PlastidPipeline/workflow/rules/Processing.smk", line 61, in <module>

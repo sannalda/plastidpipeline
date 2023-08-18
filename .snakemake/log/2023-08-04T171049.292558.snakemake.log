@@ -1,0 +1,3 @@
+SyntaxError in line 44 of /home/sjannalda/bgbm/projects/PlastidPipeline/workflow/rules/Backmapping.smk:
+Unexpected keyword intput in rule definition (Backmapping.smk, line 44)
+  File "/home/sjannalda/bgbm/projects/PlastidPipeline/workflow/Snakefile", line 27, in <module>

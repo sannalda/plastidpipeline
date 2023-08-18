@@ -1,0 +1,117 @@
+Building DAG of jobs...
+Using shell: /usr/bin/bash
+Provided cluster nodes: 500
+Job stats:
+job                                    count    min threads    max threads
+-----------------------------------  -------  -------------  -------------
+AnnotationPostStandardization              1              1              1
+AnnotationPreStandardization               1              1              1
+Assembly                                   1             16             16
+Backmapping                                1              8              8
+BuildReferenceAnnotationBackmapping        1              4              4
+StandardizationAnnotation                  1              1              1
+all                                        1              1              1
+total                                      7              1             16
+
+Select jobs to execute...
+
+[Tue Aug  1 15:31:10 2023]
+rule Assembly:
+    input: database/SeedDatabase/embplant_pt.fasta, SRR17032105/data/SRR17032105_1.filt.fastq, SRR17032105/data/SRR17032105_2.filt.fastq
+    output: SRR17032105/assembly/SRR17032105.original.fasta
+    jobid: 18
+    reason: Missing output files: SRR17032105/assembly/SRR17032105.original.fasta
+    wildcards: sample=SRR17032105
+    threads: 16
+    resources: mem_mb=10000, disk_mb=4978, tmpdir=<TBD>, time=0-3:00:00, qos=standard
+
+
+		module load Bowtie2
+		module load BLAST+
+		module load SPAdes
+		#get_organelle_from_reads.py -1 SRR17032105/data/SRR17032105_1.filt.fastq -2 SRR17032105/data/SRR17032105_2.filt.fastq \
+		#	-o SRR17032105/assembly -R 30 -k 21,45,65,85,105 -P 1000000 \
+		#	-F embplant_pt --config-dir database\
+		#	-t 16 --prefix SRR17032105 --overwrite
+		scp SRR17032105/assembly/*.complete.graph1.1.path_sequence.fasta SRR17032105/assembly/SRR17032105.original.fasta
+		
+Submitted job 18 with external jobid 'Submitted batch job 13892146'.
+[Tue Aug  1 15:40:01 2023]
+Finished job 18.
+1 of 7 steps (14%) done
+Select jobs to execute...
+
+[Tue Aug  1 15:40:01 2023]
+localrule AnnotationPreStandardization:
+    input: SRR17032105/assembly/SRR17032105.original.fasta
+    output: SRR17032105/annotation/SRR17032105.original.gb
+    jobid: 17
+    reason: Missing output files: SRR17032105/annotation/SRR17032105.original.gb; Input files updated by another job: SRR17032105/assembly/SRR17032105.original.fasta
+    wildcards: sample=SRR17032105
+    resources: mem_mb=1000, disk_mb=1000, tmpdir=/tmp, time=0-00:05:00, qos=standard
+
+/home/sjannalda/miniconda3/bin/python3.8 /scratch/sjannalda/projects/PlastidPipelineTesting/.snakemake/scripts/tmplkk07nso.GeSeqAutomation.py
+[Tue Aug  1 15:41:10 2023]
+Finished job 17.
+2 of 7 steps (29%) done
+Select jobs to execute...
+
+[Tue Aug  1 15:41:10 2023]
+rule StandardizationAnnotation:
+    input: SRR17032105/annotation/SRR17032105.original.gb
+    output: SRR17032105/annotation/SRR17032105.standardardized.fasta
+    jobid: 16
+    reason: Missing output files: SRR17032105/annotation/SRR17032105.standardardized.fasta; Input files updated by another job: SRR17032105/annotation/SRR17032105.original.gb
+    wildcards: sample=SRR17032105
+    resources: mem_mb=1000, disk_mb=1000, tmpdir=<TBD>, time=0-0:30:00, qos=standard
+
+Submitted job 16 with external jobid 'Submitted batch job 13892522'.
+[Tue Aug  1 15:41:21 2023]
+Finished job 16.
+3 of 7 steps (43%) done
+Select jobs to execute...
+
+[Tue Aug  1 15:41:21 2023]
+localrule AnnotationPostStandardization:
+    input: SRR17032105/annotation/SRR17032105.standardardized.fasta
+    output: SRR17032105/annotation/SRR17032105.standardardized.gb
+    jobid: 15
+    reason: Missing output files: SRR17032105/annotation/SRR17032105.standardardized.gb; Input files updated by another job: SRR17032105/annotation/SRR17032105.standardardized.fasta
+    wildcards: sample=SRR17032105
+    resources: mem_mb=1000, disk_mb=1000, tmpdir=/tmp, time=0-00:05:00, qos=standard
+
+[Tue Aug  1 15:41:21 2023]
+rule BuildReferenceAnnotationBackmapping:
+    input: SRR17032105/annotation/SRR17032105.standardardized.fasta
+    output: SRR17032105/backmapping/SRR17032105.txt
+    jobid: 21
+    reason: Missing output files: SRR17032105/backmapping/SRR17032105.txt; Input files updated by another job: SRR17032105/annotation/SRR17032105.standardardized.fasta
+    wildcards: sample=SRR17032105
+    threads: 4
+    resources: mem_mb=10000, disk_mb=1000, tmpdir=<TBD>, time=0-01:00:00, qos=standard
+
+
+		module load Bowtie2
+		bowtie2-build --threads 4 SRR17032105/annotation/SRR17032105.standardardized.fasta SRR17032105/backmapping
+		
+/home/sjannalda/miniconda3/bin/python3.8 /scratch/sjannalda/projects/PlastidPipelineTesting/.snakemake/scripts/tmphpricb39.GeSeqAutomation.py
+Submitted job 21 with external jobid 'Submitted batch job 13892523'.
+[Tue Aug  1 15:42:30 2023]
+Finished job 15.
+4 of 7 steps (57%) done
+[Tue Aug  1 15:42:31 2023]
+Error in rule BuildReferenceAnnotationBackmapping:
+    jobid: 21
+    input: SRR17032105/annotation/SRR17032105.standardardized.fasta
+    output: SRR17032105/backmapping/SRR17032105.txt
+    shell:
+        
+		module load Bowtie2
+		bowtie2-build --threads 4 SRR17032105/annotation/SRR17032105.standardardized.fasta SRR17032105/backmapping
+		
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+    cluster_jobid: Submitted batch job 13892523
+
+Error executing rule BuildReferenceAnnotationBackmapping on cluster (jobid: 21, external: Submitted batch job 13892523, jobscript: /scratch/sjannalda/projects/PlastidPipelineTesting/.snakemake/tmp.s24u2jg3/snakejob.BuildReferenceAnnotationBackmapping.21.sh). For error details see the cluster log and the log files of the involved rule(s).
+Exiting because a job execution failed. Look above for error message
+Complete log: ../../../../home/sjannalda/bgbm/projects/PlastidPipeline/.snakemake/log/2023-08-01T153108.151459.snakemake.log

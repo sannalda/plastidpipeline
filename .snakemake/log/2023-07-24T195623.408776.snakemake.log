@@ -1,0 +1,35 @@
+Building DAG of jobs...
+Using shell: /usr/bin/bash
+Provided cores: 1 (use --cores to define parallelism)
+Rules claiming more threads will be scaled down.
+Job stats:
+job                             count    min threads    max threads
+----------------------------  -------  -------------  -------------
+AnnotationPreStandardization        1              1              1
+all                                 1              1              1
+total                               2              1              1
+
+Select jobs to execute...
+
+[Mon Jul 24 19:56:24 2023]
+localrule AnnotationPreStandardization:
+    input: assembly/embplant_pt.K105.complete.graph1.1.path_sequence.fasta
+    output: cool.txt
+    jobid: 11
+    reason: Missing output files: cool.txt
+    resources: tmpdir=/tmp
+
+[Mon Jul 24 19:56:29 2023]
+Error in rule AnnotationPreStandardization:
+    jobid: 11
+    input: assembly/embplant_pt.K105.complete.graph1.1.path_sequence.fasta
+    output: cool.txt
+
+RuleException:
+CalledProcessError in line 228 of /home/sjannalda/bgbm/projects/PlastidPipeline/workflow/Snakefile:
+Command 'set -euo pipefail;  /home/sjannalda/miniconda3/bin/python3.8 /scratch/sjannalda/projects/PlastidPipelineTesting/.snakemake/scripts/tmp7ih8jlsd.GeSeqAutomation.py' returned non-zero exit status 1.
+  File "/home/sjannalda/bgbm/projects/PlastidPipeline/workflow/Snakefile", line 228, in __rule_AnnotationPreStandardization
+  File "/home/sjannalda/miniconda3/lib/python3.8/concurrent/futures/thread.py", line 57, in run
+Shutting down, this might take some time.
+Exiting because a job execution failed. Look above for error message
+Complete log: ../../../../home/sjannalda/bgbm/projects/PlastidPipeline/.snakemake/log/2023-07-24T195623.408776.snakemake.log

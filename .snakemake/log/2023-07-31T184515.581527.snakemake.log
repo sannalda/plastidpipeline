@@ -1,0 +1,4 @@
+KeyError in line 3 of /home/sjannalda/bgbm/projects/PlastidPipeline/workflow/rules/Assembly.smk:
+'organelle_databases_config'
+  File "/home/sjannalda/bgbm/projects/PlastidPipeline/workflow/Snakefile", line 24, in <module>
+  File "/home/sjannalda/bgbm/projects/PlastidPipeline/workflow/rules/Assembly.smk", line 3, in <module>

@@ -1,0 +1,8 @@
+Building DAG of jobs...
+MissingInputException in rule TrimmingQC_multiqc  in line 42 of /home/sjannalda/bgbm/projects/PlastidPipeline/workflow/rules/Trimming.smk:
+Missing input files for rule TrimmingQC_multiqc:
+    output: qc/SRR12432532/trimming/trimming_report_SRR12432532.html
+    wildcards: sample=SRR12432532
+    affected files:
+        qc/SRR12432532/trimming/SRR12432532_1.trimmed.fastqc.html
+        qc/SRR12432532/trimming/SRR12432532_2.trimmed.fastqc.html

@@ -1,0 +1,7 @@
+Building DAG of jobs...
+MissingInputException in rule StartQC_fastqc  in line 1 of /home/sjannalda/bgbm/projects/PlastidPipeline/workflow/rules/Preprocessing.smk:
+Missing input files for rule StartQC_fastqc:
+    output: SRR17032105/qc/start/SRR17032105_1.fastqc.html
+    wildcards: sample=SRR17032105, read=1
+    affected files:
+        {config['samples']SRR17032105}.fastq

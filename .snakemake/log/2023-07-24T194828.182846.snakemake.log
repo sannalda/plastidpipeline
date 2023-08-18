@@ -1,0 +1,36 @@
+Building DAG of jobs...
+Using shell: /usr/bin/bash
+Provided cluster nodes: 500
+Job stats:
+job                             count    min threads    max threads
+----------------------------  -------  -------------  -------------
+AnnotationPreStandardization        1              1              1
+all                                 1              1              1
+total                               2              1              1
+
+Select jobs to execute...
+
+[Mon Jul 24 19:48:36 2023]
+localrule AnnotationPreStandardization:
+    input: assembly/embplant_pt.K105.complete.graph1.1.path_sequence.fasta
+    output: cool.txt
+    jobid: 11
+    reason: Missing output files: cool.txt
+    resources: mem_mb=5000, disk_mb=1000, tmpdir=/localscratch/tmp/sjannalda/tmp.13746382.0, time=0-1:00:00, qos=standard
+
+[Mon Jul 24 19:48:36 2023]
+Error in rule AnnotationPreStandardization:
+    jobid: 11
+    input: assembly/embplant_pt.K105.complete.graph1.1.path_sequence.fasta
+    output: cool.txt
+
+RuleException:
+WorkflowError in line 232 of /home/sjannalda/bgbm/projects/PlastidPipeline/workflow/Snakefile:
+Failed to open source file /home/sjannalda/bgbm/projects/PlastidPipeline/workflow/
+		scripts/GeSeqAutomation.py
+		
+FileNotFoundError: [Errno 2] No such file or directory: '/home/sjannalda/bgbm/projects/PlastidPipeline/workflow/\n\t\tscripts/GeSeqAutomation.py\n\t\t'
+  File "/home/sjannalda/bgbm/projects/PlastidPipeline/workflow/Snakefile", line 232, in __rule_AnnotationPreStandardization
+  File "/home/sjannalda/miniconda3/lib/python3.8/concurrent/futures/thread.py", line 57, in run
+Exiting because a job execution failed. Look above for error message
+Complete log: ../../../../home/sjannalda/bgbm/projects/PlastidPipeline/.snakemake/log/2023-07-24T194828.182846.snakemake.log

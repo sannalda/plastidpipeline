@@ -1,0 +1,103 @@
+Building DAG of jobs...
+Using shell: /usr/bin/bash
+Provided cluster nodes: 500
+Job stats:
+job                                    count    min threads    max threads
+-----------------------------------  -------  -------------  -------------
+AnnotationPostStandardization              1              1              1
+AnnotationPreStandardization               1              1              1
+Assembly                                   1              8              8
+Backmapping                                1              8              8
+BuildReferenceAnnotationBackmapping        1              4              4
+FilteringQC_multiqc                        2              1              1
+StandardizationAnnotation                  1              1              1
+all                                        1              1              1
+total                                      9              1              8
+
+Select jobs to execute...
+
+[Wed Aug  2 14:33:12 2023]
+rule Assembly:
+    input: database/SeedDatabase/embplant_pt.fasta, Am21/data/Am21_1.filt.fastq, Am21/data/Am21_2.filt.fastq
+    output: Am21/assembly/Am21.original.fasta
+    jobid: 31
+    reason: Missing output files: Am21/assembly/Am21.original.fasta
+    wildcards: sample=Am21
+    threads: 8
+    resources: mem_mb=20000, disk_mb=24543, tmpdir=<TBD>, time=0-5:00:00, qos=standard
+
+
+		module load Bowtie2
+		module load BLAST+
+		module load SPAdes
+		get_organelle_from_reads.py -1 Am21/data/Am21_1.filt.fastq -2 Am21/data/Am21_2.filt.fastq \
+			-o Am21/assembly -R 30 -k 21,45,65,85,105 -P 1000000 \
+			-F embplant_pt --config-dir database\
+			-t 8 --prefix Am21 --overwrite
+		scp Am21/assembly/*.complete.graph1.1.path_sequence.fasta Am21/assembly/Am21.original.fasta
+		
+Submitted job 31 with external jobid 'Submitted batch job 13900888'.
+
+[Wed Aug  2 14:33:12 2023]
+rule FilteringQC_multiqc:
+    input: Am09/qc/filtering/Am09_1.filt.fastqc.html, Am09/qc/filtering/Am09_2.filt.fastqc.html
+    output: Am09/qc/filtering/filtering_report_Am09.html
+    jobid: 9
+    reason: Missing output files: Am09/qc/filtering/filtering_report_Am09.html
+    wildcards: sample=Am09
+    resources: mem_mb=5000, disk_mb=1000, tmpdir=<TBD>, time=0-00:10:00, qos=standard
+
+
+		module load MultiQC
+		multiqc -n Am09/qc/filtering/filtering_report_Am09.html --no-data-dir Am09/qc/filtering
+		
+Submitted job 9 with external jobid 'Submitted batch job 13900889'.
+
+[Wed Aug  2 14:33:13 2023]
+rule FilteringQC_multiqc:
+    input: Am21/qc/filtering/Am21_1.filt.fastqc.html, Am21/qc/filtering/Am21_2.filt.fastqc.html
+    output: Am21/qc/filtering/filtering_report_Am21.html
+    jobid: 16
+    reason: Missing output files: Am21/qc/filtering/filtering_report_Am21.html
+    wildcards: sample=Am21
+    resources: mem_mb=5000, disk_mb=1000, tmpdir=<TBD>, time=0-00:10:00, qos=standard
+
+
+		module load MultiQC
+		multiqc -n Am21/qc/filtering/filtering_report_Am21.html --no-data-dir Am21/qc/filtering
+		
+Submitted job 16 with external jobid 'Submitted batch job 13900890'.
+[Wed Aug  2 14:33:22 2023]
+Finished job 9.
+1 of 9 steps (11%) done
+[Wed Aug  2 14:33:34 2023]
+Finished job 16.
+2 of 9 steps (22%) done
+[Wed Aug  2 17:47:57 2023]
+Finished job 31.
+3 of 9 steps (33%) done
+Select jobs to execute...
+
+[Wed Aug  2 17:47:57 2023]
+localrule AnnotationPreStandardization:
+    input: Am21/assembly/Am21.original.fasta
+    output: Am21/annotation/Am21.original.gb
+    jobid: 30
+    reason: Missing output files: Am21/annotation/Am21.original.gb; Input files updated by another job: Am21/assembly/Am21.original.fasta
+    wildcards: sample=Am21
+    resources: mem_mb=1000, disk_mb=1000, tmpdir=/tmp, time=0-00:05:00, qos=standard
+
+/home/sjannalda/miniconda3/bin/python3.8 /scratch/sjannalda/projects/PlastidPipelineTesting/.snakemake/scripts/tmp6dhc8zzd.GeSeqAutomation.py
+[Wed Aug  2 17:48:36 2023]
+Error in rule AnnotationPreStandardization:
+    jobid: 30
+    input: Am21/assembly/Am21.original.fasta
+    output: Am21/annotation/Am21.original.gb
+
+RuleException:
+CalledProcessError in line 7 of /home/sjannalda/bgbm/projects/PlastidPipeline/workflow/rules/Annotation.smk:
+Command 'set -euo pipefail;  /home/sjannalda/miniconda3/bin/python3.8 /scratch/sjannalda/projects/PlastidPipelineTesting/.snakemake/scripts/tmp6dhc8zzd.GeSeqAutomation.py' returned non-zero exit status 1.
+  File "/home/sjannalda/bgbm/projects/PlastidPipeline/workflow/rules/Annotation.smk", line 7, in __rule_AnnotationPreStandardization
+  File "/home/sjannalda/miniconda3/lib/python3.8/concurrent/futures/thread.py", line 57, in run
+Exiting because a job execution failed. Look above for error message
+Complete log: ../../../../home/sjannalda/bgbm/projects/PlastidPipeline/.snakemake/log/2023-08-02T143307.563916.snakemake.log

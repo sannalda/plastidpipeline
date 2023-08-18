@@ -1,0 +1,528 @@
+Building DAG of jobs...
+Using shell: /usr/bin/bash
+Provided cluster nodes: 500
+Job stats:
+job                                    count    min threads    max threads
+-----------------------------------  -------  -------------  -------------
+AnnotationPostStandardization              2              1              1
+AnnotationPreStandardization               2              1              1
+Assembly                                   2              8              8
+Backmapping                                2              8              8
+BuildReferenceAnnotationBackmapping        2              4              4
+FilteringQC_fastqc                         4              1              1
+FilteringQC_multiqc                        2              1              1
+FilteringReads                             4              1              1
+StandardizationAnnotation                  2              1              1
+StartQC_fastqc                             4              1              1
+StartQC_multiqc                            2              1              1
+all                                        1              1              1
+total                                     29              1              8
+
+Select jobs to execute...
+
+[Tue Aug  1 17:51:47 2023]
+rule FilteringReads:
+    input: Am21/data/Am21_2.sorted.fastq
+    output: Am21/data/Am21_2.filt.fastq
+    jobid: 27
+    reason: Missing output files: Am21/data/Am21_2.filt.fastq
+    wildcards: sample=Am21, read=2
+    resources: mem_mb=10000, disk_mb=11957, tmpdir=<TBD>, time=0-03:00:00, qos=standard
+
+
+		module load FASTX-Toolkit
+		fastq_quality_filter -q 30 -i Am21/data/Am21_2.sorted.fastq -o Am21/data/Am21_2.filt.fastq
+		
+Submitted job 27 with external jobid 'Submitted batch job 13894298'.
+
+[Tue Aug  1 17:51:47 2023]
+rule StartQC_fastqc:
+    input: /scratch/sjannalda/projects/Am21/run1/data/AM2134_2.fastq
+    output: Am21/qc/start/Am21_2.fastqc.html
+    jobid: 6
+    reason: Missing output files: Am21/qc/start/Am21_2.fastqc.html
+    wildcards: sample=Am21, read=2
+    resources: mem_mb=5000, disk_mb=13076, tmpdir=<TBD>, time=0-00:30:00, qos=standard
+
+
+		module load FastQC/0.11.9-Java-11
+
+		mkdir -p Am21/qc
+		mkdir -p Am21/qc/start
+		fastqc -o Am21/qc/start /scratch/sjannalda/projects/Am21/run1/data/AM2134_2.fastq 
+		mv Am21/qc/start/Am21_2_fastqc.html Am21/qc/start/Am21_2.fastqc.html
+		
+Submitted job 6 with external jobid 'Submitted batch job 13894299'.
+
+[Tue Aug  1 17:51:48 2023]
+rule StartQC_fastqc:
+    input: /scratch/sjannalda/projects/Am21/run1/data/AM2134_1.fastq
+    output: Am21/qc/start/Am21_1.fastqc.html
+    jobid: 5
+    reason: Missing output files: Am21/qc/start/Am21_1.fastqc.html
+    wildcards: sample=Am21, read=1
+    resources: mem_mb=5000, disk_mb=13076, tmpdir=<TBD>, time=0-00:30:00, qos=standard
+
+
+		module load FastQC/0.11.9-Java-11
+
+		mkdir -p Am21/qc
+		mkdir -p Am21/qc/start
+		fastqc -o Am21/qc/start /scratch/sjannalda/projects/Am21/run1/data/AM2134_1.fastq 
+		mv Am21/qc/start/Am21_1_fastqc.html Am21/qc/start/Am21_1.fastqc.html
+		
+Submitted job 5 with external jobid 'Submitted batch job 13894300'.
+
+[Tue Aug  1 17:51:48 2023]
+rule FilteringReads:
+    input: Am09/data/Am09_1.sorted.fastq
+    output: Am09/data/Am09_1.filt.fastq
+    jobid: 17
+    reason: Missing output files: Am09/data/Am09_1.filt.fastq
+    wildcards: sample=Am09, read=1
+    resources: mem_mb=10000, disk_mb=15911, tmpdir=<TBD>, time=0-03:00:00, qos=standard
+
+
+		module load FASTX-Toolkit
+		fastq_quality_filter -q 30 -i Am09/data/Am09_1.sorted.fastq -o Am09/data/Am09_1.filt.fastq
+		
+Submitted job 17 with external jobid 'Submitted batch job 13894301'.
+
+[Tue Aug  1 17:51:48 2023]
+rule StartQC_fastqc:
+    input: /scratch/sjannalda/projects/Am09/run1/data/AM0909_1.fastq
+    output: Am09/qc/start/Am09_1.fastqc.html
+    jobid: 2
+    reason: Missing output files: Am09/qc/start/Am09_1.fastqc.html
+    wildcards: sample=Am09, read=1
+    resources: mem_mb=5000, disk_mb=16336, tmpdir=<TBD>, time=0-00:30:00, qos=standard
+
+
+		module load FastQC/0.11.9-Java-11
+
+		mkdir -p Am09/qc
+		mkdir -p Am09/qc/start
+		fastqc -o Am09/qc/start /scratch/sjannalda/projects/Am09/run1/data/AM0909_1.fastq 
+		mv Am09/qc/start/Am09_1_fastqc.html Am09/qc/start/Am09_1.fastqc.html
+		
+Submitted job 2 with external jobid 'Submitted batch job 13894302'.
+
+[Tue Aug  1 17:51:49 2023]
+rule StartQC_fastqc:
+    input: /scratch/sjannalda/projects/Am09/run1/data/AM0909_2.fastq
+    output: Am09/qc/start/Am09_2.fastqc.html
+    jobid: 3
+    reason: Missing output files: Am09/qc/start/Am09_2.fastqc.html
+    wildcards: sample=Am09, read=2
+    resources: mem_mb=5000, disk_mb=16336, tmpdir=<TBD>, time=0-00:30:00, qos=standard
+
+
+		module load FastQC/0.11.9-Java-11
+
+		mkdir -p Am09/qc
+		mkdir -p Am09/qc/start
+		fastqc -o Am09/qc/start /scratch/sjannalda/projects/Am09/run1/data/AM0909_2.fastq 
+		mv Am09/qc/start/Am09_2_fastqc.html Am09/qc/start/Am09_2.fastqc.html
+		
+Submitted job 3 with external jobid 'Submitted batch job 13894303'.
+
+[Tue Aug  1 17:51:49 2023]
+rule FilteringReads:
+    input: Am09/data/Am09_2.sorted.fastq
+    output: Am09/data/Am09_2.filt.fastq
+    jobid: 20
+    reason: Missing output files: Am09/data/Am09_2.filt.fastq
+    wildcards: sample=Am09, read=2
+    resources: mem_mb=10000, disk_mb=15201, tmpdir=<TBD>, time=0-03:00:00, qos=standard
+
+
+		module load FASTX-Toolkit
+		fastq_quality_filter -q 30 -i Am09/data/Am09_2.sorted.fastq -o Am09/data/Am09_2.filt.fastq
+		
+Submitted job 20 with external jobid 'Submitted batch job 13894304'.
+
+[Tue Aug  1 17:51:50 2023]
+rule FilteringReads:
+    input: Am21/data/Am21_1.sorted.fastq
+    output: Am21/data/Am21_1.filt.fastq
+    jobid: 24
+    reason: Missing output files: Am21/data/Am21_1.filt.fastq
+    wildcards: sample=Am21, read=1
+    resources: mem_mb=10000, disk_mb=12557, tmpdir=<TBD>, time=0-03:00:00, qos=standard
+
+
+		module load FASTX-Toolkit
+		fastq_quality_filter -q 30 -i Am21/data/Am21_1.sorted.fastq -o Am21/data/Am21_1.filt.fastq
+		
+Submitted job 24 with external jobid 'Submitted batch job 13894305'.
+[Tue Aug  1 17:54:48 2023]
+Error in rule StartQC_fastqc:
+    jobid: 6
+    input: /scratch/sjannalda/projects/Am21/run1/data/AM2134_2.fastq
+    output: Am21/qc/start/Am21_2.fastqc.html
+    shell:
+        
+		module load FastQC/0.11.9-Java-11
+
+		mkdir -p Am21/qc
+		mkdir -p Am21/qc/start
+		fastqc -o Am21/qc/start /scratch/sjannalda/projects/Am21/run1/data/AM2134_2.fastq 
+		mv Am21/qc/start/Am21_2_fastqc.html Am21/qc/start/Am21_2.fastqc.html
+		
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+    cluster_jobid: Submitted batch job 13894299
+
+Error executing rule StartQC_fastqc on cluster (jobid: 6, external: Submitted batch job 13894299, jobscript: /scratch/sjannalda/projects/PlastidPipelineTesting/.snakemake/tmp.hhmffrvk/snakejob.StartQC_fastqc.6.sh). For error details see the cluster log and the log files of the involved rule(s).
+[Tue Aug  1 17:54:49 2023]
+Error in rule StartQC_fastqc:
+    jobid: 5
+    input: /scratch/sjannalda/projects/Am21/run1/data/AM2134_1.fastq
+    output: Am21/qc/start/Am21_1.fastqc.html
+    shell:
+        
+		module load FastQC/0.11.9-Java-11
+
+		mkdir -p Am21/qc
+		mkdir -p Am21/qc/start
+		fastqc -o Am21/qc/start /scratch/sjannalda/projects/Am21/run1/data/AM2134_1.fastq 
+		mv Am21/qc/start/Am21_1_fastqc.html Am21/qc/start/Am21_1.fastqc.html
+		
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+    cluster_jobid: Submitted batch job 13894300
+
+Error executing rule StartQC_fastqc on cluster (jobid: 5, external: Submitted batch job 13894300, jobscript: /scratch/sjannalda/projects/PlastidPipelineTesting/.snakemake/tmp.hhmffrvk/snakejob.StartQC_fastqc.5.sh). For error details see the cluster log and the log files of the involved rule(s).
+[Tue Aug  1 17:55:37 2023]
+Error in rule StartQC_fastqc:
+    jobid: 3
+    input: /scratch/sjannalda/projects/Am09/run1/data/AM0909_2.fastq
+    output: Am09/qc/start/Am09_2.fastqc.html
+    shell:
+        
+		module load FastQC/0.11.9-Java-11
+
+		mkdir -p Am09/qc
+		mkdir -p Am09/qc/start
+		fastqc -o Am09/qc/start /scratch/sjannalda/projects/Am09/run1/data/AM0909_2.fastq 
+		mv Am09/qc/start/Am09_2_fastqc.html Am09/qc/start/Am09_2.fastqc.html
+		
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+    cluster_jobid: Submitted batch job 13894303
+
+Error executing rule StartQC_fastqc on cluster (jobid: 3, external: Submitted batch job 13894303, jobscript: /scratch/sjannalda/projects/PlastidPipelineTesting/.snakemake/tmp.hhmffrvk/snakejob.StartQC_fastqc.3.sh). For error details see the cluster log and the log files of the involved rule(s).
+[Tue Aug  1 17:55:51 2023]
+Error in rule StartQC_fastqc:
+    jobid: 2
+    input: /scratch/sjannalda/projects/Am09/run1/data/AM0909_1.fastq
+    output: Am09/qc/start/Am09_1.fastqc.html
+    shell:
+        
+		module load FastQC/0.11.9-Java-11
+
+		mkdir -p Am09/qc
+		mkdir -p Am09/qc/start
+		fastqc -o Am09/qc/start /scratch/sjannalda/projects/Am09/run1/data/AM0909_1.fastq 
+		mv Am09/qc/start/Am09_1_fastqc.html Am09/qc/start/Am09_1.fastqc.html
+		
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+    cluster_jobid: Submitted batch job 13894302
+
+Error executing rule StartQC_fastqc on cluster (jobid: 2, external: Submitted batch job 13894302, jobscript: /scratch/sjannalda/projects/PlastidPipelineTesting/.snakemake/tmp.hhmffrvk/snakejob.StartQC_fastqc.2.sh). For error details see the cluster log and the log files of the involved rule(s).
+[Tue Aug  1 18:45:57 2023]
+Finished job 27.
+1 of 29 steps (3%) done
+Select jobs to execute...
+
+[Tue Aug  1 18:45:57 2023]
+rule FilteringQC_fastqc:
+    input: Am21/data/Am21_2.filt.fastq
+    output: Am21/qc/filtering/Am21_2.filt.fastqc.html
+    jobid: 26
+    reason: Missing output files: Am21/qc/filtering/Am21_2.filt.fastqc.html; Input files updated by another job: Am21/data/Am21_2.filt.fastq
+    wildcards: sample=Am21, read=2
+    resources: mem_mb=5000, disk_mb=11957, tmpdir=<TBD>, time=0-00:30:00, qos=standard
+
+
+		module load FastQC/0.11.9-Java-11
+
+		mkdir -p Am21/qc
+		mkdir -p Am21/qc/filtering
+		fastqc -o Am21/qc/filtering Am21/data/Am21_2.filt.fastq
+		mv Am21/qc/filtering/Am21_2.filt_fastqc.html Am21/qc/filtering/Am21_2.filt.fastqc.html
+		
+Submitted job 26 with external jobid 'Submitted batch job 13894581'.
+[Tue Aug  1 18:48:33 2023]
+Finished job 26.
+2 of 29 steps (7%) done
+[Tue Aug  1 18:50:36 2023]
+Finished job 24.
+3 of 29 steps (10%) done
+Select jobs to execute...
+
+[Tue Aug  1 18:50:36 2023]
+rule Assembly:
+    input: database/SeedDatabase/embplant_pt.fasta, Am21/data/Am21_1.filt.fastq, Am21/data/Am21_2.filt.fastq
+    output: Am21/assembly/Am21.original.fasta
+    jobid: 37
+    reason: Missing output files: Am21/assembly/Am21.original.fasta; Input files updated by another job: Am21/data/Am21_1.filt.fastq, Am21/data/Am21_2.filt.fastq
+    wildcards: sample=Am21
+    threads: 8
+    resources: mem_mb=10000, disk_mb=24543, tmpdir=<TBD>, time=0-3:00:00, qos=standard
+
+
+		module load Bowtie2
+		module load BLAST+
+		module load SPAdes
+		get_organelle_from_reads.py -1 Am21/data/Am21_1.filt.fastq -2 Am21/data/Am21_2.filt.fastq \
+			-o Am21/assembly -R 30 -k 21,45,65,85,105 -P 1000000 \
+			-F embplant_pt --config-dir database\
+			-t 8 --prefix Am21 --overwrite
+		scp Am21/assembly/*.complete.graph1.1.path_sequence.fasta Am21/assembly/Am21.original.fasta
+		
+Submitted job 37 with external jobid 'Submitted batch job 13894597'.
+
+[Tue Aug  1 18:50:37 2023]
+rule FilteringQC_fastqc:
+    input: Am21/data/Am21_1.filt.fastq
+    output: Am21/qc/filtering/Am21_1.filt.fastqc.html
+    jobid: 23
+    reason: Missing output files: Am21/qc/filtering/Am21_1.filt.fastqc.html; Input files updated by another job: Am21/data/Am21_1.filt.fastq
+    wildcards: sample=Am21, read=1
+    resources: mem_mb=5000, disk_mb=12557, tmpdir=<TBD>, time=0-00:30:00, qos=standard
+
+
+		module load FastQC/0.11.9-Java-11
+
+		mkdir -p Am21/qc
+		mkdir -p Am21/qc/filtering
+		fastqc -o Am21/qc/filtering Am21/data/Am21_1.filt.fastq
+		mv Am21/qc/filtering/Am21_1.filt_fastqc.html Am21/qc/filtering/Am21_1.filt.fastqc.html
+		
+Submitted job 23 with external jobid 'Submitted batch job 13894598'.
+[Tue Aug  1 18:53:38 2023]
+Finished job 23.
+4 of 29 steps (14%) done
+Select jobs to execute...
+
+[Tue Aug  1 18:53:38 2023]
+rule FilteringQC_multiqc:
+    input: Am21/qc/filtering/Am21_1.filt.fastqc.html, Am21/qc/filtering/Am21_2.filt.fastqc.html
+    output: Am21/qc/filtering/filtering_report_Am21.html
+    jobid: 22
+    reason: Missing output files: Am21/qc/filtering/filtering_report_Am21.html; Input files updated by another job: Am21/qc/filtering/Am21_2.filt.fastqc.html, Am21/qc/filtering/Am21_1.filt.fastqc.html
+    wildcards: sample=Am21
+    resources: mem_mb=5000, disk_mb=1000, tmpdir=<TBD>, time=0-00:10:00, qos=standard
+
+
+		module load MultiQC
+		multiqc -n Am21/qc/filtering/filtering_report_Am21.html --no-data-dir qc/Am21/filtering
+		
+Submitted job 22 with external jobid 'Submitted batch job 13894629'.
+[Tue Aug  1 18:53:51 2023]
+Error in rule FilteringQC_multiqc:
+    jobid: 22
+    input: Am21/qc/filtering/Am21_1.filt.fastqc.html, Am21/qc/filtering/Am21_2.filt.fastqc.html
+    output: Am21/qc/filtering/filtering_report_Am21.html
+    shell:
+        
+		module load MultiQC
+		multiqc -n Am21/qc/filtering/filtering_report_Am21.html --no-data-dir qc/Am21/filtering
+		
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+    cluster_jobid: Submitted batch job 13894629
+
+Error executing rule FilteringQC_multiqc on cluster (jobid: 22, external: Submitted batch job 13894629, jobscript: /scratch/sjannalda/projects/PlastidPipelineTesting/.snakemake/tmp.hhmffrvk/snakejob.FilteringQC_multiqc.22.sh). For error details see the cluster log and the log files of the involved rule(s).
+[Tue Aug  1 19:00:03 2023]
+Finished job 20.
+5 of 29 steps (17%) done
+Select jobs to execute...
+
+[Tue Aug  1 19:00:03 2023]
+rule FilteringQC_fastqc:
+    input: Am09/data/Am09_2.filt.fastq
+    output: Am09/qc/filtering/Am09_2.filt.fastqc.html
+    jobid: 19
+    reason: Missing output files: Am09/qc/filtering/Am09_2.filt.fastqc.html; Input files updated by another job: Am09/data/Am09_2.filt.fastq
+    wildcards: sample=Am09, read=2
+    resources: mem_mb=5000, disk_mb=15201, tmpdir=<TBD>, time=0-00:30:00, qos=standard
+
+
+		module load FastQC/0.11.9-Java-11
+
+		mkdir -p Am09/qc
+		mkdir -p Am09/qc/filtering
+		fastqc -o Am09/qc/filtering Am09/data/Am09_2.filt.fastq
+		mv Am09/qc/filtering/Am09_2.filt_fastqc.html Am09/qc/filtering/Am09_2.filt.fastqc.html
+		
+Submitted job 19 with external jobid 'Submitted batch job 13894666'.
+[Tue Aug  1 19:03:14 2023]
+Finished job 19.
+6 of 29 steps (21%) done
+[Tue Aug  1 19:06:34 2023]
+Finished job 17.
+7 of 29 steps (24%) done
+Select jobs to execute...
+
+[Tue Aug  1 19:06:34 2023]
+rule Assembly:
+    input: database/SeedDatabase/embplant_pt.fasta, Am09/data/Am09_1.filt.fastq, Am09/data/Am09_2.filt.fastq
+    output: Am09/assembly/Am09.original.fasta
+    jobid: 32
+    reason: Missing output files: Am09/assembly/Am09.original.fasta; Input files updated by another job: Am09/data/Am09_2.filt.fastq, Am09/data/Am09_1.filt.fastq
+    wildcards: sample=Am09
+    threads: 8
+    resources: mem_mb=10000, disk_mb=31141, tmpdir=<TBD>, time=0-3:00:00, qos=standard
+
+
+		module load Bowtie2
+		module load BLAST+
+		module load SPAdes
+		get_organelle_from_reads.py -1 Am09/data/Am09_1.filt.fastq -2 Am09/data/Am09_2.filt.fastq \
+			-o Am09/assembly -R 30 -k 21,45,65,85,105 -P 1000000 \
+			-F embplant_pt --config-dir database\
+			-t 8 --prefix Am09 --overwrite
+		scp Am09/assembly/*.complete.graph1.1.path_sequence.fasta Am09/assembly/Am09.original.fasta
+		
+Submitted job 32 with external jobid 'Submitted batch job 13894681'.
+
+[Tue Aug  1 19:06:34 2023]
+rule FilteringQC_fastqc:
+    input: Am09/data/Am09_1.filt.fastq
+    output: Am09/qc/filtering/Am09_1.filt.fastqc.html
+    jobid: 16
+    reason: Missing output files: Am09/qc/filtering/Am09_1.filt.fastqc.html; Input files updated by another job: Am09/data/Am09_1.filt.fastq
+    wildcards: sample=Am09, read=1
+    resources: mem_mb=5000, disk_mb=15911, tmpdir=<TBD>, time=0-00:30:00, qos=standard
+
+
+		module load FastQC/0.11.9-Java-11
+
+		mkdir -p Am09/qc
+		mkdir -p Am09/qc/filtering
+		fastqc -o Am09/qc/filtering Am09/data/Am09_1.filt.fastq
+		mv Am09/qc/filtering/Am09_1.filt_fastqc.html Am09/qc/filtering/Am09_1.filt.fastqc.html
+		
+Submitted job 16 with external jobid 'Submitted batch job 13894682'.
+[Tue Aug  1 19:10:11 2023]
+Finished job 16.
+8 of 29 steps (28%) done
+Select jobs to execute...
+
+[Tue Aug  1 19:10:11 2023]
+rule FilteringQC_multiqc:
+    input: Am09/qc/filtering/Am09_1.filt.fastqc.html, Am09/qc/filtering/Am09_2.filt.fastqc.html
+    output: Am09/qc/filtering/filtering_report_Am09.html
+    jobid: 15
+    reason: Missing output files: Am09/qc/filtering/filtering_report_Am09.html; Input files updated by another job: Am09/qc/filtering/Am09_2.filt.fastqc.html, Am09/qc/filtering/Am09_1.filt.fastqc.html
+    wildcards: sample=Am09
+    resources: mem_mb=5000, disk_mb=1000, tmpdir=<TBD>, time=0-00:10:00, qos=standard
+
+
+		module load MultiQC
+		multiqc -n Am09/qc/filtering/filtering_report_Am09.html --no-data-dir qc/Am09/filtering
+		
+Submitted job 15 with external jobid 'Submitted batch job 13894698'.
+[Tue Aug  1 19:10:35 2023]
+Error in rule FilteringQC_multiqc:
+    jobid: 15
+    input: Am09/qc/filtering/Am09_1.filt.fastqc.html, Am09/qc/filtering/Am09_2.filt.fastqc.html
+    output: Am09/qc/filtering/filtering_report_Am09.html
+    shell:
+        
+		module load MultiQC
+		multiqc -n Am09/qc/filtering/filtering_report_Am09.html --no-data-dir qc/Am09/filtering
+		
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+    cluster_jobid: Submitted batch job 13894698
+
+Error executing rule FilteringQC_multiqc on cluster (jobid: 15, external: Submitted batch job 13894698, jobscript: /scratch/sjannalda/projects/PlastidPipelineTesting/.snakemake/tmp.hhmffrvk/snakejob.FilteringQC_multiqc.15.sh). For error details see the cluster log and the log files of the involved rule(s).
+[Tue Aug  1 19:52:47 2023]
+Finished job 32.
+9 of 29 steps (31%) done
+Select jobs to execute...
+
+[Tue Aug  1 19:52:47 2023]
+localrule AnnotationPreStandardization:
+    input: Am09/assembly/Am09.original.fasta
+    output: Am09/annotation/Am09.original.gb
+    jobid: 31
+    reason: Missing output files: Am09/annotation/Am09.original.gb; Input files updated by another job: Am09/assembly/Am09.original.fasta
+    wildcards: sample=Am09
+    resources: mem_mb=1000, disk_mb=1000, tmpdir=/tmp, time=0-00:05:00, qos=standard
+
+/home/sjannalda/miniconda3/bin/python3.8 /scratch/sjannalda/projects/PlastidPipelineTesting/.snakemake/scripts/tmpnl9yz0y0.GeSeqAutomation.py
+[Tue Aug  1 19:53:50 2023]
+Finished job 31.
+10 of 29 steps (34%) done
+Select jobs to execute...
+
+[Tue Aug  1 19:53:50 2023]
+rule StandardizationAnnotation:
+    input: Am09/annotation/Am09.original.gb
+    output: Am09/annotation/Am09.standardardized.fasta
+    jobid: 30
+    reason: Missing output files: Am09/annotation/Am09.standardardized.fasta; Input files updated by another job: Am09/annotation/Am09.original.gb
+    wildcards: sample=Am09
+    resources: mem_mb=1000, disk_mb=1000, tmpdir=<TBD>, time=0-0:30:00, qos=standard
+
+Submitted job 30 with external jobid 'Submitted batch job 13894921'.
+[Tue Aug  1 19:54:10 2023]
+Finished job 30.
+11 of 29 steps (38%) done
+Select jobs to execute...
+
+[Tue Aug  1 19:54:10 2023]
+localrule AnnotationPostStandardization:
+    input: Am09/annotation/Am09.standardardized.fasta
+    output: Am09/annotation/Am09.standardardized.gb
+    jobid: 29
+    reason: Missing output files: Am09/annotation/Am09.standardardized.gb; Input files updated by another job: Am09/annotation/Am09.standardardized.fasta
+    wildcards: sample=Am09
+    resources: mem_mb=1000, disk_mb=1000, tmpdir=/tmp, time=0-00:05:00, qos=standard
+
+[Tue Aug  1 19:54:10 2023]
+rule BuildReferenceAnnotationBackmapping:
+    input: Am09/annotation/Am09.standardardized.fasta
+    output: Am09/backmapping/Am09.backmapping.1.bt2
+    log: Am09/qc/backmapping/Am09.bowtie2.reference.log
+    jobid: 39
+    reason: Missing output files: Am09/backmapping/Am09.backmapping.1.bt2; Input files updated by another job: Am09/annotation/Am09.standardardized.fasta
+    wildcards: sample=Am09
+    threads: 4
+    resources: mem_mb=10000, disk_mb=1000, tmpdir=<TBD>, time=0-01:00:00, qos=standard
+
+
+		module load Bowtie2
+		bowtie2-build --threads 4 Am09/annotation/Am09.standardardized.fasta Am09/backmapping/Am09.backmapping 2> Am09/qc/backmapping/Am09.bowtie2.reference.log
+		
+/home/sjannalda/miniconda3/bin/python3.8 /scratch/sjannalda/projects/PlastidPipelineTesting/.snakemake/scripts/tmpy91frxi9.GeSeqAutomation.py
+Submitted job 39 with external jobid 'Submitted batch job 13894923'.
+[Tue Aug  1 19:54:21 2023]
+Finished job 39.
+12 of 29 steps (41%) done
+Select jobs to execute...
+
+[Tue Aug  1 19:54:21 2023]
+rule Backmapping:
+    input: Am09/backmapping/Am09.backmapping.1.bt2, Am09/data/Am09_1.filt.fastq, Am09/data/Am09_2.filt.fastq
+    output: Am09/backmapping/Am09.backmapping.sam
+    log: Am09/qc/backmapping/Am09.bowtie2.backmapping.log
+    jobid: 38
+    reason: Missing output files: Am09/backmapping/Am09.backmapping.sam; Input files updated by another job: Am09/backmapping/Am09.backmapping.1.bt2, Am09/data/Am09_1.filt.fastq, Am09/data/Am09_2.filt.fastq
+    wildcards: sample=Am09
+    threads: 8
+    resources: mem_mb=10000, disk_mb=31120, tmpdir=<TBD>, time=0-01:00:00, qos=standard
+
+
+		module load Bowtie2
+		bowtie2 --threads 8 -x Am09/backmapping/Am09.backmapping -1 Am09/data/Am09_1.filt.fastq -2 Am09/data/Am09_2.filt.fastq -S Am09/backmapping/Am09.backmapping.sam 2> Am09/qc/backmapping/Am09.bowtie2.backmapping.log
+		
+Submitted job 38 with external jobid 'Submitted batch job 13894925'.
+[Tue Aug  1 19:55:16 2023]
+Finished job 29.
+13 of 29 steps (45%) done
+[Tue Aug  1 19:56:55 2023]
+Finished job 38.
+14 of 29 steps (48%) done
+Terminating processes on user request, this might take some time.
+No --cluster-cancel given. Will exit after finishing currently running jobs.
+Complete log: ../../../../home/sjannalda/bgbm/projects/PlastidPipeline/.snakemake/log/2023-08-01T175145.633348.snakemake.log

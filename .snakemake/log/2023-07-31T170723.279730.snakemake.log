@@ -1,0 +1,88 @@
+Building DAG of jobs...
+Using shell: /usr/bin/bash
+Provided cluster nodes: 500
+Job stats:
+job                    count    min threads    max threads
+-------------------  -------  -------------  -------------
+FilteringQC_fastqc         2              1              1
+FilteringQC_multiqc        1              1              1
+all                        1              1              1
+total                      4              1              1
+
+Select jobs to execute...
+
+[Mon Jul 31 17:07:25 2023]
+rule FilteringQC_fastqc:
+    input: SRR17032105/data/SRR17032105_2.filt.fastq
+    output: SRR17032105/qc/filtering/SRR17032105_2.filt.fastqc.html
+    jobid: 12
+    reason: Missing output files: SRR17032105/qc/filtering/SRR17032105_2.filt.fastqc.html
+    wildcards: sample=SRR17032105, read=2
+    resources: mem_mb=5000, disk_mb=2317, tmpdir=<TBD>, time=0-00:30:00, qos=standard
+
+
+		module load FastQC/0.11.9-Java-11
+
+		mkdir -p SRR17032105/qc
+		mkdir -p SRR17032105/qc/filtering
+		fastqc -o SRR17032105/qc/filtering SRR17032105/data/SRR17032105_2.filt.fastq
+		mv SRR17032105/qc/filtering/SRR17032105_2.filt_fastqc.html SRR17032105/qc/filtering/SRR17032105_2.filt.fastqc.html
+		
+Submitted job 12 with external jobid 'Submitted batch job 13888076'.
+
+[Mon Jul 31 17:07:26 2023]
+rule FilteringQC_fastqc:
+    input: SRR17032105/data/SRR17032105_1.filt.fastq
+    output: SRR17032105/qc/filtering/SRR17032105_1.filt.fastqc.html
+    jobid: 9
+    reason: Missing output files: SRR17032105/qc/filtering/SRR17032105_1.filt.fastqc.html
+    wildcards: sample=SRR17032105, read=1
+    resources: mem_mb=5000, disk_mb=2631, tmpdir=<TBD>, time=0-00:30:00, qos=standard
+
+
+		module load FastQC/0.11.9-Java-11
+
+		mkdir -p SRR17032105/qc
+		mkdir -p SRR17032105/qc/filtering
+		fastqc -o SRR17032105/qc/filtering SRR17032105/data/SRR17032105_1.filt.fastq
+		mv SRR17032105/qc/filtering/SRR17032105_1.filt_fastqc.html SRR17032105/qc/filtering/SRR17032105_1.filt.fastqc.html
+		
+Submitted job 9 with external jobid 'Submitted batch job 13888077'.
+[Mon Jul 31 17:08:19 2023]
+Finished job 12.
+1 of 4 steps (25%) done
+[Mon Jul 31 17:08:20 2023]
+Finished job 9.
+2 of 4 steps (50%) done
+Select jobs to execute...
+
+[Mon Jul 31 17:08:20 2023]
+rule FilteringQC_multiqc:
+    input: SRR17032105/qc/filtering/SRR17032105_1.filt.fastqc.html, SRR17032105/qc/filtering/SRR17032105_2.filt.fastqc.html
+    output: SRR17032105/qc/filtering/filtering_report_SRR17032105.html
+    jobid: 8
+    reason: Missing output files: SRR17032105/qc/filtering/filtering_report_SRR17032105.html; Input files updated by another job: SRR17032105/qc/filtering/SRR17032105_1.filt.fastqc.html, SRR17032105/qc/filtering/SRR17032105_2.filt.fastqc.html
+    wildcards: sample=SRR17032105
+    resources: mem_mb=5000, disk_mb=1000, tmpdir=<TBD>, time=0-00:10:00, qos=standard
+
+
+		module load MultiQC
+		multiqc -n SRR17032105/qc/filtering/filtering_report_SRR17032105.html --no-data-dir qc/SRR17032105/filtering
+		
+Submitted job 8 with external jobid 'Submitted batch job 13888078'.
+[Mon Jul 31 17:08:30 2023]
+Finished job 8.
+3 of 4 steps (75%) done
+Select jobs to execute...
+
+[Mon Jul 31 17:08:30 2023]
+localrule all:
+    input: SRR17032105/qc/start/StartReportQC_SRR17032105.html, SRR17032105/qc/trimming/trimming_report_SRR17032105.html, SRR17032105/qc/filtering/filtering_report_SRR17032105.html
+    jobid: 0
+    reason: Input files updated by another job: SRR17032105/qc/filtering/filtering_report_SRR17032105.html
+    resources: mem_mb=1000, disk_mb=1000, tmpdir=/tmp, time=0-00:05:00, qos=standard
+
+[Mon Jul 31 17:08:30 2023]
+Finished job 0.
+4 of 4 steps (100%) done
+Complete log: ../../../../home/sjannalda/bgbm/projects/PlastidPipeline/.snakemake/log/2023-07-31T170723.279730.snakemake.log

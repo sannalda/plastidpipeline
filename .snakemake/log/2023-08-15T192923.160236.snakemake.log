@@ -1,0 +1,10 @@
+Building DAG of jobs...
+File path ERR5529299//scratch/sjannalda/projects/PlastidPipelineTesting/data/ERR5529299_1.fastq contains double '/'. This is likely unintended. It can also lead to inconsistent results of the file-matching approach used by Snakemake.
+File path ERR5529299//scratch/sjannalda/projects/PlastidPipelineTesting/data/ERR5529299_2.fastq contains double '/'. This is likely unintended. It can also lead to inconsistent results of the file-matching approach used by Snakemake.
+MissingInputException in rule TrimReads  in line 1 of /home/sjannalda/bgbm/projects/PlastidPipeline/workflow/rules/Trimming.smk:
+Missing input files for rule TrimReads:
+    output: ERR5529299/data/ERR5529299_1.trimmed.fastq, ERR5529299/data/ERR5529299_2.trimmed.fastq, ERR5529299/data/ERR5529299_U1.trimmed.fastq, ERR5529299/data/ERR5529299_U2.trimmed.fastq
+    wildcards: sample=ERR5529299
+    affected files:
+        ERR5529299//scratch/sjannalda/projects/PlastidPipelineTesting/data/ERR5529299_2.fastq
+        ERR5529299//scratch/sjannalda/projects/PlastidPipelineTesting/data/ERR5529299_1.fastq

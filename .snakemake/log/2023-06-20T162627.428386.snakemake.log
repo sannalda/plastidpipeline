@@ -1,0 +1,94 @@
+Building DAG of jobs...
+Using shell: /usr/bin/bash
+Provided cluster nodes: 500
+Job stats:
+job               count    min threads    max threads
+--------------  -------  -------------  -------------
+Assembly              1              8              8
+AssemblyConfig        1              1              1
+FilteringReads        2              1              1
+SortReads             1              1              1
+all                   1              1              1
+total                 6              1              8
+
+Select jobs to execute...
+
+[Tue Jun 20 16:26:29 2023]
+rule FilteringReads:
+    input: data/AM0909_2.sorted.fastq
+    output: data/AM0909_2.filt.fastq
+    jobid: 5
+    reason: Missing output files: data/AM0909_2.filt.fastq
+    wildcards: sample=AM0909, read=2
+    resources: mem_mb=5000, disk_mb=17148, tmpdir=<TBD>, time=0-01:00:00, qos=standard
+
+
+		module load FASTX-Toolkit
+		fastq_quality_filter -q 30 -i data/AM0909_2.sorted.fastq -o data/AM0909_2.filt.fastq
+		
+Submitted job 5 with external jobid 'Submitted batch job 13446695'.
+
+[Tue Jun 20 16:26:30 2023]
+rule AssemblyConfig:
+    output: database/SeedDatabase/embplant_pt
+    jobid: 2
+    reason: Missing output files: database/SeedDatabase/embplant_pt
+    wildcards: organelle_dbs=embplant_pt
+    resources: mem_mb=10000, disk_mb=1000, tmpdir=<TBD>, time=0-01:00:00, qos=standard
+
+
+		module load Bowtie2
+		module load BLAST+
+		mkdir -p database
+		get_organelle_config.py -a embplant_pt --config-dir database
+		
+Submitted job 2 with external jobid 'Submitted batch job 13446696'.
+
+[Tue Jun 20 16:26:31 2023]
+rule SortReads:
+    input: data/AM0909_1.fastq
+    output: data/AM0909_1.sorted.fastq
+    jobid: 4
+    reason: Missing output files: data/AM0909_1.sorted.fastq
+    wildcards: sample=AM0909, read=1
+    resources: mem_mb=5000, disk_mb=16336, tmpdir=<TBD>, time=0-01:00:00, qos=standard
+
+
+		module load bioawk
+		bioawk -c fastx '{print}' data/AM0909_1.fastq | sort | awk -F'\t' '{print "@"$1;print $2;print "+"$1;print $3}' > data/AM0909_1.sorted.fastq
+		
+Submitted job 4 with external jobid 'Submitted batch job 13446697'.
+[Tue Jun 20 16:27:51 2023]
+Error in rule AssemblyConfig:
+    jobid: 2
+    output: database/SeedDatabase/embplant_pt
+    shell:
+        
+		module load Bowtie2
+		module load BLAST+
+		mkdir -p database
+		get_organelle_config.py -a embplant_pt --config-dir database
+		
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+    cluster_jobid: Submitted batch job 13446696
+
+Error executing rule AssemblyConfig on cluster (jobid: 2, external: Submitted batch job 13446696, jobscript: /scratch/sjannalda/projects/PlastidPipelineTesting/.snakemake/tmp.n8bukf9f/snakejob.AssemblyConfig.2.sh). For error details see the cluster log and the log files of the involved rule(s).
+[Tue Jun 20 16:40:11 2023]
+Finished job 4.
+1 of 6 steps (17%) done
+Select jobs to execute...
+
+[Tue Jun 20 16:40:11 2023]
+rule FilteringReads:
+    input: data/AM0909_1.sorted.fastq
+    output: data/AM0909_1.filt.fastq
+    jobid: 3
+    reason: Missing output files: data/AM0909_1.filt.fastq; Input files updated by another job: data/AM0909_1.sorted.fastq
+    wildcards: sample=AM0909, read=1
+    resources: mem_mb=5000, disk_mb=17148, tmpdir=<TBD>, time=0-01:00:00, qos=standard
+
+
+		module load FASTX-Toolkit
+		fastq_quality_filter -q 30 -i data/AM0909_1.sorted.fastq -o data/AM0909_1.filt.fastq
+		
+Submitted job 3 with external jobid 'Submitted batch job 13446743'.

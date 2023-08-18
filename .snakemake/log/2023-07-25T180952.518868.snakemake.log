@@ -1,0 +1,3 @@
+KeyError in line 11 of /home/sjannalda/bgbm/projects/PlastidPipeline/workflow/Snakefile:
+'standardardized'
+  File "/home/sjannalda/bgbm/projects/PlastidPipeline/workflow/Snakefile", line 11, in <module>

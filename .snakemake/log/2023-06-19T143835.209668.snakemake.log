@@ -1,0 +1,3 @@
+NameError in line 60 of /home/sjannalda/bgbm/projects/PlastidPipeline/workflow/Snakefile:
+name 'sample' is not defined
+  File "/home/sjannalda/bgbm/projects/PlastidPipeline/workflow/Snakefile", line 60, in <module>

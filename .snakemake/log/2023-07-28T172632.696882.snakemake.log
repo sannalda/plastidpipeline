@@ -1,0 +1,330 @@
+Building DAG of jobs...
+Using shell: /usr/bin/bash
+Provided cluster nodes: 500
+Job stats:
+job                              count    min threads    max threads
+-----------------------------  -------  -------------  -------------
+AnnotationPostStandardization        1              1              1
+AnnotationPreStandardization         1              1              1
+Assembly                             1             16             16
+FilteringQC_fastqc                   2              1              1
+FilteringQC_multiqc                  1              1              1
+FilteringReads                       2              1              1
+SortReads                            2              1              1
+StandardizationAnnotation            1              1              1
+TrimReads                            1              1              1
+TrimmingQC_fastqc                    2              1              1
+TrimmingQC_multiqc                   1              1              1
+all                                  1              1              1
+total                               16              1             16
+
+Select jobs to execute...
+
+[Fri Jul 28 17:26:34 2023]
+rule TrimReads:
+    input: data/SRR17032105_1.fastq, data/SRR17032105_2.fastq
+    output: data/SRR17032105_1.trimmed.fastq, data/SRR17032105_2.trimmed.fastq, data/SRR17032105_U1.trimmed.fastq, data/SRR17032105_U2.trimmed.fastq
+    jobid: 6
+    reason: Missing output files: data/SRR17032105_2.trimmed.fastq, data/SRR17032105_1.trimmed.fastq
+    wildcards: sample=SRR17032105
+    resources: mem_mb=5000, disk_mb=6935, tmpdir=<TBD>, time=0-02:00:00, qos=standard
+
+
+		module load Trimmomatic
+		java -jar $EBROOTTRIMMOMATIC/trimmomatic-0.39.jar PE -phred33 data/SRR17032105_1.fastq data/SRR17032105_2.fastq data/SRR17032105_1.trimmed.fastq data/SRR17032105_U1.trimmed.fastq data/SRR17032105_2.trimmed.fastq data/SRR17032105_U2.trimmed.fastq ILLUMINACLIP:$EBROOTTRIMMOMATIC/adapters/TruSeq3-PE-2.fa:2:30:10 LEADING:20 TRAILING:20 SLIDINGWINDOW:5:20 MINLEN:36
+		
+Submitted job 6 with external jobid 'Submitted batch job 13876641'.
+[Fri Jul 28 17:29:54 2023]
+Finished job 6.
+1 of 16 steps (6%) done
+Select jobs to execute...
+
+[Fri Jul 28 17:29:54 2023]
+rule SortReads:
+    input: data/SRR17032105_2.trimmed.fastq
+    output: data/SRR17032105_2.sorted.fastq
+    jobid: 14
+    reason: Missing output files: data/SRR17032105_2.sorted.fastq; Input files updated by another job: data/SRR17032105_2.trimmed.fastq
+    wildcards: sample=SRR17032105, read=2
+    resources: mem_mb=5000, disk_mb=2616, tmpdir=<TBD>, time=0-01:00:00, qos=standard
+
+
+		module load bioawk
+		bioawk -c fastx '{print}' data/SRR17032105_2.trimmed.fastq | sort | awk -F'\t' '{print "@"$1;print $2;print "+"$1;print $3}' > data/SRR17032105_2.sorted.fastq
+		
+Submitted job 14 with external jobid 'Submitted batch job 13876707'.
+
+[Fri Jul 28 17:29:55 2023]
+rule SortReads:
+    input: data/SRR17032105_1.trimmed.fastq
+    output: data/SRR17032105_1.sorted.fastq
+    jobid: 11
+    reason: Missing output files: data/SRR17032105_1.sorted.fastq; Input files updated by another job: data/SRR17032105_1.trimmed.fastq
+    wildcards: sample=SRR17032105, read=1
+    resources: mem_mb=5000, disk_mb=2930, tmpdir=<TBD>, time=0-01:00:00, qos=standard
+
+
+		module load bioawk
+		bioawk -c fastx '{print}' data/SRR17032105_1.trimmed.fastq | sort | awk -F'\t' '{print "@"$1;print $2;print "+"$1;print $3}' > data/SRR17032105_1.sorted.fastq
+		
+Submitted job 11 with external jobid 'Submitted batch job 13876708'.
+
+[Fri Jul 28 17:29:55 2023]
+rule TrimmingQC_fastqc:
+    input: data/SRR17032105_1.trimmed.fastq
+    output: qc/SRR17032105/trimming/SRR17032105_1.trimmed.fastqc.html
+    jobid: 5
+    reason: Missing output files: qc/SRR17032105/trimming/SRR17032105_1.trimmed.fastqc.html; Input files updated by another job: data/SRR17032105_1.trimmed.fastq
+    wildcards: sample=SRR17032105, read=1
+    resources: mem_mb=5000, disk_mb=2930, tmpdir=<TBD>, time=0-00:30:00, qos=standard
+
+
+		module load FastQC/0.11.9-Java-11
+
+		mkdir -p qc
+		mkdir -p qc/SRR17032105
+		mkdir -p qc/SRR17032105/trimming
+		fastqc -o qc/SRR17032105/trimming data/SRR17032105_1.trimmed.fastq 
+		mv qc/SRR17032105/trimming/SRR17032105_1.trimmed_fastqc.html qc/SRR17032105/trimming/SRR17032105_1.trimmed.fastqc.html
+		
+Submitted job 5 with external jobid 'Submitted batch job 13876709'.
+
+[Fri Jul 28 17:29:56 2023]
+rule TrimmingQC_fastqc:
+    input: data/SRR17032105_2.trimmed.fastq
+    output: qc/SRR17032105/trimming/SRR17032105_2.trimmed.fastqc.html
+    jobid: 7
+    reason: Missing output files: qc/SRR17032105/trimming/SRR17032105_2.trimmed.fastqc.html; Input files updated by another job: data/SRR17032105_2.trimmed.fastq
+    wildcards: sample=SRR17032105, read=2
+    resources: mem_mb=5000, disk_mb=2616, tmpdir=<TBD>, time=0-00:30:00, qos=standard
+
+
+		module load FastQC/0.11.9-Java-11
+
+		mkdir -p qc
+		mkdir -p qc/SRR17032105
+		mkdir -p qc/SRR17032105/trimming
+		fastqc -o qc/SRR17032105/trimming data/SRR17032105_2.trimmed.fastq 
+		mv qc/SRR17032105/trimming/SRR17032105_2.trimmed_fastqc.html qc/SRR17032105/trimming/SRR17032105_2.trimmed.fastqc.html
+		
+Submitted job 7 with external jobid 'Submitted batch job 13876710'.
+[Fri Jul 28 17:30:46 2023]
+Finished job 7.
+2 of 16 steps (12%) done
+[Fri Jul 28 17:30:56 2023]
+Finished job 14.
+3 of 16 steps (19%) done
+Select jobs to execute...
+
+[Fri Jul 28 17:30:56 2023]
+rule FilteringReads:
+    input: data/SRR17032105_2.sorted.fastq
+    output: data/SRR17032105_2.filt.fastq
+    jobid: 13
+    reason: Missing output files: data/SRR17032105_2.filt.fastq; Input files updated by another job: data/SRR17032105_2.sorted.fastq
+    wildcards: sample=SRR17032105, read=2
+    resources: mem_mb=10000, disk_mb=2317, tmpdir=<TBD>, time=0-03:00:00, qos=standard
+
+
+		module load FASTX-Toolkit
+		fastq_quality_filter -q 30 -i data/SRR17032105_2.sorted.fastq -o data/SRR17032105_2.filt.fastq
+		
+Submitted job 13 with external jobid 'Submitted batch job 13876944'.
+[Fri Jul 28 17:30:58 2023]
+Finished job 5.
+4 of 16 steps (25%) done
+Select jobs to execute...
+
+[Fri Jul 28 17:30:58 2023]
+rule TrimmingQC_multiqc:
+    input: qc/SRR17032105/trimming/SRR17032105_1.trimmed.fastqc.html, qc/SRR17032105/trimming/SRR17032105_2.trimmed.fastqc.html
+    output: qc/SRR17032105/trimming/trimming_report_SRR17032105.html
+    jobid: 4
+    reason: Missing output files: qc/SRR17032105/trimming/trimming_report_SRR17032105.html; Input files updated by another job: qc/SRR17032105/trimming/SRR17032105_2.trimmed.fastqc.html, qc/SRR17032105/trimming/SRR17032105_1.trimmed.fastqc.html
+    wildcards: sample=SRR17032105
+    resources: mem_mb=5000, disk_mb=1000, tmpdir=<TBD>, time=0-00:10:00, qos=standard
+
+
+		module load MultiQC
+		multiqc -n qc/SRR17032105/trimming/trimming_report_SRR17032105.html --no-data-dir qc/SRR17032105/trimming
+		
+Submitted job 4 with external jobid 'Submitted batch job 13876950'.
+[Fri Jul 28 17:31:10 2023]
+Finished job 4.
+5 of 16 steps (31%) done
+[Fri Jul 28 17:31:21 2023]
+Finished job 11.
+6 of 16 steps (38%) done
+Select jobs to execute...
+
+[Fri Jul 28 17:31:21 2023]
+rule FilteringReads:
+    input: data/SRR17032105_1.sorted.fastq
+    output: data/SRR17032105_1.filt.fastq
+    jobid: 10
+    reason: Missing output files: data/SRR17032105_1.filt.fastq; Input files updated by another job: data/SRR17032105_1.sorted.fastq
+    wildcards: sample=SRR17032105, read=1
+    resources: mem_mb=10000, disk_mb=2631, tmpdir=<TBD>, time=0-03:00:00, qos=standard
+
+
+		module load FASTX-Toolkit
+		fastq_quality_filter -q 30 -i data/SRR17032105_1.sorted.fastq -o data/SRR17032105_1.filt.fastq
+		
+Submitted job 10 with external jobid 'Submitted batch job 13876956'.
+[Fri Jul 28 17:41:26 2023]
+Finished job 13.
+7 of 16 steps (44%) done
+Select jobs to execute...
+
+[Fri Jul 28 17:41:26 2023]
+rule FilteringQC_fastqc:
+    input: data/SRR17032105_2.filt.fastq
+    output: qc/SRR17032105/filtering/SRR17032105_2.filt.fastqc.html
+    jobid: 12
+    reason: Missing output files: qc/SRR17032105/filtering/SRR17032105_2.filt.fastqc.html; Input files updated by another job: data/SRR17032105_2.filt.fastq
+    wildcards: sample=SRR17032105, read=2
+    resources: mem_mb=5000, disk_mb=2317, tmpdir=<TBD>, time=0-00:30:00, qos=standard
+
+
+		module load FastQC/0.11.9-Java-11
+
+		mkdir -p qc
+		mkdir -p qc/SRR17032105
+		mkdir -p qc/SRR17032105/filtering
+		fastqc -o qc/SRR17032105/filtering data/SRR17032105_2.filt.fastq
+		mv qc/SRR17032105/filtering/SRR17032105_2.filt_fastqc.html qc/SRR17032105/filtering/SRR17032105_2.filt.fastqc.html
+		
+Submitted job 12 with external jobid 'Submitted batch job 13876973'.
+[Fri Jul 28 17:42:21 2023]
+Finished job 12.
+8 of 16 steps (50%) done
+[Fri Jul 28 17:45:23 2023]
+Finished job 10.
+9 of 16 steps (56%) done
+Select jobs to execute...
+
+[Fri Jul 28 17:45:23 2023]
+rule FilteringQC_fastqc:
+    input: data/SRR17032105_1.filt.fastq
+    output: qc/SRR17032105/filtering/SRR17032105_1.filt.fastqc.html
+    jobid: 9
+    reason: Missing output files: qc/SRR17032105/filtering/SRR17032105_1.filt.fastqc.html; Input files updated by another job: data/SRR17032105_1.filt.fastq
+    wildcards: sample=SRR17032105, read=1
+    resources: mem_mb=5000, disk_mb=2631, tmpdir=<TBD>, time=0-00:30:00, qos=standard
+
+
+		module load FastQC/0.11.9-Java-11
+
+		mkdir -p qc
+		mkdir -p qc/SRR17032105
+		mkdir -p qc/SRR17032105/filtering
+		fastqc -o qc/SRR17032105/filtering data/SRR17032105_1.filt.fastq
+		mv qc/SRR17032105/filtering/SRR17032105_1.filt_fastqc.html qc/SRR17032105/filtering/SRR17032105_1.filt.fastqc.html
+		
+Submitted job 9 with external jobid 'Submitted batch job 13876981'.
+
+[Fri Jul 28 17:45:23 2023]
+rule Assembly:
+    input: database/SeedDatabase/embplant_pt.fasta, database/SeedDatabase/embplant_mt.fasta, data/SRR17032105_1.filt.fastq, data/SRR17032105_2.filt.fastq
+    output: assembly/SRR17032105.complete.graph1.1.path_sequence.fasta
+    jobid: 18
+    reason: Missing output files: assembly/SRR17032105.complete.graph1.1.path_sequence.fasta; Input files updated by another job: data/SRR17032105_1.filt.fastq, data/SRR17032105_2.filt.fastq
+    wildcards: sample=SRR17032105
+    threads: 16
+    resources: mem_mb=10000, disk_mb=4979, tmpdir=<TBD>, time=0-3:00:00, qos=standard
+
+
+		module load Bowtie2
+		module load BLAST+
+		module load SPAdes
+		mkdir -p assembly
+		get_organelle_from_reads.py -1 data/SRR17032105_1.filt.fastq -2 data/SRR17032105_2.filt.fastq \
+			-o assembly -R 30 -k 21,45,65,85,105 -P 1000000 \
+			-F embplant_pt --config-dir database\
+			-t 16 --prefix SRR17032105 --overwrite
+		scp assembly/*.complete.graph1.1.path_sequence.fasta assembly/SRR17032105.complete.graph1.1.path_sequence.fasta
+		
+Submitted job 18 with external jobid 'Submitted batch job 13876982'.
+[Fri Jul 28 17:46:17 2023]
+Finished job 9.
+10 of 16 steps (62%) done
+Select jobs to execute...
+
+[Fri Jul 28 17:46:17 2023]
+rule FilteringQC_multiqc:
+    input: qc/SRR17032105/filtering/SRR17032105_1.filt.fastqc.html, qc/SRR17032105/filtering/SRR17032105_2.filt.fastqc.html
+    output: qc/SRR17032105/filtering/filtering_report_SRR17032105.html
+    jobid: 8
+    reason: Missing output files: qc/SRR17032105/filtering/filtering_report_SRR17032105.html; Input files updated by another job: qc/SRR17032105/filtering/SRR17032105_1.filt.fastqc.html, qc/SRR17032105/filtering/SRR17032105_2.filt.fastqc.html
+    wildcards: sample=SRR17032105
+    resources: mem_mb=5000, disk_mb=1000, tmpdir=<TBD>, time=0-00:10:00, qos=standard
+
+
+		module load MultiQC
+		multiqc -n qc/SRR17032105/filtering/filtering_report_SRR17032105.html --no-data-dir qc/SRR17032105/filtering
+		
+Submitted job 8 with external jobid 'Submitted batch job 13876983'.
+[Fri Jul 28 17:46:28 2023]
+Finished job 8.
+11 of 16 steps (69%) done
+[Fri Jul 28 18:26:23 2023]
+Finished job 18.
+12 of 16 steps (75%) done
+Select jobs to execute...
+
+[Fri Jul 28 18:26:23 2023]
+localrule AnnotationPreStandardization:
+    input: assembly/SRR17032105.complete.graph1.1.path_sequence.fasta
+    output: annotation/SRR17032105.original.gb
+    jobid: 17
+    reason: Missing output files: annotation/SRR17032105.original.gb; Input files updated by another job: assembly/SRR17032105.complete.graph1.1.path_sequence.fasta
+    wildcards: sample=SRR17032105
+    resources: mem_mb=1000, disk_mb=1000, tmpdir=/tmp, time=0-00:05:00, qos=standard
+
+/home/sjannalda/miniconda3/bin/python3.8 /scratch/sjannalda/projects/PlastidPipelineTesting/.snakemake/scripts/tmpntxr18tr.GeSeqAutomation.py
+[Fri Jul 28 18:27:33 2023]
+Finished job 17.
+13 of 16 steps (81%) done
+Select jobs to execute...
+
+[Fri Jul 28 18:27:33 2023]
+rule StandardizationAnnotation:
+    input: annotation/SRR17032105.original.gb
+    output: annotation/SRR17032105.standardardized.fasta
+    jobid: 16
+    reason: Missing output files: annotation/SRR17032105.standardardized.fasta; Input files updated by another job: annotation/SRR17032105.original.gb
+    wildcards: sample=SRR17032105
+    resources: mem_mb=1000, disk_mb=1000, tmpdir=<TBD>, time=0-0:30:00, qos=standard
+
+Submitted job 16 with external jobid 'Submitted batch job 13877272'.
+[Fri Jul 28 18:27:44 2023]
+Finished job 16.
+14 of 16 steps (88%) done
+Select jobs to execute...
+
+[Fri Jul 28 18:27:44 2023]
+localrule AnnotationPostStandardization:
+    input: annotation/SRR17032105.standardardized.fasta
+    output: annotation/SRR17032105.standardardized.gb
+    jobid: 15
+    reason: Missing output files: annotation/SRR17032105.standardardized.gb; Input files updated by another job: annotation/SRR17032105.standardardized.fasta
+    wildcards: sample=SRR17032105
+    resources: mem_mb=1000, disk_mb=1000, tmpdir=/tmp, time=0-00:05:00, qos=standard
+
+/home/sjannalda/miniconda3/bin/python3.8 /scratch/sjannalda/projects/PlastidPipelineTesting/.snakemake/scripts/tmpbtil82ih.GeSeqAutomation.py
+[Fri Jul 28 18:28:50 2023]
+Finished job 15.
+15 of 16 steps (94%) done
+Select jobs to execute...
+
+[Fri Jul 28 18:28:50 2023]
+localrule all:
+    input: qc/SRR17032105/start/start_report_SRR17032105.html, qc/SRR17032105/trimming/trimming_report_SRR17032105.html, qc/SRR17032105/filtering/filtering_report_SRR17032105.html, annotation/SRR17032105.standardardized.gb
+    jobid: 0
+    reason: Input files updated by another job: qc/SRR17032105/filtering/filtering_report_SRR17032105.html, annotation/SRR17032105.standardardized.gb, qc/SRR17032105/trimming/trimming_report_SRR17032105.html
+    resources: mem_mb=1000, disk_mb=1000, tmpdir=/tmp, time=0-00:05:00, qos=standard
+
+[Fri Jul 28 18:28:50 2023]
+Finished job 0.
+16 of 16 steps (100%) done
+Complete log: ../../../../home/sjannalda/bgbm/projects/PlastidPipeline/.snakemake/log/2023-07-28T172632.696882.snakemake.log

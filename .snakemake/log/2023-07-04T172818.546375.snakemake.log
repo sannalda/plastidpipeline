@@ -1,0 +1,32 @@
+Building DAG of jobs...
+Using shell: /usr/bin/bash
+Provided cluster nodes: 500
+Job stats:
+job        count    min threads    max threads
+-------  -------  -------------  -------------
+StartQC        1              1              1
+all            1              1              1
+total          2              1              1
+
+Select jobs to execute...
+
+[Tue Jul  4 17:28:20 2023]
+rule StartQC:
+    input: data/AM0909_1.fastq, data/AM0909_2.fastq
+    output: qc/start/start_report_AM0909.html
+    jobid: 1
+    reason: Missing output files: qc/start/start_report_AM0909.html
+    wildcards: sample=AM0909
+    resources: mem_mb=5000, disk_mb=32672, tmpdir=<TBD>, time=0-00:30:00, qos=standard
+
+RuleException in rule StartQC  in line 10 of /home/sjannalda/bgbm/projects/PlastidPipeline/workflow/Snakefile:
+AttributeError: 'Params' object has no attribute 'qc', when formatting the following:
+
+		module load FastQC/0.11.9-Java-11
+		module load MultiQC
+
+		mkdir -p {params.qc}
+		mkdir -p {params.qc}/start
+		fastqc -o {params.qc}/start {input.read1} {input.read2} 
+		multiqc -n {output} 
+		

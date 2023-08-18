@@ -1,0 +1,52 @@
+Building DAG of jobs...
+Using shell: /usr/bin/bash
+Provided cluster nodes: 500
+Job stats:
+job              count    min threads    max threads
+-------------  -------  -------------  -------------
+BackmappingQC        2              1              1
+all                  1              1              1
+total                3              1              1
+
+Select jobs to execute...
+
+[Fri Aug  4 17:11:31 2023]
+rule BackmappingQC:
+    input: Am09/backmapping/Am09.backmapping.sam
+    output: Am09/backmapping/Am09.backmapping.bam, Am09/backmapping/Am09.backmapping.sorted.bam, Am09/qc/backmapping/Am09.backmapping.readcoverage.log
+    jobid: 32
+    reason: Missing output files: Am09/qc/backmapping/Am09.backmapping.readcoverage.log
+    wildcards: sample=Am09
+    resources: mem_mb=1000, disk_mb=29791, tmpdir=<TBD>, time=0-00:05:00, qos=standard
+
+
+		module load SAMtools
+
+		samtools view -bS Am09/backmapping/Am09.backmapping.sam > Am09/backmapping/Am09.backmapping.bam
+		samtools sort Am09/backmapping/Am09.backmapping.bam > Am09/backmapping/Am09.backmapping.sorted.bam
+		samtools coverage Am09/backmapping/Am09.backmapping.sorted.bam > Am09/qc/backmapping/Am09.backmapping.readcoverage.log
+		samtools coverage -A -w 64 Am09/backmapping/Am09.backmapping.sorted.bam >> Am09/qc/backmapping/Am09.backmapping.readcoverage.log
+		
+Submitted job 32 with external jobid 'Submitted batch job 13928799'.
+
+[Fri Aug  4 17:11:32 2023]
+rule BackmappingQC:
+    input: Am21/backmapping/Am21.backmapping.sam
+    output: Am21/backmapping/Am21.backmapping.bam, Am21/backmapping/Am21.backmapping.sorted.bam, Am21/qc/backmapping/Am21.backmapping.readcoverage.log
+    jobid: 35
+    reason: Missing output files: Am21/qc/backmapping/Am21.backmapping.readcoverage.log
+    wildcards: sample=Am21
+    resources: mem_mb=1000, disk_mb=23261, tmpdir=<TBD>, time=0-00:05:00, qos=standard
+
+
+		module load SAMtools
+
+		samtools view -bS Am21/backmapping/Am21.backmapping.sam > Am21/backmapping/Am21.backmapping.bam
+		samtools sort Am21/backmapping/Am21.backmapping.bam > Am21/backmapping/Am21.backmapping.sorted.bam
+		samtools coverage Am21/backmapping/Am21.backmapping.sorted.bam > Am21/qc/backmapping/Am21.backmapping.readcoverage.log
+		samtools coverage -A -w 64 Am21/backmapping/Am21.backmapping.sorted.bam >> Am21/qc/backmapping/Am21.backmapping.readcoverage.log
+		
+Submitted job 35 with external jobid 'Submitted batch job 13928800'.
+Terminating processes on user request, this might take some time.
+No --cluster-cancel given. Will exit after finishing currently running jobs.
+Complete log: ../../../../home/sjannalda/bgbm/projects/PlastidPipeline/.snakemake/log/2023-08-04T171120.495501.snakemake.log

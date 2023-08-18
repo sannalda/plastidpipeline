@@ -1,0 +1,88 @@
+Building DAG of jobs...
+Using shell: /usr/bin/bash
+Provided cluster nodes: 500
+Job stats:
+job                count    min threads    max threads
+---------------  -------  -------------  -------------
+StartQC_fastqc         2              1              1
+StartQC_multiqc        1              1              1
+all                    1              1              1
+total                  4              1              1
+
+Select jobs to execute...
+
+[Mon Jul 31 15:59:36 2023]
+rule StartQC_fastqc:
+    input: /scratch/sjannalda/projects/PlastidPipelineTesting/data/SRR17032105_1.fastq
+    output: SRR17032105/qc/start/SRR17032105_1.fastqc.html
+    jobid: 2
+    reason: Missing output files: SRR17032105/qc/start/SRR17032105_1.fastqc.html
+    wildcards: sample=SRR17032105, read=1
+    resources: mem_mb=5000, disk_mb=3468, tmpdir=<TBD>, time=0-00:30:00, qos=standard
+
+
+		module load FastQC/0.11.9-Java-11
+
+		mkdir -p SRR17032105/qc
+		mkdir -p SRR17032105/qc/start
+		fastqc -o SRR17032105/qc/start /scratch/sjannalda/projects/PlastidPipelineTesting/data/SRR17032105_1.fastq 
+		mv SRR17032105/qc/start/SRR17032105_1_fastqc.html SRR17032105/qc/start/SRR17032105_1.fastqc.html
+		
+Submitted job 2 with external jobid 'Submitted batch job 13887975'.
+
+[Mon Jul 31 15:59:36 2023]
+rule StartQC_fastqc:
+    input: /scratch/sjannalda/projects/PlastidPipelineTesting/data/SRR17032105_2.fastq
+    output: SRR17032105/qc/start/SRR17032105_2.fastqc.html
+    jobid: 3
+    reason: Missing output files: SRR17032105/qc/start/SRR17032105_2.fastqc.html
+    wildcards: sample=SRR17032105, read=2
+    resources: mem_mb=5000, disk_mb=3468, tmpdir=<TBD>, time=0-00:30:00, qos=standard
+
+
+		module load FastQC/0.11.9-Java-11
+
+		mkdir -p SRR17032105/qc
+		mkdir -p SRR17032105/qc/start
+		fastqc -o SRR17032105/qc/start /scratch/sjannalda/projects/PlastidPipelineTesting/data/SRR17032105_2.fastq 
+		mv SRR17032105/qc/start/SRR17032105_2_fastqc.html SRR17032105/qc/start/SRR17032105_2.fastqc.html
+		
+Submitted job 3 with external jobid 'Submitted batch job 13887976'.
+[Mon Jul 31 16:00:41 2023]
+Finished job 2.
+1 of 4 steps (25%) done
+[Mon Jul 31 16:00:42 2023]
+Finished job 3.
+2 of 4 steps (50%) done
+Select jobs to execute...
+
+[Mon Jul 31 16:00:42 2023]
+rule StartQC_multiqc:
+    input: SRR17032105/qc/start/SRR17032105_1.fastqc.html, SRR17032105/qc/start/SRR17032105_2.fastqc.html
+    output: SRR17032105/qc/start/StartReportQC_SRR17032105.html
+    jobid: 1
+    reason: Missing output files: SRR17032105/qc/start/StartReportQC_SRR17032105.html; Input files updated by another job: SRR17032105/qc/start/SRR17032105_1.fastqc.html, SRR17032105/qc/start/SRR17032105_2.fastqc.html
+    wildcards: sample=SRR17032105
+    resources: mem_mb=5000, disk_mb=1000, tmpdir=<TBD>, time=0-00:10:00, qos=standard
+
+
+		module load MultiQC
+		multiqc -n SRR17032105/qc/start/StartReportQC_SRR17032105.html --no-data-dir SRR17032105/qc/start
+		
+Submitted job 1 with external jobid 'Submitted batch job 13887978'.
+[Mon Jul 31 16:01:02 2023]
+Finished job 1.
+3 of 4 steps (75%) done
+Select jobs to execute...
+
+[Mon Jul 31 16:01:02 2023]
+localrule all:
+    input: SRR17032105/qc/start/StartReportQC_SRR17032105.html
+    jobid: 0
+    reason: Input files updated by another job: SRR17032105/qc/start/StartReportQC_SRR17032105.html
+    resources: mem_mb=1000, disk_mb=1000, tmpdir=/tmp, time=0-00:05:00, qos=standard
+
+[Mon Jul 31 16:01:02 2023]
+Finished job 0.
+4 of 4 steps (100%) done
+Complete log: ../../../../home/sjannalda/bgbm/projects/PlastidPipeline/.snakemake/log/2023-07-31T155934.828886.snakemake.log

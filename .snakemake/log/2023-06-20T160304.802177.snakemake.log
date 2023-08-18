@@ -1,0 +1,7 @@
+Building DAG of jobs...
+MissingInputException in rule SortReads  in line 12 of /home/sjannalda/bgbm/projects/PlastidPipeline/workflow/Snakefile:
+Missing input files for rule SortReads:
+    output: data/AM0909_1.sorted.fastq
+    wildcards: sample=AM0909, read=1
+    affected files:
+        data/AM0909_1.fastq

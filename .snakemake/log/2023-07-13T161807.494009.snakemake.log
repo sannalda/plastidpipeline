@@ -1,0 +1,4 @@
+TypeError in line 164 of /home/sjannalda/bgbm/projects/PlastidPipeline/workflow/Snakefile:
+expected string or bytes-like object
+  File "/home/sjannalda/bgbm/projects/PlastidPipeline/workflow/Snakefile", line 164, in <module>
+  File "/home/sjannalda/miniconda3/lib/python3.8/re.py", line 241, in findall

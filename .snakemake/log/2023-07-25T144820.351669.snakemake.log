@@ -1,0 +1,53 @@
+Building DAG of jobs...
+Using shell: /usr/bin/bash
+Provided cores: 1 (use --cores to define parallelism)
+Rules claiming more threads will be scaled down.
+Job stats:
+job                              count    min threads    max threads
+-----------------------------  -------  -------------  -------------
+AnnotationPostStandardization        1              1              1
+StandardizationAnnotation            1              1              1
+all                                  1              1              1
+total                                3              1              1
+
+Select jobs to execute...
+
+[Tue Jul 25 14:48:21 2023]
+rule StandardizationAnnotation:
+    input: annotation/AM0909.original.gb
+    output: annotation/AM0909.standardardized.fasta
+    jobid: 12
+    reason: Missing output files: annotation/AM0909.standardardized.fasta
+    wildcards: sample=AM0909
+    resources: tmpdir=/tmp, mem_mb=5000, time=0-1:00:00
+
+[Tue Jul 25 14:48:22 2023]
+Finished job 12.
+1 of 3 steps (33%) done
+Select jobs to execute...
+
+[Tue Jul 25 14:48:22 2023]
+localrule AnnotationPostStandardization:
+    input: annotation/AM0909.standardardized.fasta
+    output: annotation/AM0909.standardardized.gb
+    jobid: 11
+    reason: Missing output files: annotation/AM0909.standardardized.gb; Input files updated by another job: annotation/AM0909.standardardized.fasta
+    wildcards: sample=AM0909
+    resources: tmpdir=/tmp
+
+[Tue Jul 25 14:49:15 2023]
+Finished job 11.
+2 of 3 steps (67%) done
+Select jobs to execute...
+
+[Tue Jul 25 14:49:15 2023]
+localrule all:
+    input: qc/start/start_report_AM0909.html, qc/filtering/filtering_report_AM0909.html, annotation/AM0909.standardardized.gb
+    jobid: 0
+    reason: Input files updated by another job: annotation/AM0909.standardardized.gb
+    resources: tmpdir=/tmp
+
+[Tue Jul 25 14:49:15 2023]
+Finished job 0.
+3 of 3 steps (100%) done
+Complete log: ../../../../home/sjannalda/bgbm/projects/PlastidPipeline/.snakemake/log/2023-07-25T144820.351669.snakemake.log

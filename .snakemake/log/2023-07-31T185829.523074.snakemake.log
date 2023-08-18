@@ -1,0 +1,110 @@
+Building DAG of jobs...
+Using shell: /usr/bin/bash
+Provided cluster nodes: 500
+Job stats:
+job                              count    min threads    max threads
+-----------------------------  -------  -------------  -------------
+AnnotationPostStandardization        1              1              1
+AnnotationPreStandardization         1              1              1
+Assembly                             1             16             16
+AssemblyConfig                       1              1              1
+FilteringQC_fastqc                   2              1              1
+FilteringQC_multiqc                  1              1              1
+FilteringReads                       2              1              1
+SortReads                            2              1              1
+StandardizationAnnotation            1              1              1
+all                                  1              1              1
+total                               13              1             16
+
+Select jobs to execute...
+Failed to solve scheduling problem with ILP solver in time (10s). Falling back to greedy solver.
+
+[Wed Aug 16 17:23:05 2023]
+rule SortReads:
+    input: SRR17032105/data/SRR17032105_1.trimmed.fastq
+    output: SRR17032105/data/SRR17032105_1.sorted.fastq
+    jobid: 11
+    reason: Code has changed since last execution
+    wildcards: sample=SRR17032105, read=1
+    resources: mem_mb=5000, disk_mb=2930, tmpdir=<TBD>, time=0-01:00:00, qos=standard
+
+
+		module load bioawk
+		bioawk -c fastx '{print}' SRR17032105/data/SRR17032105_1.trimmed.fastq | sort | awk -F'\t' '{print "@"$1;print $2;print "+"$1;print $3}' > SRR17032105/data/SRR17032105_1.sorted.fastq
+		
+Submitted job 11 with external jobid 'Submitted batch job 14022518'.
+
+[Wed Aug 16 17:23:06 2023]
+rule AssemblyConfig:
+    output: database/SeedDatabase/embplant_pt.fasta, database/SeedDatabase/embplant_mt.fasta
+    jobid: 19
+    reason: Code has changed since last execution
+    resources: mem_mb=10000, disk_mb=1000, tmpdir=<TBD>, time=0-01:00:00, qos=standard
+
+
+		module load Bowtie2
+		module load BLAST+
+		mkdir -p database
+		get_organelle_config.py -a embplant_pt,embplant_mt --config-dir database
+		
+Submitted job 19 with external jobid 'Submitted batch job 14022519'.
+
+[Wed Aug 16 17:23:06 2023]
+rule SortReads:
+    input: SRR17032105/data/SRR17032105_2.trimmed.fastq
+    output: SRR17032105/data/SRR17032105_2.sorted.fastq
+    jobid: 14
+    reason: Code has changed since last execution
+    wildcards: sample=SRR17032105, read=2
+    resources: mem_mb=5000, disk_mb=2616, tmpdir=<TBD>, time=0-01:00:00, qos=standard
+
+
+		module load bioawk
+		bioawk -c fastx '{print}' SRR17032105/data/SRR17032105_2.trimmed.fastq | sort | awk -F'\t' '{print "@"$1;print $2;print "+"$1;print $3}' > SRR17032105/data/SRR17032105_2.sorted.fastq
+		
+Submitted job 14 with external jobid 'Submitted batch job 14022520'.
+[Wed Aug 16 17:23:15 2023]
+Error in rule SortReads:
+    jobid: 11
+    input: SRR17032105/data/SRR17032105_1.trimmed.fastq
+    output: SRR17032105/data/SRR17032105_1.sorted.fastq
+    shell:
+        
+		module load bioawk
+		bioawk -c fastx '{print}' SRR17032105/data/SRR17032105_1.trimmed.fastq | sort | awk -F'\t' '{print "@"$1;print $2;print "+"$1;print $3}' > SRR17032105/data/SRR17032105_1.sorted.fastq
+		
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+    cluster_jobid: Submitted batch job 14022518
+
+Error executing rule SortReads on cluster (jobid: 11, external: Submitted batch job 14022518, jobscript: /scratch/sjannalda/projects/PlastidPipelineTesting/.snakemake/tmp.mwfcvv4y/snakejob.SortReads.11.sh). For error details see the cluster log and the log files of the involved rule(s).
+[Wed Aug 16 17:23:16 2023]
+Error in rule AssemblyConfig:
+    jobid: 19
+    output: database/SeedDatabase/embplant_pt.fasta, database/SeedDatabase/embplant_mt.fasta
+    shell:
+        
+		module load Bowtie2
+		module load BLAST+
+		mkdir -p database
+		get_organelle_config.py -a embplant_pt,embplant_mt --config-dir database
+		
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+    cluster_jobid: Submitted batch job 14022519
+
+Error executing rule AssemblyConfig on cluster (jobid: 19, external: Submitted batch job 14022519, jobscript: /scratch/sjannalda/projects/PlastidPipelineTesting/.snakemake/tmp.mwfcvv4y/snakejob.AssemblyConfig.19.sh). For error details see the cluster log and the log files of the involved rule(s).
+[Wed Aug 16 17:23:17 2023]
+Error in rule SortReads:
+    jobid: 14
+    input: SRR17032105/data/SRR17032105_2.trimmed.fastq
+    output: SRR17032105/data/SRR17032105_2.sorted.fastq
+    shell:
+        
+		module load bioawk
+		bioawk -c fastx '{print}' SRR17032105/data/SRR17032105_2.trimmed.fastq | sort | awk -F'\t' '{print "@"$1;print $2;print "+"$1;print $3}' > SRR17032105/data/SRR17032105_2.sorted.fastq
+		
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+    cluster_jobid: Submitted batch job 14022520
+
+Error executing rule SortReads on cluster (jobid: 14, external: Submitted batch job 14022520, jobscript: /scratch/sjannalda/projects/PlastidPipelineTesting/.snakemake/tmp.mwfcvv4y/snakejob.SortReads.14.sh). For error details see the cluster log and the log files of the involved rule(s).
+Exiting because a job execution failed. Look above for error message
+Complete log: ../../../../home/sjannalda/bgbm/projects/PlastidPipeline/.snakemake/log/2023-07-31T185829.523074.snakemake.log

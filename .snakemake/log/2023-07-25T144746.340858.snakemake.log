@@ -1,0 +1,37 @@
+Building DAG of jobs...
+Using shell: /usr/bin/bash
+Provided cores: 1 (use --cores to define parallelism)
+Rules claiming more threads will be scaled down.
+Job stats:
+job                              count    min threads    max threads
+-----------------------------  -------  -------------  -------------
+AnnotationPostStandardization        1              1              1
+StandardizationAnnotation            1              1              1
+all                                  1              1              1
+total                                3              1              1
+
+Select jobs to execute...
+
+[Tue Jul 25 14:47:47 2023]
+rule StandardizationAnnotation:
+    input: annotation/AM0909.original.gb
+    output: annotation/AM0909.standardardized.fasta
+    jobid: 12
+    reason: Missing output files: annotation/AM0909.standardardized.fasta
+    wildcards: sample=AM0909
+    resources: tmpdir=/tmp, mem_mb=5000, time=0-1:00:00
+
+[Tue Jul 25 14:47:48 2023]
+Error in rule StandardizationAnnotation:
+    jobid: 12
+    input: annotation/AM0909.original.gb
+    output: annotation/AM0909.standardardized.fasta
+
+RuleException:
+CalledProcessError in line 239 of /home/sjannalda/bgbm/projects/PlastidPipeline/workflow/Snakefile:
+Command 'set -euo pipefail;  /home/sjannalda/miniconda3/bin/python3.8 /scratch/sjannalda/projects/PlastidPipelineTesting/.snakemake/scripts/tmpi936rsa6.StandardizationAnnotation.py' returned non-zero exit status 1.
+  File "/home/sjannalda/bgbm/projects/PlastidPipeline/workflow/Snakefile", line 239, in __rule_StandardizationAnnotation
+  File "/home/sjannalda/miniconda3/lib/python3.8/concurrent/futures/thread.py", line 57, in run
+Shutting down, this might take some time.
+Exiting because a job execution failed. Look above for error message
+Complete log: ../../../../home/sjannalda/bgbm/projects/PlastidPipeline/.snakemake/log/2023-07-25T144746.340858.snakemake.log

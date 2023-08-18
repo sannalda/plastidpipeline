@@ -1,0 +1,908 @@
+Building DAG of jobs...
+Using shell: /usr/bin/bash
+Provided cluster nodes: 500
+Job stats:
+job                                    count    min threads    max threads
+-----------------------------------  -------  -------------  -------------
+AnnotationPostStandardization              3              1              1
+AnnotationPreStandardization               3              1              1
+Assembly                                   3              8              8
+Backmapping                                3              8              8
+BackmappingQC                              3              1              1
+BuildReferenceAnnotationBackmapping        3              4              4
+FilteringQC_fastqc                         6              1              1
+FilteringQC_multiqc                        3              1              1
+FilteringReads                             6              1              1
+SortReads                                  6              1              1
+StandardizationAnnotation                  3              1              1
+TrimReads                                  3              1              1
+all                                        1              1              1
+total                                     46              1              8
+
+Select jobs to execute...
+
+[Wed Aug 16 13:48:54 2023]
+rule TrimReads:
+    input: /scratch/sjannalda/projects/PlastidPipelineTesting/data/ERR5529317/ERR5529317_1.fastq, /scratch/sjannalda/projects/PlastidPipelineTesting/data/ERR5529317/ERR5529317_2.fastq
+    output: ERR5529317/data/ERR5529317_1.trimmed.fastq, ERR5529317/data/ERR5529317_2.trimmed.fastq, ERR5529317/data/ERR5529317_U1.trimmed.fastq, ERR5529317/data/ERR5529317_U2.trimmed.fastq
+    jobid: 5
+    reason: Missing output files: ERR5529317/data/ERR5529317_2.trimmed.fastq, ERR5529317/data/ERR5529317_1.trimmed.fastq
+    wildcards: sample=ERR5529317
+    resources: mem_mb=5000, disk_mb=4491, tmpdir=<TBD>, time=0-02:00:00, qos=standard
+
+
+		module load Trimmomatic
+		java -jar $EBROOTTRIMMOMATIC/trimmomatic-0.39.jar PE -phred33 /scratch/sjannalda/projects/PlastidPipelineTesting/data/ERR5529317/ERR5529317_1.fastq /scratch/sjannalda/projects/PlastidPipelineTesting/data/ERR5529317/ERR5529317_2.fastq ERR5529317/data/ERR5529317_1.trimmed.fastq ERR5529317/data/ERR5529317_U1.trimmed.fastq ERR5529317/data/ERR5529317_2.trimmed.fastq ERR5529317/data/ERR5529317_U2.trimmed.fastq ILLUMINACLIP:$EBROOTTRIMMOMATIC/adapters/TruSeq3-PE-2.fa:2:30:10 LEADING:20 TRAILING:20 SLIDINGWINDOW:5:20 MINLEN:36
+		
+Submitted job 5 with external jobid 'Submitted batch job 14017994'.
+
+[Wed Aug 16 13:48:54 2023]
+rule TrimReads:
+    input: /scratch/sjannalda/projects/PlastidPipelineTesting/data/ERR5529436/ERR5529436_1.fastq, /scratch/sjannalda/projects/PlastidPipelineTesting/data/ERR5529436/ERR5529436_2.fastq
+    output: ERR5529436/data/ERR5529436_1.trimmed.fastq, ERR5529436/data/ERR5529436_2.trimmed.fastq, ERR5529436/data/ERR5529436_U1.trimmed.fastq, ERR5529436/data/ERR5529436_U2.trimmed.fastq
+    jobid: 13
+    reason: Missing output files: ERR5529436/data/ERR5529436_2.trimmed.fastq, ERR5529436/data/ERR5529436_1.trimmed.fastq
+    wildcards: sample=ERR5529436
+    resources: mem_mb=5000, disk_mb=4721, tmpdir=<TBD>, time=0-02:00:00, qos=standard
+
+
+		module load Trimmomatic
+		java -jar $EBROOTTRIMMOMATIC/trimmomatic-0.39.jar PE -phred33 /scratch/sjannalda/projects/PlastidPipelineTesting/data/ERR5529436/ERR5529436_1.fastq /scratch/sjannalda/projects/PlastidPipelineTesting/data/ERR5529436/ERR5529436_2.fastq ERR5529436/data/ERR5529436_1.trimmed.fastq ERR5529436/data/ERR5529436_U1.trimmed.fastq ERR5529436/data/ERR5529436_2.trimmed.fastq ERR5529436/data/ERR5529436_U2.trimmed.fastq ILLUMINACLIP:$EBROOTTRIMMOMATIC/adapters/TruSeq3-PE-2.fa:2:30:10 LEADING:20 TRAILING:20 SLIDINGWINDOW:5:20 MINLEN:36
+		
+Submitted job 13 with external jobid 'Submitted batch job 14017995'.
+
+[Wed Aug 16 13:48:54 2023]
+rule TrimReads:
+    input: /scratch/sjannalda/projects/PlastidPipelineTesting/data/ERR5554746/ERR5554746_1.fastq, /scratch/sjannalda/projects/PlastidPipelineTesting/data/ERR5554746/ERR5554746_2.fastq
+    output: ERR5554746/data/ERR5554746_1.trimmed.fastq, ERR5554746/data/ERR5554746_2.trimmed.fastq, ERR5554746/data/ERR5554746_U1.trimmed.fastq, ERR5554746/data/ERR5554746_U2.trimmed.fastq
+    jobid: 21
+    reason: Missing output files: ERR5554746/data/ERR5554746_2.trimmed.fastq, ERR5554746/data/ERR5554746_1.trimmed.fastq
+    wildcards: sample=ERR5554746
+    resources: mem_mb=5000, disk_mb=4081, tmpdir=<TBD>, time=0-02:00:00, qos=standard
+
+
+		module load Trimmomatic
+		java -jar $EBROOTTRIMMOMATIC/trimmomatic-0.39.jar PE -phred33 /scratch/sjannalda/projects/PlastidPipelineTesting/data/ERR5554746/ERR5554746_1.fastq /scratch/sjannalda/projects/PlastidPipelineTesting/data/ERR5554746/ERR5554746_2.fastq ERR5554746/data/ERR5554746_1.trimmed.fastq ERR5554746/data/ERR5554746_U1.trimmed.fastq ERR5554746/data/ERR5554746_2.trimmed.fastq ERR5554746/data/ERR5554746_U2.trimmed.fastq ILLUMINACLIP:$EBROOTTRIMMOMATIC/adapters/TruSeq3-PE-2.fa:2:30:10 LEADING:20 TRAILING:20 SLIDINGWINDOW:5:20 MINLEN:36
+		
+Submitted job 21 with external jobid 'Submitted batch job 14017996'.
+[Wed Aug 16 13:50:53 2023]
+Finished job 21.
+1 of 46 steps (2%) done
+Select jobs to execute...
+
+[Wed Aug 16 13:50:53 2023]
+rule SortReads:
+    input: ERR5554746/data/ERR5554746_2.trimmed.fastq
+    output: ERR5554746/data/ERR5554746_2.sorted.fastq
+    jobid: 24
+    reason: Missing output files: ERR5554746/data/ERR5554746_2.sorted.fastq; Input files updated by another job: ERR5554746/data/ERR5554746_2.trimmed.fastq
+    wildcards: sample=ERR5554746, read=2
+    resources: mem_mb=5000, disk_mb=1872, tmpdir=<TBD>, time=0-01:00:00, qos=standard
+
+
+		module load bioawk
+		bioawk -c fastx '{print}' ERR5554746/data/ERR5554746_2.trimmed.fastq | sort | awk -F'\t' '{print "@"$1;print $2;print "+"$1;print $3}' > ERR5554746/data/ERR5554746_2.sorted.fastq
+		
+Submitted job 24 with external jobid 'Submitted batch job 14018001'.
+
+[Wed Aug 16 13:50:54 2023]
+rule SortReads:
+    input: ERR5554746/data/ERR5554746_1.trimmed.fastq
+    output: ERR5554746/data/ERR5554746_1.sorted.fastq
+    jobid: 20
+    reason: Missing output files: ERR5554746/data/ERR5554746_1.sorted.fastq; Input files updated by another job: ERR5554746/data/ERR5554746_1.trimmed.fastq
+    wildcards: sample=ERR5554746, read=1
+    resources: mem_mb=5000, disk_mb=1882, tmpdir=<TBD>, time=0-01:00:00, qos=standard
+
+
+		module load bioawk
+		bioawk -c fastx '{print}' ERR5554746/data/ERR5554746_1.trimmed.fastq | sort | awk -F'\t' '{print "@"$1;print $2;print "+"$1;print $3}' > ERR5554746/data/ERR5554746_1.sorted.fastq
+		
+Submitted job 20 with external jobid 'Submitted batch job 14018002'.
+[Wed Aug 16 13:51:03 2023]
+Finished job 5.
+2 of 46 steps (4%) done
+Select jobs to execute...
+
+[Wed Aug 16 13:51:03 2023]
+rule SortReads:
+    input: ERR5529317/data/ERR5529317_1.trimmed.fastq
+    output: ERR5529317/data/ERR5529317_1.sorted.fastq
+    jobid: 4
+    reason: Missing output files: ERR5529317/data/ERR5529317_1.sorted.fastq; Input files updated by another job: ERR5529317/data/ERR5529317_1.trimmed.fastq
+    wildcards: sample=ERR5529317, read=1
+    resources: mem_mb=5000, disk_mb=2116, tmpdir=<TBD>, time=0-01:00:00, qos=standard
+
+
+		module load bioawk
+		bioawk -c fastx '{print}' ERR5529317/data/ERR5529317_1.trimmed.fastq | sort | awk -F'\t' '{print "@"$1;print $2;print "+"$1;print $3}' > ERR5529317/data/ERR5529317_1.sorted.fastq
+		
+Submitted job 4 with external jobid 'Submitted batch job 14018003'.
+
+[Wed Aug 16 13:51:04 2023]
+rule SortReads:
+    input: ERR5529317/data/ERR5529317_2.trimmed.fastq
+    output: ERR5529317/data/ERR5529317_2.sorted.fastq
+    jobid: 8
+    reason: Missing output files: ERR5529317/data/ERR5529317_2.sorted.fastq; Input files updated by another job: ERR5529317/data/ERR5529317_2.trimmed.fastq
+    wildcards: sample=ERR5529317, read=2
+    resources: mem_mb=5000, disk_mb=2112, tmpdir=<TBD>, time=0-01:00:00, qos=standard
+
+
+		module load bioawk
+		bioawk -c fastx '{print}' ERR5529317/data/ERR5529317_2.trimmed.fastq | sort | awk -F'\t' '{print "@"$1;print $2;print "+"$1;print $3}' > ERR5529317/data/ERR5529317_2.sorted.fastq
+		
+Submitted job 8 with external jobid 'Submitted batch job 14018004'.
+[Wed Aug 16 13:51:33 2023]
+Finished job 13.
+3 of 46 steps (7%) done
+Select jobs to execute...
+
+[Wed Aug 16 13:51:33 2023]
+rule SortReads:
+    input: ERR5529436/data/ERR5529436_2.trimmed.fastq
+    output: ERR5529436/data/ERR5529436_2.sorted.fastq
+    jobid: 16
+    reason: Missing output files: ERR5529436/data/ERR5529436_2.sorted.fastq; Input files updated by another job: ERR5529436/data/ERR5529436_2.trimmed.fastq
+    wildcards: sample=ERR5529436, read=2
+    resources: mem_mb=5000, disk_mb=2202, tmpdir=<TBD>, time=0-01:00:00, qos=standard
+
+
+		module load bioawk
+		bioawk -c fastx '{print}' ERR5529436/data/ERR5529436_2.trimmed.fastq | sort | awk -F'\t' '{print "@"$1;print $2;print "+"$1;print $3}' > ERR5529436/data/ERR5529436_2.sorted.fastq
+		
+Submitted job 16 with external jobid 'Submitted batch job 14018005'.
+
+[Wed Aug 16 13:51:33 2023]
+rule SortReads:
+    input: ERR5529436/data/ERR5529436_1.trimmed.fastq
+    output: ERR5529436/data/ERR5529436_1.sorted.fastq
+    jobid: 12
+    reason: Missing output files: ERR5529436/data/ERR5529436_1.sorted.fastq; Input files updated by another job: ERR5529436/data/ERR5529436_1.trimmed.fastq
+    wildcards: sample=ERR5529436, read=1
+    resources: mem_mb=5000, disk_mb=2215, tmpdir=<TBD>, time=0-01:00:00, qos=standard
+
+
+		module load bioawk
+		bioawk -c fastx '{print}' ERR5529436/data/ERR5529436_1.trimmed.fastq | sort | awk -F'\t' '{print "@"$1;print $2;print "+"$1;print $3}' > ERR5529436/data/ERR5529436_1.sorted.fastq
+		
+Submitted job 12 with external jobid 'Submitted batch job 14018006'.
+[Wed Aug 16 13:51:48 2023]
+Finished job 24.
+4 of 46 steps (9%) done
+Select jobs to execute...
+
+[Wed Aug 16 13:51:48 2023]
+rule FilteringReads:
+    input: ERR5554746/data/ERR5554746_2.sorted.fastq
+    output: ERR5554746/data/ERR5554746_2.filt.fastq
+    jobid: 23
+    reason: Missing output files: ERR5554746/data/ERR5554746_2.filt.fastq; Input files updated by another job: ERR5554746/data/ERR5554746_2.sorted.fastq
+    wildcards: sample=ERR5554746, read=2
+    resources: mem_mb=10000, disk_mb=1619, tmpdir=<TBD>, time=0-03:00:00, qos=standard
+
+
+		module load FASTX-Toolkit
+		fastq_quality_filter -q 30 -i ERR5554746/data/ERR5554746_2.sorted.fastq -o ERR5554746/data/ERR5554746_2.filt.fastq
+		
+Submitted job 23 with external jobid 'Submitted batch job 14018007'.
+[Wed Aug 16 13:51:49 2023]
+Finished job 20.
+5 of 46 steps (11%) done
+Select jobs to execute...
+
+[Wed Aug 16 13:51:49 2023]
+rule FilteringReads:
+    input: ERR5554746/data/ERR5554746_1.sorted.fastq
+    output: ERR5554746/data/ERR5554746_1.filt.fastq
+    jobid: 19
+    reason: Missing output files: ERR5554746/data/ERR5554746_1.filt.fastq; Input files updated by another job: ERR5554746/data/ERR5554746_1.sorted.fastq
+    wildcards: sample=ERR5554746, read=1
+    resources: mem_mb=10000, disk_mb=1628, tmpdir=<TBD>, time=0-03:00:00, qos=standard
+
+
+		module load FASTX-Toolkit
+		fastq_quality_filter -q 30 -i ERR5554746/data/ERR5554746_1.sorted.fastq -o ERR5554746/data/ERR5554746_1.filt.fastq
+		
+Submitted job 19 with external jobid 'Submitted batch job 14018008'.
+[Wed Aug 16 13:52:02 2023]
+Finished job 4.
+6 of 46 steps (13%) done
+Select jobs to execute...
+
+[Wed Aug 16 13:52:02 2023]
+rule FilteringReads:
+    input: ERR5529317/data/ERR5529317_1.sorted.fastq
+    output: ERR5529317/data/ERR5529317_1.filt.fastq
+    jobid: 3
+    reason: Missing output files: ERR5529317/data/ERR5529317_1.filt.fastq; Input files updated by another job: ERR5529317/data/ERR5529317_1.sorted.fastq
+    wildcards: sample=ERR5529317, read=1
+    resources: mem_mb=10000, disk_mb=1830, tmpdir=<TBD>, time=0-03:00:00, qos=standard
+
+
+		module load FASTX-Toolkit
+		fastq_quality_filter -q 30 -i ERR5529317/data/ERR5529317_1.sorted.fastq -o ERR5529317/data/ERR5529317_1.filt.fastq
+		
+Submitted job 3 with external jobid 'Submitted batch job 14018010'.
+[Wed Aug 16 13:52:18 2023]
+Finished job 8.
+7 of 46 steps (15%) done
+Select jobs to execute...
+
+[Wed Aug 16 13:52:18 2023]
+rule FilteringReads:
+    input: ERR5529317/data/ERR5529317_2.sorted.fastq
+    output: ERR5529317/data/ERR5529317_2.filt.fastq
+    jobid: 7
+    reason: Missing output files: ERR5529317/data/ERR5529317_2.filt.fastq; Input files updated by another job: ERR5529317/data/ERR5529317_2.sorted.fastq
+    wildcards: sample=ERR5529317, read=2
+    resources: mem_mb=10000, disk_mb=1825, tmpdir=<TBD>, time=0-03:00:00, qos=standard
+
+
+		module load FASTX-Toolkit
+		fastq_quality_filter -q 30 -i ERR5529317/data/ERR5529317_2.sorted.fastq -o ERR5529317/data/ERR5529317_2.filt.fastq
+		
+Submitted job 7 with external jobid 'Submitted batch job 14018011'.
+[Wed Aug 16 13:52:47 2023]
+Finished job 16.
+8 of 46 steps (17%) done
+Select jobs to execute...
+
+[Wed Aug 16 13:52:47 2023]
+rule FilteringReads:
+    input: ERR5529436/data/ERR5529436_2.sorted.fastq
+    output: ERR5529436/data/ERR5529436_2.filt.fastq
+    jobid: 15
+    reason: Missing output files: ERR5529436/data/ERR5529436_2.filt.fastq; Input files updated by another job: ERR5529436/data/ERR5529436_2.sorted.fastq
+    wildcards: sample=ERR5529436, read=2
+    resources: mem_mb=10000, disk_mb=1903, tmpdir=<TBD>, time=0-03:00:00, qos=standard
+
+
+		module load FASTX-Toolkit
+		fastq_quality_filter -q 30 -i ERR5529436/data/ERR5529436_2.sorted.fastq -o ERR5529436/data/ERR5529436_2.filt.fastq
+		
+Submitted job 15 with external jobid 'Submitted batch job 14018012'.
+[Wed Aug 16 13:52:49 2023]
+Finished job 12.
+9 of 46 steps (20%) done
+Select jobs to execute...
+
+[Wed Aug 16 13:52:49 2023]
+rule FilteringReads:
+    input: ERR5529436/data/ERR5529436_1.sorted.fastq
+    output: ERR5529436/data/ERR5529436_1.filt.fastq
+    jobid: 11
+    reason: Missing output files: ERR5529436/data/ERR5529436_1.filt.fastq; Input files updated by another job: ERR5529436/data/ERR5529436_1.sorted.fastq
+    wildcards: sample=ERR5529436, read=1
+    resources: mem_mb=10000, disk_mb=1915, tmpdir=<TBD>, time=0-03:00:00, qos=standard
+
+
+		module load FASTX-Toolkit
+		fastq_quality_filter -q 30 -i ERR5529436/data/ERR5529436_1.sorted.fastq -o ERR5529436/data/ERR5529436_1.filt.fastq
+		
+Submitted job 11 with external jobid 'Submitted batch job 14018014'.
+[Wed Aug 16 13:57:49 2023]
+Finished job 23.
+10 of 46 steps (22%) done
+Select jobs to execute...
+
+[Wed Aug 16 13:57:49 2023]
+rule FilteringQC_fastqc:
+    input: ERR5554746/data/ERR5554746_2.filt.fastq
+    output: ERR5554746/qc/filtering/ERR5554746_2.filt.fastqc.html
+    jobid: 22
+    reason: Missing output files: ERR5554746/qc/filtering/ERR5554746_2.filt.fastqc.html; Input files updated by another job: ERR5554746/data/ERR5554746_2.filt.fastq
+    wildcards: sample=ERR5554746, read=2
+    resources: mem_mb=5000, disk_mb=1619, tmpdir=<TBD>, time=0-00:30:00, qos=standard
+
+
+		module load FastQC/0.11.9-Java-11
+
+		mkdir -p ERR5554746/qc
+		mkdir -p ERR5554746/qc/filtering
+		fastqc -o ERR5554746/qc/filtering ERR5554746/data/ERR5554746_2.filt.fastq
+		mv ERR5554746/qc/filtering/ERR5554746_2.filt_fastqc.html ERR5554746/qc/filtering/ERR5554746_2.filt.fastqc.html
+		
+Submitted job 22 with external jobid 'Submitted batch job 14018025'.
+[Wed Aug 16 13:57:50 2023]
+Finished job 19.
+11 of 46 steps (24%) done
+Select jobs to execute...
+
+[Wed Aug 16 13:57:50 2023]
+rule FilteringQC_fastqc:
+    input: ERR5554746/data/ERR5554746_1.filt.fastq
+    output: ERR5554746/qc/filtering/ERR5554746_1.filt.fastqc.html
+    jobid: 18
+    reason: Missing output files: ERR5554746/qc/filtering/ERR5554746_1.filt.fastqc.html; Input files updated by another job: ERR5554746/data/ERR5554746_1.filt.fastq
+    wildcards: sample=ERR5554746, read=1
+    resources: mem_mb=5000, disk_mb=1628, tmpdir=<TBD>, time=0-00:30:00, qos=standard
+
+
+		module load FastQC/0.11.9-Java-11
+
+		mkdir -p ERR5554746/qc
+		mkdir -p ERR5554746/qc/filtering
+		fastqc -o ERR5554746/qc/filtering ERR5554746/data/ERR5554746_1.filt.fastq
+		mv ERR5554746/qc/filtering/ERR5554746_1.filt_fastqc.html ERR5554746/qc/filtering/ERR5554746_1.filt.fastqc.html
+		
+Submitted job 18 with external jobid 'Submitted batch job 14018026'.
+
+[Wed Aug 16 13:57:50 2023]
+rule Assembly:
+    input: database/SeedDatabase/embplant_pt.fasta, ERR5554746/data/ERR5554746_1.filt.fastq, ERR5554746/data/ERR5554746_2.filt.fastq
+    output: ERR5554746/assembly/ERR5554746.original.fasta
+    jobid: 37
+    reason: Missing output files: ERR5554746/assembly/ERR5554746.original.fasta; Input files updated by another job: ERR5554746/data/ERR5554746_1.filt.fastq, ERR5554746/data/ERR5554746_2.filt.fastq
+    wildcards: sample=ERR5554746
+    threads: 8
+    resources: mem_mb=20000, disk_mb=3276, tmpdir=<TBD>, time=0-5:00:00, qos=standard
+
+
+		module load Bowtie2
+		module load BLAST+
+		module load SPAdes
+		get_organelle_from_reads.py -1 ERR5554746/data/ERR5554746_1.filt.fastq -2 ERR5554746/data/ERR5554746_2.filt.fastq \
+			-o ERR5554746/assembly -R 30 -k 21,45,65,85,105 -P 1000000 \
+			-F embplant_pt --config-dir database\
+			-t 8 --prefix ERR5554746 --overwrite
+		scp ERR5554746/assembly/*.complete.graph1.1.path_sequence.fasta ERR5554746/assembly/ERR5554746.original.fasta
+		
+Submitted job 37 with external jobid 'Submitted batch job 14018027'.
+[Wed Aug 16 13:58:21 2023]
+Finished job 18.
+12 of 46 steps (26%) done
+[Wed Aug 16 13:58:32 2023]
+Finished job 22.
+13 of 46 steps (28%) done
+Select jobs to execute...
+
+[Wed Aug 16 13:58:32 2023]
+rule FilteringQC_multiqc:
+    input: ERR5554746/qc/filtering/ERR5554746_1.filt.fastqc.html, ERR5554746/qc/filtering/ERR5554746_2.filt.fastqc.html
+    output: ERR5554746/qc/filtering/filtering_report_ERR5554746.html
+    jobid: 17
+    reason: Missing output files: ERR5554746/qc/filtering/filtering_report_ERR5554746.html; Input files updated by another job: ERR5554746/qc/filtering/ERR5554746_2.filt.fastqc.html, ERR5554746/qc/filtering/ERR5554746_1.filt.fastqc.html
+    wildcards: sample=ERR5554746
+    resources: mem_mb=5000, disk_mb=1000, tmpdir=<TBD>, time=0-00:10:00, qos=standard
+
+
+		module load MultiQC
+		multiqc -n ERR5554746/qc/filtering/filtering_report_ERR5554746.html --no-data-dir ERR5554746/qc/filtering
+		
+Submitted job 17 with external jobid 'Submitted batch job 14018029'.
+[Wed Aug 16 13:58:47 2023]
+Finished job 17.
+14 of 46 steps (30%) done
+[Wed Aug 16 13:58:51 2023]
+Finished job 3.
+15 of 46 steps (33%) done
+Select jobs to execute...
+
+[Wed Aug 16 13:58:51 2023]
+rule FilteringQC_fastqc:
+    input: ERR5529317/data/ERR5529317_1.filt.fastq
+    output: ERR5529317/qc/filtering/ERR5529317_1.filt.fastqc.html
+    jobid: 2
+    reason: Missing output files: ERR5529317/qc/filtering/ERR5529317_1.filt.fastqc.html; Input files updated by another job: ERR5529317/data/ERR5529317_1.filt.fastq
+    wildcards: sample=ERR5529317, read=1
+    resources: mem_mb=5000, disk_mb=1830, tmpdir=<TBD>, time=0-00:30:00, qos=standard
+
+
+		module load FastQC/0.11.9-Java-11
+
+		mkdir -p ERR5529317/qc
+		mkdir -p ERR5529317/qc/filtering
+		fastqc -o ERR5529317/qc/filtering ERR5529317/data/ERR5529317_1.filt.fastq
+		mv ERR5529317/qc/filtering/ERR5529317_1.filt_fastqc.html ERR5529317/qc/filtering/ERR5529317_1.filt.fastqc.html
+		
+Submitted job 2 with external jobid 'Submitted batch job 14018030'.
+[Wed Aug 16 13:59:05 2023]
+Finished job 7.
+16 of 46 steps (35%) done
+Select jobs to execute...
+
+[Wed Aug 16 13:59:05 2023]
+rule FilteringQC_fastqc:
+    input: ERR5529317/data/ERR5529317_2.filt.fastq
+    output: ERR5529317/qc/filtering/ERR5529317_2.filt.fastqc.html
+    jobid: 6
+    reason: Missing output files: ERR5529317/qc/filtering/ERR5529317_2.filt.fastqc.html; Input files updated by another job: ERR5529317/data/ERR5529317_2.filt.fastq
+    wildcards: sample=ERR5529317, read=2
+    resources: mem_mb=5000, disk_mb=1825, tmpdir=<TBD>, time=0-00:30:00, qos=standard
+
+
+		module load FastQC/0.11.9-Java-11
+
+		mkdir -p ERR5529317/qc
+		mkdir -p ERR5529317/qc/filtering
+		fastqc -o ERR5529317/qc/filtering ERR5529317/data/ERR5529317_2.filt.fastq
+		mv ERR5529317/qc/filtering/ERR5529317_2.filt_fastqc.html ERR5529317/qc/filtering/ERR5529317_2.filt.fastqc.html
+		
+Submitted job 6 with external jobid 'Submitted batch job 14018033'.
+
+[Wed Aug 16 13:59:05 2023]
+rule Assembly:
+    input: database/SeedDatabase/embplant_pt.fasta, ERR5529317/data/ERR5529317_1.filt.fastq, ERR5529317/data/ERR5529317_2.filt.fastq
+    output: ERR5529317/assembly/ERR5529317.original.fasta
+    jobid: 28
+    reason: Missing output files: ERR5529317/assembly/ERR5529317.original.fasta; Input files updated by another job: ERR5529317/data/ERR5529317_1.filt.fastq, ERR5529317/data/ERR5529317_2.filt.fastq
+    wildcards: sample=ERR5529317
+    threads: 8
+    resources: mem_mb=20000, disk_mb=3684, tmpdir=<TBD>, time=0-5:00:00, qos=standard
+
+
+		module load Bowtie2
+		module load BLAST+
+		module load SPAdes
+		get_organelle_from_reads.py -1 ERR5529317/data/ERR5529317_1.filt.fastq -2 ERR5529317/data/ERR5529317_2.filt.fastq \
+			-o ERR5529317/assembly -R 30 -k 21,45,65,85,105 -P 1000000 \
+			-F embplant_pt --config-dir database\
+			-t 8 --prefix ERR5529317 --overwrite
+		scp ERR5529317/assembly/*.complete.graph1.1.path_sequence.fasta ERR5529317/assembly/ERR5529317.original.fasta
+		
+Submitted job 28 with external jobid 'Submitted batch job 14018034'.
+[Wed Aug 16 13:59:20 2023]
+Finished job 11.
+17 of 46 steps (37%) done
+Select jobs to execute...
+
+[Wed Aug 16 13:59:20 2023]
+rule FilteringQC_fastqc:
+    input: ERR5529436/data/ERR5529436_1.filt.fastq
+    output: ERR5529436/qc/filtering/ERR5529436_1.filt.fastqc.html
+    jobid: 10
+    reason: Missing output files: ERR5529436/qc/filtering/ERR5529436_1.filt.fastqc.html; Input files updated by another job: ERR5529436/data/ERR5529436_1.filt.fastq
+    wildcards: sample=ERR5529436, read=1
+    resources: mem_mb=5000, disk_mb=1915, tmpdir=<TBD>, time=0-00:30:00, qos=standard
+
+
+		module load FastQC/0.11.9-Java-11
+
+		mkdir -p ERR5529436/qc
+		mkdir -p ERR5529436/qc/filtering
+		fastqc -o ERR5529436/qc/filtering ERR5529436/data/ERR5529436_1.filt.fastq
+		mv ERR5529436/qc/filtering/ERR5529436_1.filt_fastqc.html ERR5529436/qc/filtering/ERR5529436_1.filt.fastqc.html
+		
+Submitted job 10 with external jobid 'Submitted batch job 14018037'.
+[Wed Aug 16 13:59:34 2023]
+Finished job 2.
+18 of 46 steps (39%) done
+[Wed Aug 16 13:59:47 2023]
+Finished job 6.
+19 of 46 steps (41%) done
+Select jobs to execute...
+
+[Wed Aug 16 13:59:47 2023]
+rule FilteringQC_multiqc:
+    input: ERR5529317/qc/filtering/ERR5529317_1.filt.fastqc.html, ERR5529317/qc/filtering/ERR5529317_2.filt.fastqc.html
+    output: ERR5529317/qc/filtering/filtering_report_ERR5529317.html
+    jobid: 1
+    reason: Missing output files: ERR5529317/qc/filtering/filtering_report_ERR5529317.html; Input files updated by another job: ERR5529317/qc/filtering/ERR5529317_1.filt.fastqc.html, ERR5529317/qc/filtering/ERR5529317_2.filt.fastqc.html
+    wildcards: sample=ERR5529317
+    resources: mem_mb=5000, disk_mb=1000, tmpdir=<TBD>, time=0-00:10:00, qos=standard
+
+
+		module load MultiQC
+		multiqc -n ERR5529317/qc/filtering/filtering_report_ERR5529317.html --no-data-dir ERR5529317/qc/filtering
+		
+Submitted job 1 with external jobid 'Submitted batch job 14018040'.
+[Wed Aug 16 13:59:49 2023]
+Finished job 15.
+20 of 46 steps (43%) done
+Select jobs to execute...
+
+[Wed Aug 16 13:59:49 2023]
+rule Assembly:
+    input: database/SeedDatabase/embplant_pt.fasta, ERR5529436/data/ERR5529436_1.filt.fastq, ERR5529436/data/ERR5529436_2.filt.fastq
+    output: ERR5529436/assembly/ERR5529436.original.fasta
+    jobid: 33
+    reason: Missing output files: ERR5529436/assembly/ERR5529436.original.fasta; Input files updated by another job: ERR5529436/data/ERR5529436_1.filt.fastq, ERR5529436/data/ERR5529436_2.filt.fastq
+    wildcards: sample=ERR5529436
+    threads: 8
+    resources: mem_mb=20000, disk_mb=3847, tmpdir=<TBD>, time=0-5:00:00, qos=standard
+
+
+		module load Bowtie2
+		module load BLAST+
+		module load SPAdes
+		get_organelle_from_reads.py -1 ERR5529436/data/ERR5529436_1.filt.fastq -2 ERR5529436/data/ERR5529436_2.filt.fastq \
+			-o ERR5529436/assembly -R 30 -k 21,45,65,85,105 -P 1000000 \
+			-F embplant_pt --config-dir database\
+			-t 8 --prefix ERR5529436 --overwrite
+		scp ERR5529436/assembly/*.complete.graph1.1.path_sequence.fasta ERR5529436/assembly/ERR5529436.original.fasta
+		
+Submitted job 33 with external jobid 'Submitted batch job 14018041'.
+
+[Wed Aug 16 13:59:49 2023]
+rule FilteringQC_fastqc:
+    input: ERR5529436/data/ERR5529436_2.filt.fastq
+    output: ERR5529436/qc/filtering/ERR5529436_2.filt.fastqc.html
+    jobid: 14
+    reason: Missing output files: ERR5529436/qc/filtering/ERR5529436_2.filt.fastqc.html; Input files updated by another job: ERR5529436/data/ERR5529436_2.filt.fastq
+    wildcards: sample=ERR5529436, read=2
+    resources: mem_mb=5000, disk_mb=1903, tmpdir=<TBD>, time=0-00:30:00, qos=standard
+
+
+		module load FastQC/0.11.9-Java-11
+
+		mkdir -p ERR5529436/qc
+		mkdir -p ERR5529436/qc/filtering
+		fastqc -o ERR5529436/qc/filtering ERR5529436/data/ERR5529436_2.filt.fastq
+		mv ERR5529436/qc/filtering/ERR5529436_2.filt_fastqc.html ERR5529436/qc/filtering/ERR5529436_2.filt.fastqc.html
+		
+Submitted job 14 with external jobid 'Submitted batch job 14018042'.
+[Wed Aug 16 14:00:00 2023]
+Finished job 1.
+21 of 46 steps (46%) done
+[Wed Aug 16 14:00:03 2023]
+Finished job 10.
+22 of 46 steps (48%) done
+[Wed Aug 16 14:00:29 2023]
+Finished job 14.
+23 of 46 steps (50%) done
+Select jobs to execute...
+
+[Wed Aug 16 14:00:29 2023]
+rule FilteringQC_multiqc:
+    input: ERR5529436/qc/filtering/ERR5529436_1.filt.fastqc.html, ERR5529436/qc/filtering/ERR5529436_2.filt.fastqc.html
+    output: ERR5529436/qc/filtering/filtering_report_ERR5529436.html
+    jobid: 9
+    reason: Missing output files: ERR5529436/qc/filtering/filtering_report_ERR5529436.html; Input files updated by another job: ERR5529436/qc/filtering/ERR5529436_1.filt.fastqc.html, ERR5529436/qc/filtering/ERR5529436_2.filt.fastqc.html
+    wildcards: sample=ERR5529436
+    resources: mem_mb=5000, disk_mb=1000, tmpdir=<TBD>, time=0-00:10:00, qos=standard
+
+
+		module load MultiQC
+		multiqc -n ERR5529436/qc/filtering/filtering_report_ERR5529436.html --no-data-dir ERR5529436/qc/filtering
+		
+Submitted job 9 with external jobid 'Submitted batch job 14018045'.
+[Wed Aug 16 14:00:41 2023]
+Finished job 9.
+24 of 46 steps (52%) done
+[Wed Aug 16 14:11:57 2023]
+Finished job 37.
+25 of 46 steps (54%) done
+Select jobs to execute...
+
+[Wed Aug 16 14:11:57 2023]
+localrule AnnotationPreStandardization:
+    input: ERR5554746/assembly/ERR5554746.original.fasta
+    output: ERR5554746/annotation/ERR5554746.original.gb
+    jobid: 36
+    reason: Missing output files: ERR5554746/annotation/ERR5554746.original.gb; Input files updated by another job: ERR5554746/assembly/ERR5554746.original.fasta
+    wildcards: sample=ERR5554746
+    resources: mem_mb=1000, disk_mb=1000, tmpdir=/tmp, time=0-00:05:00, qos=standard
+
+/home/sjannalda/miniconda3/bin/python3.8 /scratch/sjannalda/projects/PlastidPipelineTesting/.snakemake/scripts/tmpb_o2mfqm.GeSeqAutomation.py
+[Wed Aug 16 14:12:56 2023]
+Finished job 36.
+26 of 46 steps (57%) done
+Select jobs to execute...
+
+[Wed Aug 16 14:12:56 2023]
+rule StandardizationAnnotation:
+    input: ERR5554746/annotation/ERR5554746.original.gb
+    output: ERR5554746/annotation/ERR5554746.standardardized.fasta
+    jobid: 35
+    reason: Missing output files: ERR5554746/annotation/ERR5554746.standardardized.fasta; Input files updated by another job: ERR5554746/annotation/ERR5554746.original.gb
+    wildcards: sample=ERR5554746
+    resources: mem_mb=1000, disk_mb=1000, tmpdir=<TBD>, time=0-0:30:00, qos=standard
+
+Submitted job 35 with external jobid 'Submitted batch job 14018093'.
+[Wed Aug 16 14:13:16 2023]
+Finished job 35.
+27 of 46 steps (59%) done
+Select jobs to execute...
+
+[Wed Aug 16 14:13:16 2023]
+localrule AnnotationPostStandardization:
+    input: ERR5554746/annotation/ERR5554746.standardardized.fasta
+    output: ERR5554746/annotation/ERR5554746.standardardized.gb
+    jobid: 34
+    reason: Missing output files: ERR5554746/annotation/ERR5554746.standardardized.gb; Input files updated by another job: ERR5554746/annotation/ERR5554746.standardardized.fasta
+    wildcards: sample=ERR5554746
+    resources: mem_mb=1000, disk_mb=1000, tmpdir=/tmp, time=0-00:05:00, qos=standard
+
+[Wed Aug 16 14:13:16 2023]
+rule BuildReferenceAnnotationBackmapping:
+    input: ERR5554746/annotation/ERR5554746.standardardized.fasta
+    output: ERR5554746/backmapping/ERR5554746.backmapping.1.bt2
+    log: ERR5554746/qc/backmapping/ERR5554746.bowtie2.reference.log
+    jobid: 46
+    reason: Missing output files: ERR5554746/backmapping/ERR5554746.backmapping.1.bt2; Input files updated by another job: ERR5554746/annotation/ERR5554746.standardardized.fasta
+    wildcards: sample=ERR5554746
+    threads: 4
+    resources: mem_mb=10000, disk_mb=1000, tmpdir=<TBD>, time=0-01:00:00, qos=standard
+
+
+		module load Bowtie2
+		bowtie2-build --threads 4 ERR5554746/annotation/ERR5554746.standardardized.fasta ERR5554746/backmapping/ERR5554746.backmapping 2> ERR5554746/qc/backmapping/ERR5554746.bowtie2.reference.log
+		
+/home/sjannalda/miniconda3/bin/python3.8 /scratch/sjannalda/projects/PlastidPipelineTesting/.snakemake/scripts/tmp21xwhkmw.GeSeqAutomation.py
+Submitted job 46 with external jobid 'Submitted batch job 14018096'.
+[Wed Aug 16 14:13:28 2023]
+Finished job 46.
+28 of 46 steps (61%) done
+Select jobs to execute...
+
+[Wed Aug 16 14:13:28 2023]
+rule Backmapping:
+    input: ERR5554746/backmapping/ERR5554746.backmapping.1.bt2, ERR5554746/data/ERR5554746_1.filt.fastq, ERR5554746/data/ERR5554746_2.filt.fastq
+    output: ERR5554746/backmapping/ERR5554746.backmapping.sam
+    log: ERR5554746/qc/backmapping/ERR5554746.bowtie2.backmapping.log
+    jobid: 45
+    reason: Missing output files: ERR5554746/backmapping/ERR5554746.backmapping.sam; Input files updated by another job: ERR5554746/data/ERR5554746_1.filt.fastq, ERR5554746/backmapping/ERR5554746.backmapping.1.bt2, ERR5554746/data/ERR5554746_2.filt.fastq
+    wildcards: sample=ERR5554746
+    threads: 8
+    resources: mem_mb=10000, disk_mb=3255, tmpdir=<TBD>, time=0-01:00:00, qos=standard
+
+
+		module load Bowtie2
+		bowtie2 --threads 8 -x ERR5554746/backmapping/ERR5554746.backmapping -1 ERR5554746/data/ERR5554746_1.filt.fastq -2 ERR5554746/data/ERR5554746_2.filt.fastq -S ERR5554746/backmapping/ERR5554746.backmapping.sam 2> ERR5554746/qc/backmapping/ERR5554746.bowtie2.backmapping.log
+		
+Submitted job 45 with external jobid 'Submitted batch job 14018098'.
+[Wed Aug 16 14:13:52 2023]
+Finished job 45.
+29 of 46 steps (63%) done
+Select jobs to execute...
+
+[Wed Aug 16 14:13:52 2023]
+rule BackmappingQC:
+    input: ERR5554746/backmapping/ERR5554746.backmapping.sam
+    output: ERR5554746/backmapping/ERR5554746.backmapping.bam, ERR5554746/backmapping/ERR5554746.backmapping.sorted.bam, ERR5554746/qc/backmapping/ERR5554746.backmapping.readcoverage.log
+    jobid: 44
+    reason: Missing output files: ERR5554746/qc/backmapping/ERR5554746.backmapping.readcoverage.log; Input files updated by another job: ERR5554746/backmapping/ERR5554746.backmapping.sam
+    wildcards: sample=ERR5554746
+    resources: mem_mb=10000, disk_mb=3350, tmpdir=<TBD>, time=0-01:00:00, qos=standard
+
+
+		module load SAMtools
+
+		samtools view -bS ERR5554746/backmapping/ERR5554746.backmapping.sam > ERR5554746/backmapping/ERR5554746.backmapping.bam
+		samtools sort ERR5554746/backmapping/ERR5554746.backmapping.bam > ERR5554746/backmapping/ERR5554746.backmapping.sorted.bam
+		samtools coverage ERR5554746/backmapping/ERR5554746.backmapping.sorted.bam > ERR5554746/qc/backmapping/ERR5554746.backmapping.readcoverage.log
+		samtools coverage -A -w 64 ERR5554746/backmapping/ERR5554746.backmapping.sorted.bam >> ERR5554746/qc/backmapping/ERR5554746.backmapping.readcoverage.log
+		
+Submitted job 44 with external jobid 'Submitted batch job 14018111'.
+[Wed Aug 16 14:14:14 2023]
+Finished job 34.
+30 of 46 steps (65%) done
+[Wed Aug 16 14:18:52 2023]
+Finished job 44.
+31 of 46 steps (67%) done
+[Wed Aug 16 14:25:50 2023]
+Finished job 33.
+32 of 46 steps (70%) done
+Select jobs to execute...
+
+[Wed Aug 16 14:25:50 2023]
+localrule AnnotationPreStandardization:
+    input: ERR5529436/assembly/ERR5529436.original.fasta
+    output: ERR5529436/annotation/ERR5529436.original.gb
+    jobid: 32
+    reason: Missing output files: ERR5529436/annotation/ERR5529436.original.gb; Input files updated by another job: ERR5529436/assembly/ERR5529436.original.fasta
+    wildcards: sample=ERR5529436
+    resources: mem_mb=1000, disk_mb=1000, tmpdir=/tmp, time=0-00:05:00, qos=standard
+
+/home/sjannalda/miniconda3/bin/python3.8 /scratch/sjannalda/projects/PlastidPipelineTesting/.snakemake/scripts/tmp84x0vq7o.GeSeqAutomation.py
+[Wed Aug 16 14:26:47 2023]
+Finished job 32.
+33 of 46 steps (72%) done
+Select jobs to execute...
+
+[Wed Aug 16 14:26:47 2023]
+rule StandardizationAnnotation:
+    input: ERR5529436/annotation/ERR5529436.original.gb
+    output: ERR5529436/annotation/ERR5529436.standardardized.fasta
+    jobid: 31
+    reason: Missing output files: ERR5529436/annotation/ERR5529436.standardardized.fasta; Input files updated by another job: ERR5529436/annotation/ERR5529436.original.gb
+    wildcards: sample=ERR5529436
+    resources: mem_mb=1000, disk_mb=1000, tmpdir=<TBD>, time=0-0:30:00, qos=standard
+
+Submitted job 31 with external jobid 'Submitted batch job 14018140'.
+[Wed Aug 16 14:27:03 2023]
+Finished job 31.
+34 of 46 steps (74%) done
+Select jobs to execute...
+
+[Wed Aug 16 14:27:03 2023]
+localrule AnnotationPostStandardization:
+    input: ERR5529436/annotation/ERR5529436.standardardized.fasta
+    output: ERR5529436/annotation/ERR5529436.standardardized.gb
+    jobid: 30
+    reason: Missing output files: ERR5529436/annotation/ERR5529436.standardardized.gb; Input files updated by another job: ERR5529436/annotation/ERR5529436.standardardized.fasta
+    wildcards: sample=ERR5529436
+    resources: mem_mb=1000, disk_mb=1000, tmpdir=/tmp, time=0-00:05:00, qos=standard
+
+[Wed Aug 16 14:27:03 2023]
+rule BuildReferenceAnnotationBackmapping:
+    input: ERR5529436/annotation/ERR5529436.standardardized.fasta
+    output: ERR5529436/backmapping/ERR5529436.backmapping.1.bt2
+    log: ERR5529436/qc/backmapping/ERR5529436.bowtie2.reference.log
+    jobid: 43
+    reason: Missing output files: ERR5529436/backmapping/ERR5529436.backmapping.1.bt2; Input files updated by another job: ERR5529436/annotation/ERR5529436.standardardized.fasta
+    wildcards: sample=ERR5529436
+    threads: 4
+    resources: mem_mb=10000, disk_mb=1000, tmpdir=<TBD>, time=0-01:00:00, qos=standard
+
+
+		module load Bowtie2
+		bowtie2-build --threads 4 ERR5529436/annotation/ERR5529436.standardardized.fasta ERR5529436/backmapping/ERR5529436.backmapping 2> ERR5529436/qc/backmapping/ERR5529436.bowtie2.reference.log
+		
+/home/sjannalda/miniconda3/bin/python3.8 /scratch/sjannalda/projects/PlastidPipelineTesting/.snakemake/scripts/tmp9926xo6s.GeSeqAutomation.py
+Submitted job 43 with external jobid 'Submitted batch job 14018141'.
+[Wed Aug 16 14:27:14 2023]
+Finished job 43.
+35 of 46 steps (76%) done
+Select jobs to execute...
+
+[Wed Aug 16 14:27:14 2023]
+rule Backmapping:
+    input: ERR5529436/backmapping/ERR5529436.backmapping.1.bt2, ERR5529436/data/ERR5529436_1.filt.fastq, ERR5529436/data/ERR5529436_2.filt.fastq
+    output: ERR5529436/backmapping/ERR5529436.backmapping.sam
+    log: ERR5529436/qc/backmapping/ERR5529436.bowtie2.backmapping.log
+    jobid: 42
+    reason: Missing output files: ERR5529436/backmapping/ERR5529436.backmapping.sam; Input files updated by another job: ERR5529436/data/ERR5529436_1.filt.fastq, ERR5529436/data/ERR5529436_2.filt.fastq, ERR5529436/backmapping/ERR5529436.backmapping.1.bt2
+    wildcards: sample=ERR5529436
+    threads: 8
+    resources: mem_mb=10000, disk_mb=3826, tmpdir=<TBD>, time=0-01:00:00, qos=standard
+
+
+		module load Bowtie2
+		bowtie2 --threads 8 -x ERR5529436/backmapping/ERR5529436.backmapping -1 ERR5529436/data/ERR5529436_1.filt.fastq -2 ERR5529436/data/ERR5529436_2.filt.fastq -S ERR5529436/backmapping/ERR5529436.backmapping.sam 2> ERR5529436/qc/backmapping/ERR5529436.bowtie2.backmapping.log
+		
+Submitted job 42 with external jobid 'Submitted batch job 14018143'.
+[Wed Aug 16 14:27:36 2023]
+Finished job 42.
+36 of 46 steps (78%) done
+Select jobs to execute...
+
+[Wed Aug 16 14:27:36 2023]
+rule BackmappingQC:
+    input: ERR5529436/backmapping/ERR5529436.backmapping.sam
+    output: ERR5529436/backmapping/ERR5529436.backmapping.bam, ERR5529436/backmapping/ERR5529436.backmapping.sorted.bam, ERR5529436/qc/backmapping/ERR5529436.backmapping.readcoverage.log
+    jobid: 41
+    reason: Missing output files: ERR5529436/qc/backmapping/ERR5529436.backmapping.readcoverage.log; Input files updated by another job: ERR5529436/backmapping/ERR5529436.backmapping.sam
+    wildcards: sample=ERR5529436
+    resources: mem_mb=10000, disk_mb=3933, tmpdir=<TBD>, time=0-01:00:00, qos=standard
+
+
+		module load SAMtools
+
+		samtools view -bS ERR5529436/backmapping/ERR5529436.backmapping.sam > ERR5529436/backmapping/ERR5529436.backmapping.bam
+		samtools sort ERR5529436/backmapping/ERR5529436.backmapping.bam > ERR5529436/backmapping/ERR5529436.backmapping.sorted.bam
+		samtools coverage ERR5529436/backmapping/ERR5529436.backmapping.sorted.bam > ERR5529436/qc/backmapping/ERR5529436.backmapping.readcoverage.log
+		samtools coverage -A -w 64 ERR5529436/backmapping/ERR5529436.backmapping.sorted.bam >> ERR5529436/qc/backmapping/ERR5529436.backmapping.readcoverage.log
+		
+Submitted job 41 with external jobid 'Submitted batch job 14018144'.
+[Wed Aug 16 14:28:07 2023]
+Finished job 30.
+37 of 46 steps (80%) done
+[Wed Aug 16 14:32:32 2023]
+Finished job 28.
+38 of 46 steps (83%) done
+Select jobs to execute...
+
+[Wed Aug 16 14:32:32 2023]
+localrule AnnotationPreStandardization:
+    input: ERR5529317/assembly/ERR5529317.original.fasta
+    output: ERR5529317/annotation/ERR5529317.original.gb
+    jobid: 27
+    reason: Missing output files: ERR5529317/annotation/ERR5529317.original.gb; Input files updated by another job: ERR5529317/assembly/ERR5529317.original.fasta
+    wildcards: sample=ERR5529317
+    resources: mem_mb=1000, disk_mb=1000, tmpdir=/tmp, time=0-00:05:00, qos=standard
+
+/home/sjannalda/miniconda3/bin/python3.8 /scratch/sjannalda/projects/PlastidPipelineTesting/.snakemake/scripts/tmpqz5zplma.GeSeqAutomation.py
+[Wed Aug 16 14:33:03 2023]
+Finished job 41.
+39 of 46 steps (85%) done
+[Wed Aug 16 14:33:30 2023]
+Finished job 27.
+40 of 46 steps (87%) done
+Select jobs to execute...
+
+[Wed Aug 16 14:33:30 2023]
+rule StandardizationAnnotation:
+    input: ERR5529317/annotation/ERR5529317.original.gb
+    output: ERR5529317/annotation/ERR5529317.standardardized.fasta
+    jobid: 26
+    reason: Missing output files: ERR5529317/annotation/ERR5529317.standardardized.fasta; Input files updated by another job: ERR5529317/annotation/ERR5529317.original.gb
+    wildcards: sample=ERR5529317
+    resources: mem_mb=1000, disk_mb=1000, tmpdir=<TBD>, time=0-0:30:00, qos=standard
+
+Submitted job 26 with external jobid 'Submitted batch job 14018158'.
+[Wed Aug 16 14:33:43 2023]
+Finished job 26.
+41 of 46 steps (89%) done
+Select jobs to execute...
+
+[Wed Aug 16 14:33:43 2023]
+localrule AnnotationPostStandardization:
+    input: ERR5529317/annotation/ERR5529317.standardardized.fasta
+    output: ERR5529317/annotation/ERR5529317.standardardized.gb
+    jobid: 25
+    reason: Missing output files: ERR5529317/annotation/ERR5529317.standardardized.gb; Input files updated by another job: ERR5529317/annotation/ERR5529317.standardardized.fasta
+    wildcards: sample=ERR5529317
+    resources: mem_mb=1000, disk_mb=1000, tmpdir=/tmp, time=0-00:05:00, qos=standard
+
+[Wed Aug 16 14:33:43 2023]
+rule BuildReferenceAnnotationBackmapping:
+    input: ERR5529317/annotation/ERR5529317.standardardized.fasta
+    output: ERR5529317/backmapping/ERR5529317.backmapping.1.bt2
+    log: ERR5529317/qc/backmapping/ERR5529317.bowtie2.reference.log
+    jobid: 40
+    reason: Missing output files: ERR5529317/backmapping/ERR5529317.backmapping.1.bt2; Input files updated by another job: ERR5529317/annotation/ERR5529317.standardardized.fasta
+    wildcards: sample=ERR5529317
+    threads: 4
+    resources: mem_mb=10000, disk_mb=1000, tmpdir=<TBD>, time=0-01:00:00, qos=standard
+
+
+		module load Bowtie2
+		bowtie2-build --threads 4 ERR5529317/annotation/ERR5529317.standardardized.fasta ERR5529317/backmapping/ERR5529317.backmapping 2> ERR5529317/qc/backmapping/ERR5529317.bowtie2.reference.log
+		
+/home/sjannalda/miniconda3/bin/python3.8 /scratch/sjannalda/projects/PlastidPipelineTesting/.snakemake/scripts/tmp21al2eh7.GeSeqAutomation.py
+Submitted job 40 with external jobid 'Submitted batch job 14018159'.
+[Wed Aug 16 14:33:53 2023]
+Finished job 40.
+42 of 46 steps (91%) done
+Select jobs to execute...
+
+[Wed Aug 16 14:33:53 2023]
+rule Backmapping:
+    input: ERR5529317/backmapping/ERR5529317.backmapping.1.bt2, ERR5529317/data/ERR5529317_1.filt.fastq, ERR5529317/data/ERR5529317_2.filt.fastq
+    output: ERR5529317/backmapping/ERR5529317.backmapping.sam
+    log: ERR5529317/qc/backmapping/ERR5529317.bowtie2.backmapping.log
+    jobid: 39
+    reason: Missing output files: ERR5529317/backmapping/ERR5529317.backmapping.sam; Input files updated by another job: ERR5529317/data/ERR5529317_1.filt.fastq, ERR5529317/backmapping/ERR5529317.backmapping.1.bt2, ERR5529317/data/ERR5529317_2.filt.fastq
+    wildcards: sample=ERR5529317
+    threads: 8
+    resources: mem_mb=10000, disk_mb=3663, tmpdir=<TBD>, time=0-01:00:00, qos=standard
+
+
+		module load Bowtie2
+		bowtie2 --threads 8 -x ERR5529317/backmapping/ERR5529317.backmapping -1 ERR5529317/data/ERR5529317_1.filt.fastq -2 ERR5529317/data/ERR5529317_2.filt.fastq -S ERR5529317/backmapping/ERR5529317.backmapping.sam 2> ERR5529317/qc/backmapping/ERR5529317.bowtie2.backmapping.log
+		
+Submitted job 39 with external jobid 'Submitted batch job 14018160'.
+[Wed Aug 16 14:34:23 2023]
+Finished job 39.
+43 of 46 steps (93%) done
+Select jobs to execute...
+
+[Wed Aug 16 14:34:23 2023]
+rule BackmappingQC:
+    input: ERR5529317/backmapping/ERR5529317.backmapping.sam
+    output: ERR5529317/backmapping/ERR5529317.backmapping.bam, ERR5529317/backmapping/ERR5529317.backmapping.sorted.bam, ERR5529317/qc/backmapping/ERR5529317.backmapping.readcoverage.log
+    jobid: 38
+    reason: Missing output files: ERR5529317/qc/backmapping/ERR5529317.backmapping.readcoverage.log; Input files updated by another job: ERR5529317/backmapping/ERR5529317.backmapping.sam
+    wildcards: sample=ERR5529317
+    resources: mem_mb=10000, disk_mb=3746, tmpdir=<TBD>, time=0-01:00:00, qos=standard
+
+
+		module load SAMtools
+
+		samtools view -bS ERR5529317/backmapping/ERR5529317.backmapping.sam > ERR5529317/backmapping/ERR5529317.backmapping.bam
+		samtools sort ERR5529317/backmapping/ERR5529317.backmapping.bam > ERR5529317/backmapping/ERR5529317.backmapping.sorted.bam
+		samtools coverage ERR5529317/backmapping/ERR5529317.backmapping.sorted.bam > ERR5529317/qc/backmapping/ERR5529317.backmapping.readcoverage.log
+		samtools coverage -A -w 64 ERR5529317/backmapping/ERR5529317.backmapping.sorted.bam >> ERR5529317/qc/backmapping/ERR5529317.backmapping.readcoverage.log
+		
+Submitted job 38 with external jobid 'Submitted batch job 14018210'.
+[Wed Aug 16 14:34:46 2023]
+Finished job 25.
+44 of 46 steps (96%) done
+[Wed Aug 16 14:40:14 2023]
+Finished job 38.
+45 of 46 steps (98%) done
+Select jobs to execute...
+
+[Wed Aug 16 14:40:14 2023]
+localrule all:
+    input: ERR5529317/qc/filtering/filtering_report_ERR5529317.html, ERR5529436/qc/filtering/filtering_report_ERR5529436.html, ERR5554746/qc/filtering/filtering_report_ERR5554746.html, ERR5529317/annotation/ERR5529317.standardardized.gb, ERR5529436/annotation/ERR5529436.standardardized.gb, ERR5554746/annotation/ERR5554746.standardardized.gb, ERR5529317/annotation/ERR5529317.standardardized.fasta, ERR5529436/annotation/ERR5529436.standardardized.fasta, ERR5554746/annotation/ERR5554746.standardardized.fasta, ERR5529317/qc/backmapping/ERR5529317.backmapping.readcoverage.log, ERR5529436/qc/backmapping/ERR5529436.backmapping.readcoverage.log, ERR5554746/qc/backmapping/ERR5554746.backmapping.readcoverage.log
+    jobid: 0
+    reason: Input files updated by another job: ERR5554746/annotation/ERR5554746.standardardized.gb, ERR5554746/qc/backmapping/ERR5554746.backmapping.readcoverage.log, ERR5529317/qc/filtering/filtering_report_ERR5529317.html, ERR5529317/qc/backmapping/ERR5529317.backmapping.readcoverage.log, ERR5529317/annotation/ERR5529317.standardardized.fasta, ERR5554746/qc/filtering/filtering_report_ERR5554746.html, ERR5529317/annotation/ERR5529317.standardardized.gb, ERR5554746/annotation/ERR5554746.standardardized.fasta, ERR5529436/qc/filtering/filtering_report_ERR5529436.html, ERR5529436/annotation/ERR5529436.standardardized.gb, ERR5529436/annotation/ERR5529436.standardardized.fasta, ERR5529436/qc/backmapping/ERR5529436.backmapping.readcoverage.log
+    resources: mem_mb=1000, disk_mb=1000, tmpdir=/tmp, time=0-00:05:00, qos=standard
+
+[Wed Aug 16 14:40:14 2023]
+Finished job 0.
+46 of 46 steps (100%) done
+Complete log: ../../../../home/sjannalda/bgbm/projects/PlastidPipeline/.snakemake/log/2023-08-16T134849.150965.snakemake.log

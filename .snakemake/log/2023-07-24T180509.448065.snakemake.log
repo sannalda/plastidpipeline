@@ -1,0 +1,61 @@
+Building DAG of jobs...
+Using shell: /usr/bin/bash
+Provided cluster nodes: 500
+Job stats:
+job                             count    min threads    max threads
+----------------------------  -------  -------------  -------------
+AnnotationPreStandardization        1              1              1
+Assembly                            1              8              8
+all                                 1              1              1
+total                               3              1              8
+
+Select jobs to execute...
+
+[Mon Jul 24 18:05:11 2023]
+rule Assembly:
+    input: database/SeedDatabase/embplant_pt.fasta, database/SeedDatabase/embplant_mt.fasta, data/AM0909_1.filt.fastq, data/AM0909_2.filt.fastq
+    output: assembly/embplant_pt.K105.complete.graph1.1.path_sequence.fasta
+    jobid: 12
+    reason: Missing output files: assembly/embplant_pt.K105.complete.graph1.1.path_sequence.fasta
+    threads: 8
+    resources: mem_mb=10000, disk_mb=34327, tmpdir=<TBD>, time=0-3:00:00, qos=standard
+
+
+		module load Bowtie2
+		module load BLAST+
+		module load SPAdes
+		mkdir -p assembly
+		get_organelle_from_reads.py -1 data/AM0909_1.filt.fastq -2 data/AM0909_2.filt.fastq -o assembly -R 30 -k 21,45,65,85,105 -P 1000000 -F embplant_pt --config-dir database -t 8 --overwrite
+		
+Submitted job 12 with external jobid 'Submitted batch job 13737726'.
+[Mon Jul 24 18:50:44 2023]
+Finished job 12.
+1 of 3 steps (33%) done
+Select jobs to execute...
+
+[Mon Jul 24 18:50:44 2023]
+localrule AnnotationPreStandardization:
+    input: assembly/embplant_pt.K105.complete.graph1.1.path_sequence.fasta
+    output: cool.txt
+    jobid: 11
+    reason: Missing output files: cool.txt; Input files updated by another job: assembly/embplant_pt.K105.complete.graph1.1.path_sequence.fasta
+    resources: mem_mb=5000, disk_mb=1000, tmpdir=/localscratch/tmp/sjannalda/tmp.13730580.0, time=0-1:00:00, qos=standard
+
+
+		python scripts/GeSeqAutomation.py
+		echo "hi" > cool.txt
+		
+[Mon Jul 24 18:50:44 2023]
+Error in rule AnnotationPreStandardization:
+    jobid: 11
+    input: assembly/embplant_pt.K105.complete.graph1.1.path_sequence.fasta
+    output: cool.txt
+    shell:
+        
+		python scripts/GeSeqAutomation.py
+		echo "hi" > cool.txt
+		
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+
+Exiting because a job execution failed. Look above for error message
+Complete log: ../../../../home/sjannalda/bgbm/projects/PlastidPipeline/.snakemake/log/2023-07-24T180509.448065.snakemake.log

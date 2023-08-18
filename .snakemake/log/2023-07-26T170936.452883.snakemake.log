@@ -1,0 +1,35 @@
+Building DAG of jobs...
+Using shell: /usr/bin/bash
+Provided cluster nodes: 500
+Job stats:
+job                              count    min threads    max threads
+-----------------------------  -------  -------------  -------------
+AnnotationPostStandardization        1              1              1
+all                                  1              1              1
+total                                2              1              1
+
+Select jobs to execute...
+
+[Wed Jul 26 17:09:37 2023]
+localrule AnnotationPostStandardization:
+    input: annotation/AM0909.standardardized.fasta
+    output: annotation/AM0909.standardardized.gb
+    jobid: 11
+    reason: Missing output files: annotation/AM0909.standardardized.gb
+    wildcards: sample=AM0909
+    resources: mem_mb=1000, disk_mb=1000, tmpdir=/tmp, time=0-00:05:00, qos=standard
+
+/home/sjannalda/miniconda3/bin/python3.8 /scratch/sjannalda/projects/PlastidPipelineTesting/.snakemake/scripts/tmpt10olead.GeSeqAutomation.py
+[Wed Jul 26 17:09:38 2023]
+Error in rule AnnotationPostStandardization:
+    jobid: 11
+    input: annotation/AM0909.standardardized.fasta
+    output: annotation/AM0909.standardardized.gb
+
+RuleException:
+CalledProcessError in line 26 of /home/sjannalda/bgbm/projects/PlastidPipeline/workflow/rules/Annotation.smk:
+Command 'set -euo pipefail;  /home/sjannalda/miniconda3/bin/python3.8 /scratch/sjannalda/projects/PlastidPipelineTesting/.snakemake/scripts/tmpt10olead.GeSeqAutomation.py' returned non-zero exit status 1.
+  File "/home/sjannalda/bgbm/projects/PlastidPipeline/workflow/rules/Annotation.smk", line 26, in __rule_AnnotationPostStandardization
+  File "/home/sjannalda/miniconda3/lib/python3.8/concurrent/futures/thread.py", line 57, in run
+Exiting because a job execution failed. Look above for error message
+Complete log: ../../../../home/sjannalda/bgbm/projects/PlastidPipeline/.snakemake/log/2023-07-26T170936.452883.snakemake.log

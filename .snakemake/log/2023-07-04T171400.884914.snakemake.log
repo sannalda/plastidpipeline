@@ -1,0 +1,2 @@
+SyntaxError in line 17 of /home/sjannalda/bgbm/projects/PlastidPipeline/workflow/Snakefile:
+Unexpected keyword resource in rule definition (Snakefile, line 17)

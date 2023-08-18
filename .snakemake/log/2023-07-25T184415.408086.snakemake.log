@@ -1,0 +1,4 @@
+NameError in line 24 of /home/sjannalda/bgbm/projects/PlastidPipeline/workflow/rules/Assembly.smk:
+name 'glob' is not defined
+  File "/home/sjannalda/bgbm/projects/PlastidPipeline/workflow/Snakefile", line 19, in <module>
+  File "/home/sjannalda/bgbm/projects/PlastidPipeline/workflow/rules/Assembly.smk", line 24, in <module>

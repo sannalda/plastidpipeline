@@ -1,0 +1,80 @@
+Building DAG of jobs...
+Using shell: /usr/bin/bash
+Provided cluster nodes: 500
+Job stats:
+job                                    count    min threads    max threads
+-----------------------------------  -------  -------------  -------------
+AnnotationPostStandardization              1              1              1
+AnnotationPreStandardization               1              1              1
+Assembly                                   1             16             16
+AssemblyConfig                             1              1              1
+Backmapping                                1              8              8
+BuildReferenceAnnotationBackmapping        1              4              4
+StandardizationAnnotation                  1              1              1
+all                                        1              1              1
+total                                      8              1             16
+
+Select jobs to execute...
+
+[Tue Aug  1 13:45:04 2023]
+rule AssemblyConfig:
+    output: database/SeedDatabase/embplant_pt.fasta, database/SeedDatabase/embplant_mt.fasta
+    jobid: 19
+    reason: Missing output files: database/SeedDatabase/embplant_pt.fasta
+    resources: mem_mb=10000, disk_mb=1000, tmpdir=<TBD>, time=0-01:00:00, qos=standard
+
+
+		module load Bowtie2
+		module load BLAST+
+		mkdir -p database
+		get_organelle_config.py -a embplant_pt,embplant_mt --config-dir database
+		
+Submitted job 19 with external jobid 'Submitted batch job 13890689'.
+[Tue Aug  1 13:45:44 2023]
+Finished job 19.
+1 of 8 steps (12%) done
+Select jobs to execute...
+
+[Tue Aug  1 13:45:44 2023]
+rule Assembly:
+    input: database/SeedDatabase/embplant_pt.fasta, SRR17032105/data/SRR17032105_1.filt.fastq, SRR17032105/data/SRR17032105_2.filt.fastq
+    output: SRR17032105/assembly/SRR17032105.original.fasta
+    jobid: 18
+    reason: Missing output files: SRR17032105/assembly/SRR17032105.original.fasta; Input files updated by another job: database/SeedDatabase/embplant_pt.fasta
+    wildcards: sample=SRR17032105
+    threads: 16
+    resources: mem_mb=10000, disk_mb=4978, tmpdir=<TBD>, time=0-3:00:00, qos=standard
+
+
+		module load Bowtie2
+		module load BLAST+
+		module load SPAdes
+		get_organelle_from_reads.py -1 SRR17032105/data/SRR17032105_1.filt.fastq -2 SRR17032105/data/SRR17032105_2.filt.fastq \
+			-o SRR17032105/assembly -R 30 -k 21,45,65,85,105 -P 1000000 \
+			-F embplant_pt --config-dir database\
+			-t 16 --prefix SRR17032105 --overwrite
+		scp assembly/*.complete.graph1.1.path_sequence.fasta SRR17032105/assembly/SRR17032105.original.fasta
+		
+Submitted job 18 with external jobid 'Submitted batch job 13890690'.
+[Tue Aug  1 14:26:29 2023]
+Error in rule Assembly:
+    jobid: 18
+    input: database/SeedDatabase/embplant_pt.fasta, SRR17032105/data/SRR17032105_1.filt.fastq, SRR17032105/data/SRR17032105_2.filt.fastq
+    output: SRR17032105/assembly/SRR17032105.original.fasta
+    shell:
+        
+		module load Bowtie2
+		module load BLAST+
+		module load SPAdes
+		get_organelle_from_reads.py -1 SRR17032105/data/SRR17032105_1.filt.fastq -2 SRR17032105/data/SRR17032105_2.filt.fastq \
+			-o SRR17032105/assembly -R 30 -k 21,45,65,85,105 -P 1000000 \
+			-F embplant_pt --config-dir database\
+			-t 16 --prefix SRR17032105 --overwrite
+		scp assembly/*.complete.graph1.1.path_sequence.fasta SRR17032105/assembly/SRR17032105.original.fasta
+		
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+    cluster_jobid: Submitted batch job 13890690
+
+Error executing rule Assembly on cluster (jobid: 18, external: Submitted batch job 13890690, jobscript: /scratch/sjannalda/projects/PlastidPipelineTesting/.snakemake/tmp.ugus576s/snakejob.Assembly.18.sh). For error details see the cluster log and the log files of the involved rule(s).
+Exiting because a job execution failed. Look above for error message
+Complete log: ../../../../home/sjannalda/bgbm/projects/PlastidPipeline/.snakemake/log/2023-08-01T134452.959979.snakemake.log

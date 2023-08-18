@@ -1,0 +1,23 @@
+Building DAG of jobs...
+Using shell: /usr/bin/bash
+Provided cores: 1 (use --cores to define parallelism)
+Rules claiming more threads will be scaled down.
+Job stats:
+job                count    min threads    max threads
+---------------  -------  -------------  -------------
+StartQC_fastqc         2              1              1
+StartQC_multiqc        1              1              1
+all                    1              1              1
+total                  4              1              1
+
+Select jobs to execute...
+
+[Wed Jul  5 17:21:15 2023]
+rule StartQC_fastqc:
+    input: data/AM0909_1.fastq
+    output: qc/start/AM0909_1.html
+    jobid: 2
+    reason: Missing output files: qc/start/AM0909_1.html
+    wildcards: sample=AM0909, read=1
+    resources: tmpdir=/scratch/tmp/sjannalda/tmp.13561156.0, mem_mb=5000, time=0-00:30:00
+

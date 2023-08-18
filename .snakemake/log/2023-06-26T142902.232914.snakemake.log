@@ -1,0 +1,36 @@
+Building DAG of jobs...
+Using shell: /usr/bin/bash
+Provided cores: 1 (use --cores to define parallelism)
+Rules claiming more threads will be scaled down.
+Job stats:
+job               count    min threads    max threads
+--------------  -------  -------------  -------------
+Assembly              1              1              1
+AssemblyConfig        1              1              1
+all                   1              1              1
+total                 3              1              1
+
+Select jobs to execute...
+
+[Mon Jun 26 14:29:03 2023]
+rule AssemblyConfig:
+    output: database/SeedDatabase/embplant_pt.fasta, database/SeedDatabase/embplant_mt.fasta
+    jobid: 2
+    reason: Missing output files: database/SeedDatabase/embplant_mt.fasta, database/SeedDatabase/embplant_pt.fasta
+    resources: tmpdir=/localscratch/tmp/sjannalda/tmp.13492482.0, mem_mb=10000, time=0-01:00:00
+
+[Mon Jun 26 14:29:41 2023]
+Finished job 2.
+1 of 3 steps (33%) done
+Select jobs to execute...
+
+[Mon Jun 26 14:29:41 2023]
+rule Assembly:
+    input: database/SeedDatabase/embplant_pt.fasta, database/SeedDatabase/embplant_mt.fasta, data/AM0909_1.filt.fastq, data/AM0909_2.filt.fastq
+    output: assembly/embplant_pt.K105.complete.graph1.1.path_sequence.fasta
+    jobid: 1
+    reason: Missing output files: assembly/embplant_pt.K105.complete.graph1.1.path_sequence.fasta; Input files updated by another job: database/SeedDatabase/embplant_mt.fasta, database/SeedDatabase/embplant_pt.fasta
+    resources: tmpdir=/localscratch/tmp/sjannalda/tmp.13492482.0, mem_mb=10000, time=0-3:00:00
+
+Terminating processes on user request, this might take some time.
+Cancelling snakemake on user request.

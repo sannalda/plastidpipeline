@@ -1,0 +1,2 @@
+SyntaxError in line 63 of /home/sjannalda/bgbm/projects/PlastidPipeline/workflow/Snakefile:
+positional argument follows keyword argument

@@ -1,0 +1,416 @@
+Building DAG of jobs...
+Using shell: /usr/bin/bash
+Provided cluster nodes: 500
+Job stats:
+job                                    count    min threads    max threads
+-----------------------------------  -------  -------------  -------------
+AnnotationPostStandardization              2              1              1
+AnnotationPreStandardization               2              1              1
+Assembly                                   2              8              8
+Backmapping                                2              8              8
+BuildReferenceAnnotationBackmapping        2              4              4
+FilteringQC_fastqc                         4              1              1
+FilteringQC_multiqc                        2              1              1
+FilteringReads                             4              1              1
+SortReads                                  4              1              1
+StandardizationAnnotation                  2              1              1
+StartQC_fastqc                             4              1              1
+StartQC_multiqc                            2              1              1
+TrimReads                                  2              1              1
+TrimmingQC_fastqc                          4              1              1
+TrimmingQC_multiqc                         2              1              1
+all                                        1              1              1
+total                                     41              1              8
+
+Select jobs to execute...
+
+[Tue Aug  1 17:22:59 2023]
+rule TrimReads:
+    input: /scratch/sjannalda/projects/Am21/run1/data/AM2134_1.fastq, /scratch/sjannalda/projects/Am21/run1/data/AM2134_2.fastq
+    output: Am21/data/Am21_1.trimmed.fastq, Am21/data/Am21_2.trimmed.fastq, Am21/data/Am21_U1.trimmed.fastq, Am21/data/Am21_U2.trimmed.fastq
+    jobid: 13
+    reason: Missing output files: Am21/data/Am21_1.trimmed.fastq, Am21/data/Am21_2.trimmed.fastq
+    wildcards: sample=Am21
+    resources: mem_mb=5000, disk_mb=26151, tmpdir=<TBD>, time=0-02:00:00, qos=standard
+
+
+		module load Trimmomatic
+		java -jar $EBROOTTRIMMOMATIC/trimmomatic-0.39.jar PE -phred33 /scratch/sjannalda/projects/Am21/run1/data/AM2134_1.fastq /scratch/sjannalda/projects/Am21/run1/data/AM2134_2.fastq Am21/data/Am21_1.trimmed.fastq Am21/data/Am21_U1.trimmed.fastq Am21/data/Am21_2.trimmed.fastq Am21/data/Am21_U2.trimmed.fastq ILLUMINACLIP:$EBROOTTRIMMOMATIC/adapters/TruSeq3-PE-2.fa:2:30:10 LEADING:20 TRAILING:20 SLIDINGWINDOW:5:20 MINLEN:36
+		
+Submitted job 13 with external jobid 'Submitted batch job 13894150'.
+
+[Tue Aug  1 17:22:59 2023]
+rule StartQC_fastqc:
+    input: /scratch/sjannalda/projects/Am21/run1/data/AM2134_1.fastq
+    output: Am21/qc/start/Am21_1.fastqc.html
+    jobid: 5
+    reason: Missing output files: Am21/qc/start/Am21_1.fastqc.html
+    wildcards: sample=Am21, read=1
+    resources: mem_mb=5000, disk_mb=13076, tmpdir=<TBD>, time=0-00:30:00, qos=standard
+
+
+		module load FastQC/0.11.9-Java-11
+
+		mkdir -p Am21/qc
+		mkdir -p Am21/qc/start
+		fastqc -o Am21/qc/start /scratch/sjannalda/projects/Am21/run1/data/AM2134_1.fastq 
+		mv Am21/qc/start/Am21_1_fastqc.html Am21/qc/start/Am21_1.fastqc.html
+		
+Submitted job 5 with external jobid 'Submitted batch job 13894151'.
+
+[Tue Aug  1 17:23:00 2023]
+rule StartQC_fastqc:
+    input: /scratch/sjannalda/projects/Am09/run1/data/AM0909_1.fastq
+    output: Am09/qc/start/Am09_1.fastqc.html
+    jobid: 2
+    reason: Missing output files: Am09/qc/start/Am09_1.fastqc.html
+    wildcards: sample=Am09, read=1
+    resources: mem_mb=5000, disk_mb=16336, tmpdir=<TBD>, time=0-00:30:00, qos=standard
+
+
+		module load FastQC/0.11.9-Java-11
+
+		mkdir -p Am09/qc
+		mkdir -p Am09/qc/start
+		fastqc -o Am09/qc/start /scratch/sjannalda/projects/Am09/run1/data/AM0909_1.fastq 
+		mv Am09/qc/start/Am09_1_fastqc.html Am09/qc/start/Am09_1.fastqc.html
+		
+Submitted job 2 with external jobid 'Submitted batch job 13894152'.
+
+[Tue Aug  1 17:23:00 2023]
+rule TrimReads:
+    input: /scratch/sjannalda/projects/Am09/run1/data/AM0909_1.fastq, /scratch/sjannalda/projects/Am09/run1/data/AM0909_2.fastq
+    output: Am09/data/Am09_1.trimmed.fastq, Am09/data/Am09_2.trimmed.fastq, Am09/data/Am09_U1.trimmed.fastq, Am09/data/Am09_U2.trimmed.fastq
+    jobid: 9
+    reason: Missing output files: Am09/data/Am09_1.trimmed.fastq, Am09/data/Am09_2.trimmed.fastq
+    wildcards: sample=Am09
+    resources: mem_mb=5000, disk_mb=32672, tmpdir=<TBD>, time=0-02:00:00, qos=standard
+
+
+		module load Trimmomatic
+		java -jar $EBROOTTRIMMOMATIC/trimmomatic-0.39.jar PE -phred33 /scratch/sjannalda/projects/Am09/run1/data/AM0909_1.fastq /scratch/sjannalda/projects/Am09/run1/data/AM0909_2.fastq Am09/data/Am09_1.trimmed.fastq Am09/data/Am09_U1.trimmed.fastq Am09/data/Am09_2.trimmed.fastq Am09/data/Am09_U2.trimmed.fastq ILLUMINACLIP:$EBROOTTRIMMOMATIC/adapters/TruSeq3-PE-2.fa:2:30:10 LEADING:20 TRAILING:20 SLIDINGWINDOW:5:20 MINLEN:36
+		
+Submitted job 9 with external jobid 'Submitted batch job 13894153'.
+
+[Tue Aug  1 17:23:01 2023]
+rule StartQC_fastqc:
+    input: /scratch/sjannalda/projects/Am09/run1/data/AM0909_2.fastq
+    output: Am09/qc/start/Am09_2.fastqc.html
+    jobid: 3
+    reason: Missing output files: Am09/qc/start/Am09_2.fastqc.html
+    wildcards: sample=Am09, read=2
+    resources: mem_mb=5000, disk_mb=16336, tmpdir=<TBD>, time=0-00:30:00, qos=standard
+
+
+		module load FastQC/0.11.9-Java-11
+
+		mkdir -p Am09/qc
+		mkdir -p Am09/qc/start
+		fastqc -o Am09/qc/start /scratch/sjannalda/projects/Am09/run1/data/AM0909_2.fastq 
+		mv Am09/qc/start/Am09_2_fastqc.html Am09/qc/start/Am09_2.fastqc.html
+		
+Submitted job 3 with external jobid 'Submitted batch job 13894154'.
+
+[Tue Aug  1 17:23:01 2023]
+rule StartQC_fastqc:
+    input: /scratch/sjannalda/projects/Am21/run1/data/AM2134_2.fastq
+    output: Am21/qc/start/Am21_2.fastqc.html
+    jobid: 6
+    reason: Missing output files: Am21/qc/start/Am21_2.fastqc.html
+    wildcards: sample=Am21, read=2
+    resources: mem_mb=5000, disk_mb=13076, tmpdir=<TBD>, time=0-00:30:00, qos=standard
+
+
+		module load FastQC/0.11.9-Java-11
+
+		mkdir -p Am21/qc
+		mkdir -p Am21/qc/start
+		fastqc -o Am21/qc/start /scratch/sjannalda/projects/Am21/run1/data/AM2134_2.fastq 
+		mv Am21/qc/start/Am21_2_fastqc.html Am21/qc/start/Am21_2.fastqc.html
+		
+Submitted job 6 with external jobid 'Submitted batch job 13894155'.
+[Tue Aug  1 17:26:10 2023]
+Error in rule StartQC_fastqc:
+    jobid: 5
+    input: /scratch/sjannalda/projects/Am21/run1/data/AM2134_1.fastq
+    output: Am21/qc/start/Am21_1.fastqc.html
+    shell:
+        
+		module load FastQC/0.11.9-Java-11
+
+		mkdir -p Am21/qc
+		mkdir -p Am21/qc/start
+		fastqc -o Am21/qc/start /scratch/sjannalda/projects/Am21/run1/data/AM2134_1.fastq 
+		mv Am21/qc/start/Am21_1_fastqc.html Am21/qc/start/Am21_1.fastqc.html
+		
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+    cluster_jobid: Submitted batch job 13894151
+
+Error executing rule StartQC_fastqc on cluster (jobid: 5, external: Submitted batch job 13894151, jobscript: /scratch/sjannalda/projects/PlastidPipelineTesting/.snakemake/tmp.o2ncat14/snakejob.StartQC_fastqc.5.sh). For error details see the cluster log and the log files of the involved rule(s).
+[Tue Aug  1 17:26:14 2023]
+Error in rule StartQC_fastqc:
+    jobid: 6
+    input: /scratch/sjannalda/projects/Am21/run1/data/AM2134_2.fastq
+    output: Am21/qc/start/Am21_2.fastqc.html
+    shell:
+        
+		module load FastQC/0.11.9-Java-11
+
+		mkdir -p Am21/qc
+		mkdir -p Am21/qc/start
+		fastqc -o Am21/qc/start /scratch/sjannalda/projects/Am21/run1/data/AM2134_2.fastq 
+		mv Am21/qc/start/Am21_2_fastqc.html Am21/qc/start/Am21_2.fastqc.html
+		
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+    cluster_jobid: Submitted batch job 13894155
+
+Error executing rule StartQC_fastqc on cluster (jobid: 6, external: Submitted batch job 13894155, jobscript: /scratch/sjannalda/projects/PlastidPipelineTesting/.snakemake/tmp.o2ncat14/snakejob.StartQC_fastqc.6.sh). For error details see the cluster log and the log files of the involved rule(s).
+[Tue Aug  1 17:26:40 2023]
+Error in rule StartQC_fastqc:
+    jobid: 3
+    input: /scratch/sjannalda/projects/Am09/run1/data/AM0909_2.fastq
+    output: Am09/qc/start/Am09_2.fastqc.html
+    shell:
+        
+		module load FastQC/0.11.9-Java-11
+
+		mkdir -p Am09/qc
+		mkdir -p Am09/qc/start
+		fastqc -o Am09/qc/start /scratch/sjannalda/projects/Am09/run1/data/AM0909_2.fastq 
+		mv Am09/qc/start/Am09_2_fastqc.html Am09/qc/start/Am09_2.fastqc.html
+		
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+    cluster_jobid: Submitted batch job 13894154
+
+Error executing rule StartQC_fastqc on cluster (jobid: 3, external: Submitted batch job 13894154, jobscript: /scratch/sjannalda/projects/PlastidPipelineTesting/.snakemake/tmp.o2ncat14/snakejob.StartQC_fastqc.3.sh). For error details see the cluster log and the log files of the involved rule(s).
+[Tue Aug  1 17:26:51 2023]
+Error in rule StartQC_fastqc:
+    jobid: 2
+    input: /scratch/sjannalda/projects/Am09/run1/data/AM0909_1.fastq
+    output: Am09/qc/start/Am09_1.fastqc.html
+    shell:
+        
+		module load FastQC/0.11.9-Java-11
+
+		mkdir -p Am09/qc
+		mkdir -p Am09/qc/start
+		fastqc -o Am09/qc/start /scratch/sjannalda/projects/Am09/run1/data/AM0909_1.fastq 
+		mv Am09/qc/start/Am09_1_fastqc.html Am09/qc/start/Am09_1.fastqc.html
+		
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+    cluster_jobid: Submitted batch job 13894152
+
+Error executing rule StartQC_fastqc on cluster (jobid: 2, external: Submitted batch job 13894152, jobscript: /scratch/sjannalda/projects/PlastidPipelineTesting/.snakemake/tmp.o2ncat14/snakejob.StartQC_fastqc.2.sh). For error details see the cluster log and the log files of the involved rule(s).
+[Tue Aug  1 17:35:40 2023]
+Finished job 13.
+1 of 41 steps (2%) done
+Select jobs to execute...
+
+[Tue Aug  1 17:35:40 2023]
+rule SortReads:
+    input: Am21/data/Am21_1.trimmed.fastq
+    output: Am21/data/Am21_1.sorted.fastq
+    jobid: 25
+    reason: Missing output files: Am21/data/Am21_1.sorted.fastq; Input files updated by another job: Am21/data/Am21_1.trimmed.fastq
+    wildcards: sample=Am21, read=1
+    resources: mem_mb=5000, disk_mb=11950, tmpdir=<TBD>, time=0-01:00:00, qos=standard
+
+
+		module load bioawk
+		bioawk -c fastx '{print}' Am21/data/Am21_1.trimmed.fastq | sort | awk -F'\t' '{print "@"$1;print $2;print "+"$1;print $3}' > Am21/data/Am21_1.sorted.fastq
+		
+Submitted job 25 with external jobid 'Submitted batch job 13894175'.
+
+[Tue Aug  1 17:35:40 2023]
+rule TrimmingQC_fastqc:
+    input: Am21/data/Am21_1.trimmed.fastq
+    output: Am21/qc/trimming/Am21_1.trimmed.fastqc.html
+    jobid: 12
+    reason: Missing output files: Am21/qc/trimming/Am21_1.trimmed.fastqc.html; Input files updated by another job: Am21/data/Am21_1.trimmed.fastq
+    wildcards: sample=Am21, read=1
+    resources: mem_mb=5000, disk_mb=11950, tmpdir=<TBD>, time=0-00:30:00, qos=standard
+
+
+		module load FastQC/0.11.9-Java-11
+
+		mkdir -p Am21/qc
+		mkdir -p Am21/qc/trimming
+		fastqc -o Am21/qc/trimming Am21/data/Am21_1.trimmed.fastq 
+		mv Am21/qc/trimming/Am21_1.trimmed_fastqc.html Am21/qc/trimming/Am21_1.trimmed.fastqc.html
+		
+Submitted job 12 with external jobid 'Submitted batch job 13894176'.
+
+[Tue Aug  1 17:35:40 2023]
+rule TrimmingQC_fastqc:
+    input: Am21/data/Am21_2.trimmed.fastq
+    output: Am21/qc/trimming/Am21_2.trimmed.fastqc.html
+    jobid: 14
+    reason: Missing output files: Am21/qc/trimming/Am21_2.trimmed.fastqc.html; Input files updated by another job: Am21/data/Am21_2.trimmed.fastq
+    wildcards: sample=Am21, read=2
+    resources: mem_mb=5000, disk_mb=11350, tmpdir=<TBD>, time=0-00:30:00, qos=standard
+
+
+		module load FastQC/0.11.9-Java-11
+
+		mkdir -p Am21/qc
+		mkdir -p Am21/qc/trimming
+		fastqc -o Am21/qc/trimming Am21/data/Am21_2.trimmed.fastq 
+		mv Am21/qc/trimming/Am21_2.trimmed_fastqc.html Am21/qc/trimming/Am21_2.trimmed.fastqc.html
+		
+Submitted job 14 with external jobid 'Submitted batch job 13894177'.
+
+[Tue Aug  1 17:35:41 2023]
+rule SortReads:
+    input: Am21/data/Am21_2.trimmed.fastq
+    output: Am21/data/Am21_2.sorted.fastq
+    jobid: 28
+    reason: Missing output files: Am21/data/Am21_2.sorted.fastq; Input files updated by another job: Am21/data/Am21_2.trimmed.fastq
+    wildcards: sample=Am21, read=2
+    resources: mem_mb=5000, disk_mb=11350, tmpdir=<TBD>, time=0-01:00:00, qos=standard
+
+
+		module load bioawk
+		bioawk -c fastx '{print}' Am21/data/Am21_2.trimmed.fastq | sort | awk -F'\t' '{print "@"$1;print $2;print "+"$1;print $3}' > Am21/data/Am21_2.sorted.fastq
+		
+Submitted job 28 with external jobid 'Submitted batch job 13894178'.
+[Tue Aug  1 17:38:27 2023]
+Finished job 9.
+2 of 41 steps (5%) done
+Select jobs to execute...
+
+[Tue Aug  1 17:38:27 2023]
+rule SortReads:
+    input: Am09/data/Am09_1.trimmed.fastq
+    output: Am09/data/Am09_1.sorted.fastq
+    jobid: 18
+    reason: Missing output files: Am09/data/Am09_1.sorted.fastq; Input files updated by another job: Am09/data/Am09_1.trimmed.fastq
+    wildcards: sample=Am09, read=1
+    resources: mem_mb=5000, disk_mb=15143, tmpdir=<TBD>, time=0-01:00:00, qos=standard
+
+
+		module load bioawk
+		bioawk -c fastx '{print}' Am09/data/Am09_1.trimmed.fastq | sort | awk -F'\t' '{print "@"$1;print $2;print "+"$1;print $3}' > Am09/data/Am09_1.sorted.fastq
+		
+Submitted job 18 with external jobid 'Submitted batch job 13894189'.
+
+[Tue Aug  1 17:38:27 2023]
+rule SortReads:
+    input: Am09/data/Am09_2.trimmed.fastq
+    output: Am09/data/Am09_2.sorted.fastq
+    jobid: 21
+    reason: Missing output files: Am09/data/Am09_2.sorted.fastq; Input files updated by another job: Am09/data/Am09_2.trimmed.fastq
+    wildcards: sample=Am09, read=2
+    resources: mem_mb=5000, disk_mb=14433, tmpdir=<TBD>, time=0-01:00:00, qos=standard
+
+
+		module load bioawk
+		bioawk -c fastx '{print}' Am09/data/Am09_2.trimmed.fastq | sort | awk -F'\t' '{print "@"$1;print $2;print "+"$1;print $3}' > Am09/data/Am09_2.sorted.fastq
+		
+Submitted job 21 with external jobid 'Submitted batch job 13894190'.
+
+[Tue Aug  1 17:38:28 2023]
+rule TrimmingQC_fastqc:
+    input: Am09/data/Am09_1.trimmed.fastq
+    output: Am09/qc/trimming/Am09_1.trimmed.fastqc.html
+    jobid: 8
+    reason: Missing output files: Am09/qc/trimming/Am09_1.trimmed.fastqc.html; Input files updated by another job: Am09/data/Am09_1.trimmed.fastq
+    wildcards: sample=Am09, read=1
+    resources: mem_mb=5000, disk_mb=15143, tmpdir=<TBD>, time=0-00:30:00, qos=standard
+
+
+		module load FastQC/0.11.9-Java-11
+
+		mkdir -p Am09/qc
+		mkdir -p Am09/qc/trimming
+		fastqc -o Am09/qc/trimming Am09/data/Am09_1.trimmed.fastq 
+		mv Am09/qc/trimming/Am09_1.trimmed_fastqc.html Am09/qc/trimming/Am09_1.trimmed.fastqc.html
+		
+Submitted job 8 with external jobid 'Submitted batch job 13894191'.
+
+[Tue Aug  1 17:38:28 2023]
+rule TrimmingQC_fastqc:
+    input: Am09/data/Am09_2.trimmed.fastq
+    output: Am09/qc/trimming/Am09_2.trimmed.fastqc.html
+    jobid: 10
+    reason: Missing output files: Am09/qc/trimming/Am09_2.trimmed.fastqc.html; Input files updated by another job: Am09/data/Am09_2.trimmed.fastq
+    wildcards: sample=Am09, read=2
+    resources: mem_mb=5000, disk_mb=14433, tmpdir=<TBD>, time=0-00:30:00, qos=standard
+
+
+		module load FastQC/0.11.9-Java-11
+
+		mkdir -p Am09/qc
+		mkdir -p Am09/qc/trimming
+		fastqc -o Am09/qc/trimming Am09/data/Am09_2.trimmed.fastq 
+		mv Am09/qc/trimming/Am09_2.trimmed_fastqc.html Am09/qc/trimming/Am09_2.trimmed.fastqc.html
+		
+Submitted job 10 with external jobid 'Submitted batch job 13894192'.
+[Tue Aug  1 17:38:29 2023]
+Finished job 14.
+3 of 41 steps (7%) done
+[Tue Aug  1 17:38:44 2023]
+Finished job 12.
+4 of 41 steps (10%) done
+Select jobs to execute...
+
+[Tue Aug  1 17:38:44 2023]
+rule TrimmingQC_multiqc:
+    input: Am21/qc/trimming/Am21_1.trimmed.fastqc.html, Am21/qc/trimming/Am21_2.trimmed.fastqc.html
+    output: Am21/qc/trimming/trimming_report_Am21.html
+    jobid: 11
+    reason: Missing output files: Am21/qc/trimming/trimming_report_Am21.html; Input files updated by another job: Am21/qc/trimming/Am21_2.trimmed.fastqc.html, Am21/qc/trimming/Am21_1.trimmed.fastqc.html
+    wildcards: sample=Am21
+    resources: mem_mb=5000, disk_mb=1000, tmpdir=<TBD>, time=0-00:10:00, qos=standard
+
+
+		module load MultiQC
+		multiqc -n Am21/qc/trimming/trimming_report_Am21.html --no-data-dir Am21/qc/trimming
+		
+Submitted job 11 with external jobid 'Submitted batch job 13894193'.
+[Tue Aug  1 17:39:11 2023]
+Finished job 11.
+5 of 41 steps (12%) done
+[Tue Aug  1 17:41:59 2023]
+Finished job 8.
+6 of 41 steps (15%) done
+[Tue Aug  1 17:42:00 2023]
+Finished job 10.
+7 of 41 steps (17%) done
+Select jobs to execute...
+
+[Tue Aug  1 17:42:00 2023]
+rule TrimmingQC_multiqc:
+    input: Am09/qc/trimming/Am09_1.trimmed.fastqc.html, Am09/qc/trimming/Am09_2.trimmed.fastqc.html
+    output: Am09/qc/trimming/trimming_report_Am09.html
+    jobid: 7
+    reason: Missing output files: Am09/qc/trimming/trimming_report_Am09.html; Input files updated by another job: Am09/qc/trimming/Am09_2.trimmed.fastqc.html, Am09/qc/trimming/Am09_1.trimmed.fastqc.html
+    wildcards: sample=Am09
+    resources: mem_mb=5000, disk_mb=1000, tmpdir=<TBD>, time=0-00:10:00, qos=standard
+
+
+		module load MultiQC
+		multiqc -n Am09/qc/trimming/trimming_report_Am09.html --no-data-dir Am09/qc/trimming
+		
+Submitted job 7 with external jobid 'Submitted batch job 13894215'.
+[Tue Aug  1 17:42:12 2023]
+Finished job 7.
+8 of 41 steps (20%) done
+[Wed Aug 16 17:23:05 2023]
+Finished job 21.
+9 of 41 steps (22%) done
+Will exit after finishing currently running jobs (scheduler).
+Will exit after finishing currently running jobs (scheduler).
+[Wed Aug 16 17:23:06 2023]
+Finished job 25.
+10 of 41 steps (24%) done
+Will exit after finishing currently running jobs (scheduler).
+[Wed Aug 16 17:23:07 2023]
+Finished job 28.
+11 of 41 steps (27%) done
+Will exit after finishing currently running jobs (scheduler).
+[Wed Aug 16 17:23:17 2023]
+Finished job 18.
+12 of 41 steps (29%) done
+Will exit after finishing currently running jobs (scheduler).
+Shutting down, this might take some time.
+Complete log: ../../../../home/sjannalda/bgbm/projects/PlastidPipeline/.snakemake/log/2023-08-01T172257.409950.snakemake.log

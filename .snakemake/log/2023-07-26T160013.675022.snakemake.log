@@ -1,0 +1,36 @@
+Building DAG of jobs...
+Using shell: /usr/bin/bash
+Provided cluster nodes: 500
+Job stats:
+job                              count    min threads    max threads
+-----------------------------  -------  -------------  -------------
+AnnotationPostStandardization        1              1              1
+AnnotationPreStandardization         1              1              1
+Assembly                             1              8              8
+StandardizationAnnotation            1              1              1
+all                                  1              1              1
+total                                5              1              8
+
+Select jobs to execute...
+
+[Wed Jul 26 16:00:17 2023]
+rule Assembly:
+    input: database/SeedDatabase/embplant_pt.fasta, database/SeedDatabase/embplant_mt.fasta, data/AM0909_1.filt.fastq, data/AM0909_2.filt.fastq
+    output: assembly/AM0909.complete.graph1.1.path_sequence.fasta
+    jobid: 14
+    reason: Missing output files: assembly/AM0909.complete.graph1.1.path_sequence.fasta
+    wildcards: sample=AM0909
+    threads: 8
+    resources: mem_mb=10000, disk_mb=34327, tmpdir=<TBD>, time=0-3:00:00, qos=standard
+
+RuleException in rule Assembly  in line 20 of /home/sjannalda/bgbm/projects/PlastidPipeline/workflow/rules/Assembly.smk:
+AttributeError: 'Params' object has no attribute 'assemblyt_pattern', when formatting the following:
+
+		module load Bowtie2
+		module load BLAST+
+		module load SPAdes
+		mkdir -p {params.assembly}
+		echo "hi" > assembly/embplant_pt.K105.complete.graph1.1.path_sequence.fasta
+		#get_organelle_from_reads.py -1 {input.read1} -2 {input.read2} -o {params.assembly} -R 30 -k 21,45,65,85,105 -P 1000000 -F {params.databases} --config-dir {params.database_folder} -t {threads} --prefix {params.sample} --overwrite
+		mv *{params.assemblyt_pattern} > {output.assembly}
+		

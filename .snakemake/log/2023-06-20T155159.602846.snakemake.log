@@ -1,0 +1,3 @@
+KeyError in line 46 of /home/sjannalda/bgbm/projects/PlastidPipeline/workflow/Snakefile:
+'organelle_database_folder'
+  File "/home/sjannalda/bgbm/projects/PlastidPipeline/workflow/Snakefile", line 46, in <module>

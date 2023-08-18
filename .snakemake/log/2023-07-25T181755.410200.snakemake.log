@@ -1,0 +1,4 @@
+KeyError in line 42 of /home/sjannalda/bgbm/projects/PlastidPipeline/workflow/rules/Processing.smk:
+'qc_dir'
+  File "/home/sjannalda/bgbm/projects/PlastidPipeline/workflow/Snakefile", line 17, in <module>
+  File "/home/sjannalda/bgbm/projects/PlastidPipeline/workflow/rules/Processing.smk", line 42, in <module>

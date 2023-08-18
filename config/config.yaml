@@ -1,0 +1,53 @@
+workdir: "/scratch/sjannalda/projects/PlastidPipelineTesting"
+
+samples:
+    #ERR5529317: /scratch/sjannalda/projects/PlastidPipelineTesting/data/ERR5529317/ERR5529317
+    #ERR5529436: /scratch/sjannalda/projects/PlastidPipelineTesting/data/ERR5529436/ERR5529436
+    ERR5554746: /scratch/sjannalda/projects/PlastidPipelineTesting/data/ERR5554746/ERR5554746
+    #ERR5529299: /scratch/sjannalda/projects/PlastidPipelineTesting/data/ERR5529299/ERR5529299
+    #Am09: /scratch/sjannalda/projects/Am09/run1/data/AM0909
+    #Am21: /scratch/sjannalda/projects/Am21/run1/data/AM2134
+    #SRR17032105: /scratch/sjannalda/projects/PlastidPipelineTesting/data/SRR17032105/SRR17032105
+    #SRR12432532: /scratch/sjannalda/projects/PlastidPipelineTesting/data/SRR12432532/SRR12432532
+
+### Pipeline Options
+Trimming: TRUE
+Standardization: TRUE
+
+
+### QC Options
+#qc_folder: "qc"
+
+
+### Trimming Options
+adapter_trimming: "$EBROOTTRIMMOMATIC/adapters/TruSeq3-PE-2.fa" # Using adapters file provided by Trimmomatic, but you can provide your own file.
+
+
+### Filtering Options
+MinQualityScore: 30
+
+
+### Assembly Options 
+organelle_database_folder: "database" # Can either provide a bath if already made, or it will be created within the workdir
+OrganelleDatabasesDownload: "embplant_pt,embplant_mt" # Apprently GetOrganelle needs both of these first before proceeding
+OrganelleDatabasesAssembly: "embplant_pt"
+
+# Parameters for GetOrganelle 
+KmerSpades: "21,45,65,85,105" #  -k. SPAdes kmer settings
+MaxRounds: 30 # -R. Max number of extended rounds. Default is 15 by GetOrganelle
+PreGrouped: 1000000 # -P. The maximum number (integer) of high-covered reads to be pre-grouped before extending process. pre_grouping is suggested when the whole genome coverage is shallow but the organ genome coverage is deep
+
+
+### Annotation Options for GeSeq
+GenomeShape: "Linear" # Options: Linear, Circular
+SequenceSource: "Land" # Options: Land, Algae, Mito. Refers to Plastid(Land plants), Plastid (algae), or Mitochondria
+AnnotateIR: True # Refers to annotate plastid Inverted Repeat (IR)
+AnnotateRPS12: True # Refers to annotate plastid trans-spliced rps12
+AnnotationChloe: True # Refers to support annotation by Chloë
+AnnotationMFannot: False # Refers to support annotation by MFannot. NOTE: Currently not supported
+AnnotationRevision: "Best" # Options: Best, All. Refers to only keep best annotation, or keep all annotations
+MPIMP_RefSet: True # Refers to use MPI's reference set of chloroplast land plants (CDS + rRNA)
+MultiGenBank: True # Refers to generate multi-GenBank
+
+
+### Standardization Options

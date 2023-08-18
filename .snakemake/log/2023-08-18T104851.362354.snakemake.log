@@ -1,0 +1,124 @@
+Building DAG of jobs...
+Using shell: /usr/bin/bash
+Provided cores: 1 (use --cores to define parallelism)
+Rules claiming more threads will be scaled down.
+Job stats:
+job                                    count
+-----------------------------------  -------
+AnnotationPostStandardization              1
+AnnotationPreStandardization               1
+Backmapping                                1
+BackmappingQC                              1
+BuildReferenceAnnotationBackmapping        1
+StandardizationAnnotation                  1
+all                                        1
+total                                      7
+
+Select jobs to execute...
+
+[Fri Aug 18 10:49:02 2023]
+localrule AnnotationPreStandardization:
+    input: ERR5554746/assembly/ERR5554746.original.fasta
+    output: ERR5554746/annotation/ERR5554746.original.gb
+    jobid: 11
+    reason: Missing output files: ERR5554746/annotation/ERR5554746.original.gb
+    wildcards: sample=ERR5554746
+    resources: tmpdir=/tmp
+
+Activating conda environment: .snakemake/conda/7dcdbcecf5b85409b082239702cc974d_
+Activating conda environment: .snakemake/conda/7dcdbcecf5b85409b082239702cc974d_
+[Fri Aug 18 10:50:09 2023]
+Finished job 11.
+1 of 7 steps (14%) done
+Select jobs to execute...
+
+[Fri Aug 18 10:50:09 2023]
+rule StandardizationAnnotation:
+    input: ERR5554746/annotation/ERR5554746.original.gb
+    output: ERR5554746/annotation/ERR5554746.standardardized.fasta
+    jobid: 10
+    reason: Missing output files: ERR5554746/annotation/ERR5554746.standardardized.fasta; Input files updated by another job: ERR5554746/annotation/ERR5554746.original.gb; Code has changed since last execution
+    wildcards: sample=ERR5554746
+    resources: tmpdir=/tmp, mem_mb=1000, mem_mib=954, time=0-0:30:00
+
+Activating conda environment: .snakemake/conda/7dcdbcecf5b85409b082239702cc974d_
+Activating conda environment: .snakemake/conda/7dcdbcecf5b85409b082239702cc974d_
+[Fri Aug 18 10:50:46 2023]
+Finished job 10.
+2 of 7 steps (29%) done
+Select jobs to execute...
+
+[Fri Aug 18 10:50:47 2023]
+localrule AnnotationPostStandardization:
+    input: ERR5554746/annotation/ERR5554746.standardardized.fasta
+    output: ERR5554746/annotation/ERR5554746.standardardized.gb
+    jobid: 9
+    reason: Missing output files: ERR5554746/annotation/ERR5554746.standardardized.gb; Input files updated by another job: ERR5554746/annotation/ERR5554746.standardardized.fasta
+    wildcards: sample=ERR5554746
+    resources: tmpdir=/tmp
+
+Activating conda environment: .snakemake/conda/7dcdbcecf5b85409b082239702cc974d_
+Activating conda environment: .snakemake/conda/7dcdbcecf5b85409b082239702cc974d_
+[Fri Aug 18 10:51:51 2023]
+Finished job 9.
+3 of 7 steps (43%) done
+Select jobs to execute...
+
+[Fri Aug 18 10:51:51 2023]
+rule BuildReferenceAnnotationBackmapping:
+    input: ERR5554746/annotation/ERR5554746.standardardized.fasta
+    output: ERR5554746/backmapping/ERR5554746.backmapping.1.bt2
+    log: ERR5554746/qc/backmapping/ERR5554746.bowtie2.reference.log
+    jobid: 16
+    reason: Missing output files: ERR5554746/backmapping/ERR5554746.backmapping.1.bt2; Input files updated by another job: ERR5554746/annotation/ERR5554746.standardardized.fasta
+    wildcards: sample=ERR5554746
+    resources: tmpdir=/tmp, mem_mb=10000, mem_mib=9537, time=0-01:00:00
+
+Activating environment modules: Bowtie2
+[Fri Aug 18 10:51:56 2023]
+Finished job 16.
+4 of 7 steps (57%) done
+Select jobs to execute...
+
+[Fri Aug 18 10:51:56 2023]
+rule Backmapping:
+    input: ERR5554746/backmapping/ERR5554746.backmapping.1.bt2, ERR5554746/data/ERR5554746_1.filt.fastq, ERR5554746/data/ERR5554746_2.filt.fastq
+    output: ERR5554746/backmapping/ERR5554746.backmapping.sam
+    log: ERR5554746/qc/backmapping/ERR5554746.bowtie2.backmapping.log
+    jobid: 15
+    reason: Missing output files: ERR5554746/backmapping/ERR5554746.backmapping.sam; Input files updated by another job: ERR5554746/backmapping/ERR5554746.backmapping.1.bt2
+    wildcards: sample=ERR5554746
+    resources: tmpdir=/tmp, mem_mb=10000, mem_mib=9537, time=0-01:00:00
+
+Activating environment modules: Bowtie2
+[Fri Aug 18 10:54:01 2023]
+Finished job 15.
+5 of 7 steps (71%) done
+Select jobs to execute...
+
+[Fri Aug 18 10:54:01 2023]
+rule BackmappingQC:
+    input: ERR5554746/backmapping/ERR5554746.backmapping.sam
+    output: ERR5554746/backmapping/ERR5554746.backmapping.bam, ERR5554746/backmapping/ERR5554746.backmapping.sorted.bam, ERR5554746/qc/backmapping/ERR5554746.backmapping.readcoverage.log
+    jobid: 14
+    reason: Missing output files: ERR5554746/qc/backmapping/ERR5554746.backmapping.readcoverage.log; Input files updated by another job: ERR5554746/backmapping/ERR5554746.backmapping.sam
+    wildcards: sample=ERR5554746
+    resources: tmpdir=/tmp, mem_mb=10000, mem_mib=9537, time=0-01:00:00
+
+Activating environment modules: SAMtools
+[Fri Aug 18 11:08:15 2023]
+Finished job 14.
+6 of 7 steps (86%) done
+Select jobs to execute...
+
+[Fri Aug 18 11:08:15 2023]
+localrule all:
+    input: ERR5554746/qc/filtering/filtering_report_ERR5554746.html, ERR5554746/annotation/ERR5554746.standardardized.gb, ERR5554746/annotation/ERR5554746.standardardized.fasta, ERR5554746/qc/backmapping/ERR5554746.backmapping.readcoverage.log
+    jobid: 0
+    reason: Input files updated by another job: ERR5554746/qc/backmapping/ERR5554746.backmapping.readcoverage.log, ERR5554746/annotation/ERR5554746.standardardized.gb, ERR5554746/annotation/ERR5554746.standardardized.fasta
+    resources: tmpdir=/tmp
+
+[Fri Aug 18 11:08:15 2023]
+Finished job 0.
+7 of 7 steps (100%) done
+Complete log: ../../../../home/sjannalda/bgbm/projects/PlastidPipeline/.snakemake/log/2023-08-18T104851.362354.snakemake.log

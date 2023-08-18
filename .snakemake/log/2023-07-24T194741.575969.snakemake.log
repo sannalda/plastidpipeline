@@ -1,0 +1,2 @@
+SyntaxError in line 231 of /home/sjannalda/bgbm/projects/PlastidPipeline/workflow/Snakefile:
+Unexpected keyword scripts in rule definition (Snakefile, line 231)

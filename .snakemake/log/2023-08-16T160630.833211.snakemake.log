@@ -1,0 +1,16 @@
+Building DAG of jobs...
+Your conda installation is not configured to use strict channel priorities. This is however crucial for having robust and correct environments (for details, see https://conda-forge.org/docs/user/tipsandtricks.html). Please consider to configure strict priorities by executing 'conda config --set channel_priority strict'.
+Creating conda environment /home/sjannalda/bgbm/projects/PlastidPipeline/workflow/rules/../envs/PythonScripts.yaml...
+Downloading and installing remote packages.
+CreateCondaEnvironmentException:
+Could not create conda environment from /home/sjannalda/bgbm/projects/PlastidPipeline/workflow/rules/../envs/PythonScripts.yaml:
+Command:
+mamba env create --quiet --file "/scratch/sjannalda/projects/PlastidPipelineTesting/.snakemake/conda/6122dbddf67d8260743d15b27cce0157_.yaml" --prefix "/scratch/sjannalda/projects/PlastidPipelineTesting/.snakemake/conda/6122dbddf67d8260743d15b27cce0157_"
+Output:
+Traceback (most recent call last):
+  File "/home/sjannalda/miniconda3/bin/mamba", line 11, in <module>
+    sys.exit(main())
+  File "/home/sjannalda/miniconda3/lib/python3.8/site-packages/mamba/mamba.py", line 848, in main
+    from conda.common.compat import ensure_text_type, init_std_stream_encoding
+ImportError: cannot import name 'init_std_stream_encoding' from 'conda.common.compat' (/home/sjannalda/miniconda3/lib/python3.8/site-packages/conda/common/compat.py)
+

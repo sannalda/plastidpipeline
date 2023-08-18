@@ -1,0 +1,82 @@
+Building DAG of jobs...
+Using shell: /usr/bin/bash
+Provided cluster nodes: 500
+Conda environments: ignored
+Job stats:
+job                count    min threads    max threads
+---------------  -------  -------------  -------------
+StartQC_fastqc         2              1              1
+StartQC_multiqc        1              1              1
+all                    1              1              1
+total                  4              1              1
+
+Select jobs to execute...
+
+[Wed Aug 16 15:58:59 2023]
+rule StartQC_fastqc:
+    input: /scratch/sjannalda/projects/PlastidPipelineTesting/data/ERR5529317/ERR5529317_1.fastq
+    output: ERR5529317/qc/start/ERR5529317_1.fastqc.html
+    jobid: 2
+    reason: Missing output files: ERR5529317/qc/start/ERR5529317_1.fastqc.html
+    wildcards: sample=ERR5529317, read=1
+    resources: mem_mb=5000, disk_mb=2247, tmpdir=<TBD>, time=0-00:30:00, qos=standard
+
+
+		mkdir -p ERR5529317/qc
+		mkdir -p ERR5529317/qc/start
+		fastqc -o ERR5529317/qc/start /scratch/sjannalda/projects/PlastidPipelineTesting/data/ERR5529317/ERR5529317_1.fastq 
+		mv ERR5529317/qc/start/ERR5529317_1_fastqc.html ERR5529317/qc/start/ERR5529317_1.fastqc.html
+		
+Submitted job 2 with external jobid 'Submitted batch job 14018785'.
+
+[Wed Aug 16 15:58:59 2023]
+rule StartQC_fastqc:
+    input: /scratch/sjannalda/projects/PlastidPipelineTesting/data/ERR5529317/ERR5529317_2.fastq
+    output: ERR5529317/qc/start/ERR5529317_2.fastqc.html
+    jobid: 3
+    reason: Missing output files: ERR5529317/qc/start/ERR5529317_2.fastqc.html
+    wildcards: sample=ERR5529317, read=2
+    resources: mem_mb=5000, disk_mb=2245, tmpdir=<TBD>, time=0-00:30:00, qos=standard
+
+
+		mkdir -p ERR5529317/qc
+		mkdir -p ERR5529317/qc/start
+		fastqc -o ERR5529317/qc/start /scratch/sjannalda/projects/PlastidPipelineTesting/data/ERR5529317/ERR5529317_2.fastq 
+		mv ERR5529317/qc/start/ERR5529317_2_fastqc.html ERR5529317/qc/start/ERR5529317_2.fastqc.html
+		
+Submitted job 3 with external jobid 'Submitted batch job 14018786'.
+[Wed Aug 16 15:59:09 2023]
+Error in rule StartQC_fastqc:
+    jobid: 2
+    input: /scratch/sjannalda/projects/PlastidPipelineTesting/data/ERR5529317/ERR5529317_1.fastq
+    output: ERR5529317/qc/start/ERR5529317_1.fastqc.html
+    shell:
+        
+		mkdir -p ERR5529317/qc
+		mkdir -p ERR5529317/qc/start
+		fastqc -o ERR5529317/qc/start /scratch/sjannalda/projects/PlastidPipelineTesting/data/ERR5529317/ERR5529317_1.fastq 
+		mv ERR5529317/qc/start/ERR5529317_1_fastqc.html ERR5529317/qc/start/ERR5529317_1.fastqc.html
+		
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+    cluster_jobid: Submitted batch job 14018785
+
+Error executing rule StartQC_fastqc on cluster (jobid: 2, external: Submitted batch job 14018785, jobscript: /scratch/sjannalda/projects/PlastidPipelineTesting/.snakemake/tmp.mtl71ix6/snakejob.StartQC_fastqc.2.sh). For error details see the cluster log and the log files of the involved rule(s).
+[Wed Aug 16 15:59:10 2023]
+Error in rule StartQC_fastqc:
+    jobid: 3
+    input: /scratch/sjannalda/projects/PlastidPipelineTesting/data/ERR5529317/ERR5529317_2.fastq
+    output: ERR5529317/qc/start/ERR5529317_2.fastqc.html
+    shell:
+        
+		mkdir -p ERR5529317/qc
+		mkdir -p ERR5529317/qc/start
+		fastqc -o ERR5529317/qc/start /scratch/sjannalda/projects/PlastidPipelineTesting/data/ERR5529317/ERR5529317_2.fastq 
+		mv ERR5529317/qc/start/ERR5529317_2_fastqc.html ERR5529317/qc/start/ERR5529317_2.fastqc.html
+		
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+    cluster_jobid: Submitted batch job 14018786
+
+Error executing rule StartQC_fastqc on cluster (jobid: 3, external: Submitted batch job 14018786, jobscript: /scratch/sjannalda/projects/PlastidPipelineTesting/.snakemake/tmp.mtl71ix6/snakejob.StartQC_fastqc.3.sh). For error details see the cluster log and the log files of the involved rule(s).
+Terminating processes on user request, this might take some time.
+No --cluster-cancel given. Will exit after finishing currently running jobs.
+Complete log: ../../../../home/sjannalda/bgbm/projects/PlastidPipeline/.snakemake/log/2023-08-16T155857.802063.snakemake.log

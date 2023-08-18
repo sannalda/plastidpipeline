@@ -1,0 +1,4 @@
+AttributeError in line 23 of /home/sjannalda/bgbm/projects/PlastidPipeline/workflow/rules/Processing.smk:
+'Namedlist' object has no attribute 'read'
+  File "/home/sjannalda/bgbm/projects/PlastidPipeline/workflow/Snakefile", line 22, in <module>
+  File "/home/sjannalda/bgbm/projects/PlastidPipeline/workflow/rules/Processing.smk", line 23, in <module>

@@ -1,0 +1,71 @@
+Building DAG of jobs...
+Using shell: /usr/bin/bash
+Provided cluster nodes: 500
+Job stats:
+job                             count    min threads    max threads
+----------------------------  -------  -------------  -------------
+AnnotationPreStandardization        1              1              1
+all                                 1              1              1
+total                               2              1              1
+
+Select jobs to execute...
+
+[Mon Jul 24 19:49:52 2023]
+localrule AnnotationPreStandardization:
+    input: assembly/embplant_pt.K105.complete.graph1.1.path_sequence.fasta
+    output: cool.txt
+    jobid: 11
+    reason: Missing output files: cool.txt
+    resources: mem_mb=5000, disk_mb=1000, tmpdir=/localscratch/tmp/sjannalda/tmp.13746556.0, time=0-1:00:00, qos=standard
+
+/home/sjannalda/miniconda3/bin/python3.8 /scratch/sjannalda/projects/PlastidPipelineTesting/.snakemake/scripts/tmps__je5tv.GeSeqAutomation.py
+The version of chrome cannot be detected. Trying with latest driver version
+Traceback (most recent call last):
+  File "/scratch/sjannalda/projects/PlastidPipelineTesting/.snakemake/scripts/tmps__je5tv.GeSeqAutomation.py", line 46, in <module>
+    driver = webdriver.Chrome(options=op)
+  File "/home/sjannalda/.local/lib/python3.8/site-packages/selenium/webdriver/chrome/webdriver.py", line 49, in __init__
+    super().__init__(
+  File "/home/sjannalda/.local/lib/python3.8/site-packages/selenium/webdriver/chromium/webdriver.py", line 54, in __init__
+    super().__init__(
+  File "/home/sjannalda/.local/lib/python3.8/site-packages/selenium/webdriver/remote/webdriver.py", line 206, in __init__
+    self.start_session(capabilities)
+  File "/home/sjannalda/.local/lib/python3.8/site-packages/selenium/webdriver/remote/webdriver.py", line 291, in start_session
+    response = self.execute(Command.NEW_SESSION, caps)["value"]
+  File "/home/sjannalda/.local/lib/python3.8/site-packages/selenium/webdriver/remote/webdriver.py", line 346, in execute
+    self.error_handler.check_response(response)
+  File "/home/sjannalda/.local/lib/python3.8/site-packages/selenium/webdriver/remote/errorhandler.py", line 245, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.WebDriverException: Message: unknown error: cannot find Chrome binary
+Stacktrace:
+#0 0x555555c2b4e3 <unknown>
+#1 0x55555595ac76 <unknown>
+#2 0x555555981757 <unknown>
+#3 0x555555980029 <unknown>
+#4 0x5555559beccc <unknown>
+#5 0x5555559be47f <unknown>
+#6 0x5555559b5de3 <unknown>
+#7 0x55555598b2dd <unknown>
+#8 0x55555598c34e <unknown>
+#9 0x555555beb3e4 <unknown>
+#10 0x555555bef3d7 <unknown>
+#11 0x555555bf9b20 <unknown>
+#12 0x555555bf0023 <unknown>
+#13 0x555555bbe1aa <unknown>
+#14 0x555555c146b8 <unknown>
+#15 0x555555c14847 <unknown>
+#16 0x555555c24243 <unknown>
+#17 0x2aaaaaedaea5 start_thread
+
+[Mon Jul 24 19:49:56 2023]
+Error in rule AnnotationPreStandardization:
+    jobid: 11
+    input: assembly/embplant_pt.K105.complete.graph1.1.path_sequence.fasta
+    output: cool.txt
+
+RuleException:
+CalledProcessError in line 232 of /home/sjannalda/bgbm/projects/PlastidPipeline/workflow/Snakefile:
+Command 'set -euo pipefail;  /home/sjannalda/miniconda3/bin/python3.8 /scratch/sjannalda/projects/PlastidPipelineTesting/.snakemake/scripts/tmps__je5tv.GeSeqAutomation.py' returned non-zero exit status 1.
+  File "/home/sjannalda/bgbm/projects/PlastidPipeline/workflow/Snakefile", line 232, in __rule_AnnotationPreStandardization
+  File "/home/sjannalda/miniconda3/lib/python3.8/concurrent/futures/thread.py", line 57, in run
+Exiting because a job execution failed. Look above for error message
+Complete log: ../../../../home/sjannalda/bgbm/projects/PlastidPipeline/.snakemake/log/2023-07-24T194948.116231.snakemake.log
