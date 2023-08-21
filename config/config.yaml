@@ -3,7 +3,7 @@ workdir: "/scratch/sjannalda/projects/PlastidPipelineTesting"
 samples:
     #ERR5529317: /scratch/sjannalda/projects/PlastidPipelineTesting/data/ERR5529317/ERR5529317
     #ERR5529436: /scratch/sjannalda/projects/PlastidPipelineTesting/data/ERR5529436/ERR5529436
-    ERR5554746: /scratch/sjannalda/projects/PlastidPipelineTesting/data/ERR5554746/ERR5554746
+    #ERR5554746: /scratch/sjannalda/projects/PlastidPipelineTesting/data/ERR5554746/ERR5554746
     #ERR5529299: /scratch/sjannalda/projects/PlastidPipelineTesting/data/ERR5529299/ERR5529299
     #Am09: /scratch/sjannalda/projects/Am09/run1/data/AM0909
     #Am21: /scratch/sjannalda/projects/Am21/run1/data/AM2134
