@@ -33,7 +33,7 @@ start_IRAstart = input_seq_rec.seq[:IRA.location.start]
 IRAstart_IRAend = input_seq_rec.seq[IRA.location.start:IRA.location.end]
 IRAend_IRBstart = input_seq_rec.seq[IRA.location.end:IRB.location.start]
 IRBstart_IRBend = input_seq_rec.seq[IRB.location.start:IRB.location.end]
-IRBend_end = input_seq_rec.seq[IRB.location.start:]
+IRBend_end = input_seq_rec.seq[IRB.location.end:]
 
 
 
@@ -54,14 +54,14 @@ except NameError as error:
 
 ### rrn23 forward should be +1
 # assert(IRA.location.start < rrn23_forward.location.start < IRA.location.end):
-try:
-    if (rrn23_forward.location.strand == 1):
-        new_seq += IRAstart_IRAend
-    else:
-        new_seq += IRAstart_IRAend.reverse_complement()
-except NameError as error:
-    print("rrn23 forward not found in file...skipping")
-    
+#try:
+#    if (rrn23_forward.location.strand == 1):
+#        new_seq += IRAstart_IRAend
+#    else:
+#        new_seq += IRAstart_IRAend.reverse_complement()
+#except NameError as error:
+#    print("rrn23 forward not found in file...skipping")
+new_seq += IRAstart_IRAend    
 
 ### ccsA should be -1, ndhF should be +1, ccsA < ndhF
 try:
@@ -76,13 +76,15 @@ except NameError as error:
 
 ### rrn23 reverse should be +1
 # assert(IRB.location.start < rrn23_reverse.location.start < IRB.location.end)
-try:
-    if (rrn23_reverse.location.strand == -1):
-        new_seq += IRBstart_IRBend
-    else:
-        new_seq += IRBstart_IRBend.reverse_complement()
-except NameError as error:
-    print("rr23 reverse not found in file...skipping")
+#try:
+#    if (rrn23_reverse.location.strand == -1):
+#        new_seq += IRBstart_IRBend
+#    else:
+#        new_seq += IRBstart_IRBend.reverse_complement()
+#except NameError as error:
+#    print("rr23 reverse not found in file...skipping")
+
+new_seq += IRBstart_IRBend
 
 new_seq += IRBend_end
 

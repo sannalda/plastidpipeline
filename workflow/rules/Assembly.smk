@@ -2,8 +2,8 @@ rule AssemblyConfig:
 	output:
 		expand("%s/SeedDatabase/{organelle_dbs}.fasta" %config["organelle_database_folder"], organelle_dbs=config["OrganelleDatabasesDownload"].split(","))
 	resources:
-		mem_mb=10000,
-		time="0-01:00:00"
+		mem_mb=20000,
+		time="0-02:00:00"
 	envmodules:
 		"Bowtie2",
 		"BLAST+"
@@ -26,7 +26,7 @@ rule Assembly:
 		assembly_pattern=".complete.graph1.1.path_sequence.fasta" # This is a janky way of doing it, but it works haha
 	resources:
 		mem_mb=20000,
-		time="0-5:00:00"
+		time="0-6:00:00"
 	threads: 8
 	envmodules:
 		"Bowtie2",

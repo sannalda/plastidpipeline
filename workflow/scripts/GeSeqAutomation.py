@@ -10,6 +10,8 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import ElementClickInterceptedException
 from webdriver_manager.chrome import ChromeDriverManager
+from bs4 import BeautifulSoup
+
 #import chromedriver_binary 
 
 
@@ -25,6 +27,8 @@ SequenceSource = snakemake.config["SequenceSource"]
 AnnotateIR = snakemake.config["AnnotateIR"] 
 AnnotateRPS12 = snakemake.config["AnnotateRPS12"] 
 AnnotationChloe = snakemake.config["AnnotationChloe"] 
+ChloeAnnotateCDS = snakemake.config["ChloeAnnotateCDS"]
+ChloeAnnotateTRNA = snakemake.config["ChloeAnnotateTRNA"]  
 AnnotationMFannot = snakemake.config["AnnotationMFannot"] 
 AnnotationRevision = snakemake.config["AnnotationRevision"] 
 MPIMP_RefSet = snakemake.config["MPIMP_RefSet"] 
@@ -35,15 +39,19 @@ MultiGenBank = snakemake.config["MultiGenBank"]
 ##### Selenium Webdriver
 op = webdriver.ChromeOptions()
 op.add_argument("--headless")
+op.add_argument('--ignore-certificate-errors')
 op.add_argument("--no-sandbox")
 op.add_argument("--disable-dev-shm-usage")
 driver = webdriver.Chrome(options=op)
 driver.get("https://chlorobox.mpimp-golm.mpg.de/geseq.html")
 time.sleep(5)
 
-
+#html = driver.page_source
+#soup = BeautifulSoup(html)
+#print(soup)
 
 ##### Initialize tool
+
 elements = driver.find_elements(By.CLASS_NAME, 'x4_column')
 left_column = elements[0]
 middle_column = elements[1]
@@ -132,8 +140,20 @@ if (MPIMP_RefSet):
     if (not blat_ref_seqs_block.find_element(By.ID,"mpimpchlororefsetenabled").is_selected()):
         blat_ref_seqs_block.find_element(By.ID,"mpimpchlororefsetenabled").click()
 
-        
-        
+### 3rd Party Stand-Alone Annotators
+# Chloe
+assert(type(ChloeAnnotateCDS) == bool)
+assert(type(ChloeAnnotateTRNA) == bool)
+
+if (AnnotationChloe):
+    if (ChloeAnnotateCDS):
+        if (not third_party_annotation_block.find_element(By.ID,"chloe_annotate_cds").is_selected()):
+            third_party_annotation_block.find_element(By.ID,"chloe_annotate_cds").click()
+
+    if (ChloeAnnotateTRNA):
+        if (not third_party_annotation_block.find_element(By.ID,"chloe_annotate_trna").is_selected()):
+            third_party_annotation_block.find_element(By.ID,"chloe_annotate_trna").click()
+    
 ##### Right Column
 right_column_elements = right_column.find_elements(By.CLASS_NAME, 'gs_panel')
 output_options_block = right_column_elements[0]
