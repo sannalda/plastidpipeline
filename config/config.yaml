@@ -1,17 +1,17 @@
 workdir: "/scratch/sjannalda/projects/PlastidPipelineTesting"
 
 samples:
-    #ERR5529317: /scratch/sjannalda/projects/PlastidPipelineTesting/data/ERR5529317/ERR5529317
+    ERR5529317: /scratch/sjannalda/projects/PlastidPipelineTesting/data/ERR5529317/ERR5529317
     #ERR5529436: /scratch/sjannalda/projects/PlastidPipelineTesting/data/ERR5529436/ERR5529436
     #ERR5554746: /scratch/sjannalda/projects/PlastidPipelineTesting/data/ERR5554746/ERR5554746
     #ERR5529299: /scratch/sjannalda/projects/PlastidPipelineTesting/data/ERR5529299/ERR5529299
-    Am09: /scratch/sjannalda/projects/Am09/run1/data/AM0909
+    #Am09: /scratch/sjannalda/projects/Am09/run1/data/AM0909
     #Am21: /scratch/sjannalda/projects/Am21/run1/data/AM2134
     #SRR17032105: /scratch/sjannalda/projects/PlastidPipelineTesting/data/SRR17032105/SRR17032105
     #SRR12432532: /scratch/sjannalda/projects/PlastidPipelineTesting/data/SRR12432532/SRR12432532
 
 ### Pipeline Options
-Trimming: False
+Trimming: TRUE
 Standardization: TRUE
 
 
@@ -53,3 +53,7 @@ MultiGenBank: True # Refers to generate multi-GenBank
 
 
 ### Standardization Options
+lsc_gene: "rbcL" # Gene located in LSC. Default is "rbcL" (previously used "psbA" with direction -1)
+lsc_gene_dir: 1 # Gene direction of lsc. 1 is forward, -1 is reverse
+ssc_gene: "ndhF" # Gene located in SSC
+ssc_gene_dir: 1 # Gene direction of ssc. 1 is forward, -1 is reverse

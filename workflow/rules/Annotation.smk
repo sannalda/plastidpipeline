@@ -4,7 +4,8 @@ rule AnnotationPreStandardization:
 	output:
 		"{sample}/annotation/{sample}.original.gb"
 	conda:
-		"../envs/test.yaml"
+		"../envs/Annotation.yaml"
+	localrule: True
 	script:
 		"../scripts/GeSeqAutomation.py"
 
@@ -17,7 +18,7 @@ rule StandardizationAnnotation:
 		mem_mb=1000,
 		time="0-0:30:00"
 	conda:
-		"../envs/test.yaml"
+		"../envs/Annotation.yaml"
 	script:
 		"../scripts/StandardizationAnnotation.py"
 
@@ -27,6 +28,7 @@ rule AnnotationPostStandardization:
 	output:
 		"{sample}/annotation/{sample}.standardardized.gb"
 	conda:
-		"../envs/test.yaml"
+		"../envs/Annotation.yaml"
+	localrule: True
 	script:
 		"../scripts/GeSeqAutomation.py"

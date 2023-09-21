@@ -10,20 +10,24 @@ annotation_file_input = os.path.join(snakemake.config["workdir"],snakemake.input
 input_seq_rec = SeqIO.read(annotation_file_input, 'genbank')
 annotation_file_output = os.path.join(snakemake.config["workdir"],snakemake.output[0])
 
+lsc_gene_name = snakemake.config["lsc_gene"]
+lsc_gene_dir = snakemake.config["lsc_gene_dir"]
+ssc_gene_name = snakemake.config["ssc_gene"]
+ssc_gene_dir = snakemake.config["ssc_gene_dir"]
 
 ##### Searching for genes and invertible regions
 for i in input_seq_rec.features:
     if (i.type == "gene"):
-        if (i.qualifiers["gene"][0]) == "psbA":
-            psbA = i
-        if ((i.qualifiers["gene"][0]) == "rrn23") and (i.location.strand == 1):
-            rrn23_forward = i
-        if ((i.qualifiers["gene"][0]) == "rrn23") and (i.location.strand == -1):
-            rrn23_reverse = i
-        if (i.qualifiers["gene"][0]) == "ccsA":
-            ccsA = i
-        if (i.qualifiers["gene"][0]) == "ndhF":
-            ndhF = i
+        if (i.qualifiers["gene"][0]) == lsc_gene_name:
+            lsc_gene = i
+        #if ((i.qualifiers["gene"][0]) == "rrn23") and (i.location.strand == 1):
+        #    rrn23_forward = i
+        #if ((i.qualifiers["gene"][0]) == "rrn23") and (i.location.strand == -1):
+        #    rrn23_reverse = i
+        #if (i.qualifiers["gene"][0]) == "ccsA":
+        #    ccsA = i
+        if (i.qualifiers["gene"][0]) == ssc_gene_name:
+            ssc_gene = i
     if (i.type == "repeat_region" and "IRA" in i.qualifiers["note"][0]):
         IRA = i
     if (i.type == "repeat_region" and "IRB" in i.qualifiers["note"][0]):
@@ -41,15 +45,15 @@ IRBend_end = input_seq_rec.seq[IRB.location.end:]
 
 new_seq = ""
 
-### psbA should be -1
+### LSC # psbA should be -1
 # assert(psbA.location.start < IRA.location.start):
 try:
-    if (psbA.location.strand == -1):
+    if (lsc_gene.location.strand == lsc_gene_dir):
         new_seq += start_IRAstart
     else:
         new_seq += start_IRAstart.reverse_complement()
 except NameError as error:
-    print("psbA not found in file...skipping")
+    print("%s not found in file...skipping" %lsc_gene_name)
 
 
 ### rrn23 forward should be +1
@@ -63,9 +67,9 @@ except NameError as error:
 #    print("rrn23 forward not found in file...skipping")
 new_seq += IRAstart_IRAend    
 
-### ccsA should be -1, ndhF should be +1, ccsA < ndhF
+### SSC # ccsA should be -1, ndhF should be +1, ccsA < ndhF
 try:
-    if (ccsA.location.start < ndhF.location.start):
+    if (ssc_gene.location.strand == ssc_gene_dir):
         new_seq += IRAend_IRBstart
     else:
         new_seq += IRAend_IRBstart.reverse_complement()

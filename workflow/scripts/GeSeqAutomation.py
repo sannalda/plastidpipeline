@@ -9,10 +9,10 @@ from selenium.common.exceptions import StaleElementReferenceException
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import ElementClickInterceptedException
+from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.chrome.service import Service as ChromiumService
 from webdriver_manager.chrome import ChromeDriverManager
-from bs4 import BeautifulSoup
-
-#import chromedriver_binary 
+from webdriver_manager.core.os_manager import ChromeType
 
 
 
@@ -37,18 +37,18 @@ MultiGenBank = snakemake.config["MultiGenBank"]
 
 
 ##### Selenium Webdriver
+options = Options()
+options.BinaryLocation = "/usr/bin/chromium-browser" 
+
 op = webdriver.ChromeOptions()
 op.add_argument("--headless")
 op.add_argument('--ignore-certificate-errors')
 op.add_argument("--no-sandbox")
 op.add_argument("--disable-dev-shm-usage")
-driver = webdriver.Chrome(options=op)
+driver = webdriver.Chrome(options=op,service=ChromiumService(ChromeDriverManager(chrome_type=ChromeType.CHROMIUM).install()))
 driver.get("https://chlorobox.mpimp-golm.mpg.de/geseq.html")
 time.sleep(5)
 
-#html = driver.page_source
-#soup = BeautifulSoup(html)
-#print(soup)
 
 ##### Initialize tool
 
@@ -71,8 +71,6 @@ annotation_options = left_column_elements[1]
 upload_fasta_input = upload_fasta_block.find_element(By.CLASS_NAME,"fl_head")
 upload_fasta_input_file = upload_fasta_input.find_element(By.XPATH, "//input[@type='file']")
 upload_fasta_input_file.send_keys(annotation_file_input)
-#upload_fasta_input_file.send_keys("/Users/SJAnnaldasula/Documents/BGBM/Plastid/Am09/ChloroplastsCircular09Sequence1_AM0909.fasta")
-#upload_fasta_input_file.send_keys(annotation_filename_standardized)
 time.sleep(5)
 
 # Choose circular or linear genome

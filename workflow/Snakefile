@@ -1,8 +1,4 @@
-localrules: AnnotationPreStandardization, AnnotationPostStandardization
 workdir:config["workdir"]
-
-
-#SAMPLE="SRR17032105"
 
 rule all:
 	input:
@@ -25,3 +21,5 @@ include: "rules/Assembly.smk"
 include: "rules/Annotation.smk"
 
 include: "rules/Backmapping.smk"
+
+localrules: AnnotationPreStandardization, AnnotationPostStandardization
