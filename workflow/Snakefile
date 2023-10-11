@@ -7,7 +7,7 @@ rule all:
 		expand("{sample}/qc/filtering/filtering_report_{sample}.html", sample=config["samples"]),
 		expand("{sample}/annotation/{sample}.standardardized.gb", sample=config["samples"]) if (config["Standardization"]) else expand("{sample}/annotation/{sample}.original.gb",sample=config["samples"]),
 		expand("{sample}/annotation/{sample}.standardardized.fasta", sample=config["samples"]) if (config["Standardization"]) else expand("{sample}/assembly/{sample}.original.fasta",sample=config["samples"]),
-		expand("{sample}/qc/backmapping/{sample}.backmapping.readcoverage.log", sample=config["samples"]),
+		#expand("{sample}/qc/backmapping/{sample}.backmapping.readcoverage.log", sample=config["samples"]),
 		
 
 include: "rules/Preprocessing.smk"

@@ -13,6 +13,7 @@ from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.chrome.service import Service as ChromiumService
 from webdriver_manager.chrome import ChromeDriverManager
 from webdriver_manager.core.os_manager import ChromeType
+from selenium.webdriver import ActionChains
 
 
 
@@ -37,15 +38,17 @@ MultiGenBank = snakemake.config["MultiGenBank"]
 
 
 ##### Selenium Webdriver
-options = Options()
-options.BinaryLocation = "/usr/bin/chromium-browser" 
+#options = Options()
+#options.BinaryLocation = "/usr/bin/chromium-browser" 
 
 op = webdriver.ChromeOptions()
 op.add_argument("--headless")
 op.add_argument('--ignore-certificate-errors')
 op.add_argument("--no-sandbox")
 op.add_argument("--disable-dev-shm-usage")
+op.add_argument("--start-maximized")
 driver = webdriver.Chrome(options=op,service=ChromiumService(ChromeDriverManager(chrome_type=ChromeType.CHROMIUM).install()))
+#driver = webdriver.Chrome(options=op)
 driver.get("https://chlorobox.mpimp-golm.mpg.de/geseq.html")
 time.sleep(5)
 
@@ -163,12 +166,16 @@ assert(type(MultiGenBank) == bool)
        
 if (MultiGenBank):
     if (not output_options_block.find_element(By.ID,"multigenbank_enabled").is_selected()):
-        try:
-            multigenbank_button = WebDriverWait(driver, 20).until(EC.element_to_be_clickable(output_options_block.find_element(By.ID,"multigenbank_enabled")))
-            multigenbank_button.click()
-        except ElementClickInterceptedException:
-            print("Trying to click on the button again")
-            driver.execute_script("arguments[0].click()", multigenbank_button)
+        multigenbank_element = output_options_block.find_element(By.ID,"multigenbank_enabled")
+        actions = ActionChains(driver)
+        actions.move_to_element(multigenbank_element).click().perform()
+
+        #try:
+        #    multigenbank_button = WebDriverWait(driver, 20).until(EC.element_to_be_clickable(output_options_block.find_element(By.ID,"multigenbank_enabled")))
+        #    multigenbank_button.click()
+        #except ElementClickInterceptedException:
+        #    print("Trying to click on the button again")
+        #    driver.execute_script("arguments[0].click()", multigenbank_button)
 
 
 ### Actions
@@ -190,13 +197,20 @@ assert(job_title == results_block.find_element(By.CLASS_NAME,"gs_jobtitle").text
 
 ignored_exceptions=(NoSuchElementException,StaleElementReferenceException,)
 
+start_time = time.time()
 job_status = results_block.find_element(By.CLASS_NAME,"gs_jobstatus").text.strip()
 while(job_status != 'Status: finished'):
-    WebDriverWait(driver,5,ignored_exceptions=ignored_exceptions).until(EC.presence_of_element_located((By.CLASS_NAME,"gs_jobstatus")))
+    #WebDriverWait(driver,5,ignored_exceptions=ignored_exceptions).until(EC.presence_of_element_located((By.CLASS_NAME,"gs_jobstatus")))
     time.sleep(1)
-    job_status = results_block.find_element(By.CLASS_NAME,"gs_jobstatus").text.strip()
+    try:
+        job_status = results_block.find_element(By.CLASS_NAME,"gs_jobstatus").text.strip()
+    except StaleElementReferenceException as e:
+        pass
     print(job_status)
-    
+    curr_time = time.time()
+    if (curr_time - start_time > 1000):
+        print("GeSeq took too long, exiting...")
+        assert(1==0)
     
     
 ##### Downloading GenBank file

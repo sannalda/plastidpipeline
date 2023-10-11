@@ -1,8 +1,12 @@
 rule AnnotationPreStandardization:
 	input:
-		rules.Assembly.output.assembly
+		"{sample}/assembly/{sample}.original.fasta"
 	output:
 		"{sample}/annotation/{sample}.original.gb"
+	resources:
+		mem_mb=1000,
+		time="0-00:20:00",
+		chrome=1
 	conda:
 		"../envs/Annotation.yaml"
 	localrule: True
@@ -16,7 +20,7 @@ rule StandardizationAnnotation:
 		"{sample}/annotation/{sample}.standardardized.fasta"
 	resources:
 		mem_mb=1000,
-		time="0-0:30:00"
+		time="0-0:20:00"
 	conda:
 		"../envs/Annotation.yaml"
 	script:
@@ -24,9 +28,13 @@ rule StandardizationAnnotation:
 
 rule AnnotationPostStandardization:
 	input:
-		rules.StandardizationAnnotation.output
+		"{sample}/annotation/{sample}.standardardized.fasta"
 	output:
 		"{sample}/annotation/{sample}.standardardized.gb"
+	resources:
+		mem_mb=1000,
+		time="0-00:20:00",
+		chrome=1
 	conda:
 		"../envs/Annotation.yaml"
 	localrule: True

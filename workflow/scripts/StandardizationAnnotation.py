@@ -20,12 +20,6 @@ for i in input_seq_rec.features:
     if (i.type == "gene"):
         if (i.qualifiers["gene"][0]) == lsc_gene_name:
             lsc_gene = i
-        #if ((i.qualifiers["gene"][0]) == "rrn23") and (i.location.strand == 1):
-        #    rrn23_forward = i
-        #if ((i.qualifiers["gene"][0]) == "rrn23") and (i.location.strand == -1):
-        #    rrn23_reverse = i
-        #if (i.qualifiers["gene"][0]) == "ccsA":
-        #    ccsA = i
         if (i.qualifiers["gene"][0]) == ssc_gene_name:
             ssc_gene = i
     if (i.type == "repeat_region" and "IRA" in i.qualifiers["note"][0]):
@@ -45,8 +39,7 @@ IRBend_end = input_seq_rec.seq[IRB.location.end:]
 
 new_seq = ""
 
-### LSC # psbA should be -1
-# assert(psbA.location.start < IRA.location.start):
+### LSC 
 try:
     if (lsc_gene.location.strand == lsc_gene_dir):
         new_seq += start_IRAstart
@@ -55,51 +48,27 @@ try:
 except NameError as error:
     print("%s not found in file...skipping" %lsc_gene_name)
 
-
-### rrn23 forward should be +1
-# assert(IRA.location.start < rrn23_forward.location.start < IRA.location.end):
-#try:
-#    if (rrn23_forward.location.strand == 1):
-#        new_seq += IRAstart_IRAend
-#    else:
-#        new_seq += IRAstart_IRAend.reverse_complement()
-#except NameError as error:
-#    print("rrn23 forward not found in file...skipping")
 new_seq += IRAstart_IRAend    
 
-### SSC # ccsA should be -1, ndhF should be +1, ccsA < ndhF
+### SSC 
 try:
     if (ssc_gene.location.strand == ssc_gene_dir):
         new_seq += IRAend_IRBstart
     else:
         new_seq += IRAend_IRBstart.reverse_complement()
 except NameError as error:
-    print("ccsA or ndhF not found in file...skipping")
-# assert(IRA.location.end < ccsA.location.start < ndhF.location.start < IRB.location.start)
-
-
-### rrn23 reverse should be +1
-# assert(IRB.location.start < rrn23_reverse.location.start < IRB.location.end)
-#try:
-#    if (rrn23_reverse.location.strand == -1):
-#        new_seq += IRBstart_IRBend
-#    else:
-#        new_seq += IRBstart_IRBend.reverse_complement()
-#except NameError as error:
-#    print("rr23 reverse not found in file...skipping")
+    print("%s not found in file...skipping" %ssc_gene_name)
 
 new_seq += IRBstart_IRBend
-
 new_seq += IRBend_end
 
 record = SeqRecord(
     new_seq,
-    id="Am09",
+    id=snakemake.wildcards["sample"],
     name="FastaStandardized",
     description=""
 )
 # NOTE: The header of the FASTA file must contain no blanks/spaces (for some odd reason) i.e. ">Am09_Chloroplasts" is allowed, but not ">Am09 Chloroplasts"
-
 
 
 ##### Output
