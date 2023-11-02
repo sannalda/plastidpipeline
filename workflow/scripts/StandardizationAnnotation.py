@@ -3,6 +3,7 @@ import os
 from Bio import SeqIO
 from Bio.Seq import Seq
 from Bio.SeqRecord import SeqRecord
+import copy
 
 
 ##### Input/output paths 
@@ -14,6 +15,8 @@ lsc_gene_name = snakemake.config["lsc_gene"]
 lsc_gene_dir = snakemake.config["lsc_gene_dir"]
 ssc_gene_name = snakemake.config["ssc_gene"]
 ssc_gene_dir = snakemake.config["ssc_gene_dir"]
+
+
 
 ##### Searching for genes and invertible regions
 for i in input_seq_rec.features:
@@ -27,40 +30,53 @@ for i in input_seq_rec.features:
     if (i.type == "repeat_region" and "IRB" in i.qualifiers["note"][0]):
         IRB = i
 
-start_IRAstart = input_seq_rec.seq[:IRA.location.start]
-IRAstart_IRAend = input_seq_rec.seq[IRA.location.start:IRA.location.end]
-IRAend_IRBstart = input_seq_rec.seq[IRA.location.end:IRB.location.start]
-IRBstart_IRBend = input_seq_rec.seq[IRB.location.start:IRB.location.end]
-IRBend_end = input_seq_rec.seq[IRB.location.end:]
+if (IRB.location.start < IRA.location.start):
+    IRA_copy = copy.deepcopy(IRA)
+    IR1 = copy.deepcopy(IRB)
+    IR2 = IRA_copy
+else:
+    IR1 = IRA
+    IR2 = IRB
+    
+start_IR1start = input_seq_rec.seq[:IR1.location.start]
+IR1start_IR1end = input_seq_rec.seq[IR1.location.start:IR1.location.end]
+IR1end_IR2start = input_seq_rec.seq[IR1.location.end:IR2.location.start]
+IR2start_IR2_end = input_seq_rec.seq[IR2.location.start:IR2.location.end]
+IR2end_end = input_seq_rec.seq[IR2.location.end:]
 
 
 
-##### Reverse Complementing
+##### Standardization (including reverse complementing)
 
 new_seq = ""
 
 ### LSC 
 try:
     if (lsc_gene.location.strand == lsc_gene_dir):
-        new_seq += start_IRAstart
+        new_seq += start_IR1start
     else:
-        new_seq += start_IRAstart.reverse_complement()
+        new_seq += start_IR1start.reverse_complement()
 except NameError as error:
     print("%s not found in file...skipping" %lsc_gene_name)
 
-new_seq += IRAstart_IRAend    
+new_seq += IR1start_IR1end    
 
 ### SSC 
 try:
     if (ssc_gene.location.strand == ssc_gene_dir):
-        new_seq += IRAend_IRBstart
+        new_seq += IR1end_IR2start
     else:
-        new_seq += IRAend_IRBstart.reverse_complement()
+        new_seq += IR1end_IR2start.reverse_complement()
 except NameError as error:
     print("%s not found in file...skipping" %ssc_gene_name)
 
-new_seq += IRBstart_IRBend
-new_seq += IRBend_end
+### Rest of sequence
+new_seq += IR2start_IR2_end
+new_seq += IR2end_end
+
+
+
+##### Output
 
 record = SeqRecord(
     new_seq,
@@ -70,9 +86,5 @@ record = SeqRecord(
 )
 # NOTE: The header of the FASTA file must contain no blanks/spaces (for some odd reason) i.e. ">Am09_Chloroplasts" is allowed, but not ">Am09 Chloroplasts"
 
-
-##### Output
-
-#annotation_filename_standardized = '/Users/SJAnnaldasula/Documents/BGBM/Plastid/%s_standardized.fasta' %os.path.splitext(annotation_filename)[0]
 with open(annotation_file_output, "w+") as result_file:
     SeqIO.write(record, result_file, "fasta")

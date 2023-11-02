@@ -1,14 +1,14 @@
 workdir: "/scratch/sjannalda/projects/PlastidPipelineTesting"
 
 samples:
-    #ERR5529317: /scratch/sjannalda/projects/PlastidPipelineTesting/data/ERR5529317/ERR5529317
-    #ERR5529436: /scratch/sjannalda/projects/PlastidPipelineTesting/data/ERR5529436/ERR5529436
-    ERR5554746: /scratch/sjannalda/projects/PlastidPipelineTesting/data/ERR5554746/ERR5554746
-    #ERR5529299: /scratch/sjannalda/projects/PlastidPipelineTesting/data/ERR5529299/ERR5529299
+    #ERR5529317: /scratch/sjannalda/projects/PlastidPipelineTesting/rawdata/ERR5529317/ERR5529317
+    ERR5529436: /scratch/sjannalda/projects/PlastidPipelineTesting/rawdata/ERR5529436/ERR5529436
+    ERR5554746: /scratch/sjannalda/projects/PlastidPipelineTesting/rawdata/ERR5554746/ERR5554746
+    #ERR5529299: /scratch/sjannalda/projects/PlastidPipelineTesting/rawdata/ERR5529299/ERR5529299
     #Am09: /scratch/sjannalda/projects/Am09/run1/data/AM0909
     #Am21: /scratch/sjannalda/projects/Am21/run1/data/AM2134
-    #SRR17032105: /scratch/sjannalda/projects/PlastidPipelineTesting/data/SRR17032105/SRR17032105
-    #SRR12432532: /scratch/sjannalda/projects/PlastidPipelineTesting/data/SRR12432532/SRR12432532
+    #SRR17032105: /scratch/sjannalda/projects/PlastidPipelineTesting/rawdata/SRR17032105/SRR17032105
+    #SRR12432532: /scratch/sjannalda/projects/PlastidPipelineTesting/rawdata/SRR12432532/SRR12432532
 
 
 
@@ -39,6 +39,7 @@ MaxRounds: 30 # -R. Max number of extended rounds. Default is 15 by GetOrganelle
 PreGrouped: 1000000 # -P. The maximum number (integer) of high-covered reads to be pre-grouped before extending process. pre_grouping is suggested when the whole genome coverage is shallow but the organ genome coverage is deep
 
 
+
 ### Annotation Options for GeSeq
 GenomeShape: "Linear" # Options: Linear, Circular
 SequenceSource: "Land" # Options: Land, Algae, Mito. Refers to Plastid (Land plants), Plastid (algae), or Mitochondria
@@ -47,6 +48,7 @@ AnnotateRPS12: True # Refers to annotate plastid trans-spliced rps12
 AnnotationChloe: True # Refers to support annotation by Chloë
 ChloeAnnotateCDS: True # Refers to annotate CDS from Chloe, is support annotation by Chloe is selected
 ChloeAnnotateTRNA: True # Refers to annotation tRNA from Chloe, if support annotation by Chloe is selected
+ChloeAnnotateRRNA: False # Refers to annotation rRNA from Chloe, if support annotation by Chloe is selected
 AnnotationMFannot: False # Refers to support annotation by MFannot. NOTE: Currently not supported
 AnnotationRevision: "Best" # Options: Best, All. Refers to only keep best annotation, or keep all annotations
 MPIMP_RefSet: True # Refers to use MPI's reference set of chloroplast land plants (CDS + rRNA)

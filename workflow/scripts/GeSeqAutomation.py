@@ -22,6 +22,7 @@ annotation_file_input = os.path.join(snakemake.config["workdir"],snakemake.input
 annotation_file_output = os.path.join(snakemake.config["workdir"],snakemake.output[0])
 
 
+
 ##### Config Parameters
 GenomeShape = snakemake.config["GenomeShape"] 
 SequenceSource = snakemake.config["SequenceSource"] 
@@ -30,6 +31,7 @@ AnnotateRPS12 = snakemake.config["AnnotateRPS12"]
 AnnotationChloe = snakemake.config["AnnotationChloe"] 
 ChloeAnnotateCDS = snakemake.config["ChloeAnnotateCDS"]
 ChloeAnnotateTRNA = snakemake.config["ChloeAnnotateTRNA"]  
+ChloeAnnotateRRNA = snakemake.config["ChloeAnnotateRRNA"] 
 AnnotationMFannot = snakemake.config["AnnotationMFannot"] 
 AnnotationRevision = snakemake.config["AnnotationRevision"] 
 MPIMP_RefSet = snakemake.config["MPIMP_RefSet"] 
@@ -69,7 +71,6 @@ upload_fasta_block = left_column_elements[0]
 annotation_options = left_column_elements[1]
 
 ### Fasta files to annotate
-
 # Uploading fasta files to annotate
 upload_fasta_input = upload_fasta_block.find_element(By.CLASS_NAME,"fl_head")
 upload_fasta_input_file = upload_fasta_input.find_element(By.XPATH, "//input[@type='file']")
@@ -145,6 +146,7 @@ if (MPIMP_RefSet):
 # Chloe
 assert(type(ChloeAnnotateCDS) == bool)
 assert(type(ChloeAnnotateTRNA) == bool)
+assert(type(ChloeAnnotateRRNA) == bool)
 
 if (AnnotationChloe):
     if (ChloeAnnotateCDS):
@@ -154,7 +156,12 @@ if (AnnotationChloe):
     if (ChloeAnnotateTRNA):
         if (not third_party_annotation_block.find_element(By.ID,"chloe_annotate_trna").is_selected()):
             third_party_annotation_block.find_element(By.ID,"chloe_annotate_trna").click()
-    
+
+    if (ChloeAnnotateRRNA):
+        if (not third_party_annotation_block.find_element(By.ID,"chloe_annotate_rrna").is_selected()):
+            third_party_annotation_block.find_element(By.ID,"chloe_annotate_rrna").click()
+
+
 ##### Right Column
 right_column_elements = right_column.find_elements(By.CLASS_NAME, 'gs_panel')
 output_options_block = right_column_elements[0]
@@ -190,7 +197,6 @@ submit_job_popup = driver.find_element(By.ID,"io_dialog")
 job_title = submit_job_popup.find_element(By.CLASS_NAME,"input_string").get_attribute("value")
 submit_job_popup.find_element(By.CLASS_NAME,"cms_button_ok").click()
 
-
 # Waiting for job to run
 time.sleep(1)
 assert(job_title == results_block.find_element(By.CLASS_NAME,"gs_jobtitle").text.strip())
@@ -211,7 +217,8 @@ while(job_status != 'Status: finished'):
     if (curr_time - start_time > 1000):
         print("GeSeq took too long, exiting...")
         assert(1==0)
-    
+   
+
     
 ##### Downloading GenBank file
 annotation_filename = results_block.find_element(By.XPATH,'//a[@data-gs-format="GenBank"]').get_attribute("data-gs_filename")
@@ -221,6 +228,7 @@ download_file_popup = driver.find_element(By.ID,"io_dialog")
 download_file_popup.find_element(By.CLASS_NAME,"cms_button_download").click()
 time.sleep(4)
 driver.quit()        
+
 
 
 ##### Rename file
