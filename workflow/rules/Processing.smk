@@ -2,7 +2,7 @@ def sortReadsInputFunc(wildcards):
 	if (config["Trimming"]):
 		return "{sample}/data/{sample}_{read}.trimmed.fastq"
 	else:
-		return lambda wildcards: f"{config['samples'][wildcards.sample]}_{wildcards.read}.fastq"
+		return f"{config['samples'][wildcards.sample]}_{wildcards.read}.fastq"
 
 rule SortReads:
 	input:
