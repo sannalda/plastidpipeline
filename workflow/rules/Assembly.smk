@@ -41,4 +41,5 @@ rule Assembly:
 			-F {config[OrganelleDatabasesAssembly]} --config-dir {config[organelle_database_folder]}\\
 			-t {threads} --prefix {wildcards.sample} --overwrite
 		scp {wildcards.sample}/assembly/*{params.assembly_pattern} {output.assembly}
+		sed -i '1s/.*/>>{wildcards.sample}/' {output.assembly}
 		"""

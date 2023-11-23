@@ -52,7 +52,7 @@ op.add_argument("--start-maximized")
 driver = webdriver.Chrome(options=op,service=ChromiumService(ChromeDriverManager(chrome_type=ChromeType.CHROMIUM).install()))
 #driver = webdriver.Chrome(options=op)
 driver.get("https://chlorobox.mpimp-golm.mpg.de/geseq.html")
-time.sleep(5)
+time.sleep(15)
 
 
 ##### Initialize tool
@@ -192,8 +192,12 @@ if (not actions_block.find_element(By.ID,"cb_disclaimer").is_selected()):
     
 # Submit job
 actions_block.find_element(By.CLASS_NAME,"gs_submit").click()
-time.sleep(1)
+time.sleep(5)
 submit_job_popup = driver.find_element(By.ID,"io_dialog")
+job_name_element = submit_job_popup.find_element(By.CLASS_NAME,"input_string")
+#driver.execute_script("arguments[0].setAttribute('value',arguments[1])",job_name_element,snakemake.wildcards["sample"])
+driver.execute_script("arguments[0].setAttribute('value',arguments[1])",job_name_element,"AutomatedScript")
+time.sleep(2)
 job_title = submit_job_popup.find_element(By.CLASS_NAME,"input_string").get_attribute("value")
 submit_job_popup.find_element(By.CLASS_NAME,"cms_button_ok").click()
 
@@ -223,13 +227,14 @@ while(job_status != 'Status: finished'):
 ##### Downloading GenBank file
 annotation_filename = results_block.find_element(By.XPATH,'//a[@data-gs-format="GenBank"]').get_attribute("data-gs_filename")
 results_block.find_element(By.XPATH,'//a[@data-gs-format="GenBank"]').click()
-time.sleep(2)
+time.sleep(5)
 download_file_popup = driver.find_element(By.ID,"io_dialog")
 download_file_popup.find_element(By.CLASS_NAME,"cms_button_download").click()
-time.sleep(4)
+time.sleep(5)
 driver.quit()        
 
 
 
 ##### Rename file
+print(annotation_filename,annotation_file_output)
 os.rename(annotation_filename,annotation_file_output)

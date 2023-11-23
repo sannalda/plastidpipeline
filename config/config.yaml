@@ -1,8 +1,8 @@
-workdir: "/scratch/sjannalda/projects/PlastidPipelineTesting"
+workdir: "/scratch/sjannalda/projects/PlastidTutorial"
 
 samples:
     #ERR5529317: /scratch/sjannalda/projects/PlastidPipelineTesting/rawdata/ERR5529317/ERR5529317
-    ERR5529436: /scratch/sjannalda/projects/PlastidPipelineTesting/rawdata/ERR5529436/ERR5529436
+    #ERR5529436: /scratch/sjannalda/projects/PlastidPipelineTesting/rawdata/ERR5529436/ERR5529436
     ERR5554746: /scratch/sjannalda/projects/PlastidPipelineTesting/rawdata/ERR5554746/ERR5554746
     #ERR5529299: /scratch/sjannalda/projects/PlastidPipelineTesting/rawdata/ERR5529299/ERR5529299
     #Am09: /scratch/sjannalda/projects/Am09/run1/data/AM0909
