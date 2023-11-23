@@ -75,7 +75,7 @@ annotation_options = left_column_elements[1]
 upload_fasta_input = upload_fasta_block.find_element(By.CLASS_NAME,"fl_head")
 upload_fasta_input_file = upload_fasta_input.find_element(By.XPATH, "//input[@type='file']")
 upload_fasta_input_file.send_keys(annotation_file_input)
-time.sleep(5)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
+time.sleep(5)
 
 # Choose circular or linear genome
 assert(GenomeShape in ["Linear","Circular"])
