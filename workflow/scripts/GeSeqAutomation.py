@@ -223,14 +223,15 @@ while(job_status != 'Status: finished'):
         assert(1==0)
    
 
-    
+
+time.sleep(5)
 ##### Downloading GenBank file
 annotation_filename = results_block.find_element(By.XPATH,'//a[@data-gs-format="GenBank"]').get_attribute("data-gs_filename")
 results_block.find_element(By.XPATH,'//a[@data-gs-format="GenBank"]').click()
-time.sleep(5)
+time.sleep(10)
 download_file_popup = driver.find_element(By.ID,"io_dialog")
 download_file_popup.find_element(By.CLASS_NAME,"cms_button_download").click()
-time.sleep(5)
+time.sleep(30)
 driver.quit()        
 
 

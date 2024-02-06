@@ -1,9 +1,13 @@
-workdir: "/scratch/sjannalda/projects/PlastidTutorial"
+# Working directory where all the analysis will run. This should be in "scratch" or similar folder
+workdir: "/scratch/sjannalda/projects/PlastidPipelineTesting"
 
 samples:
+    #SRR17032099: /scratch/sjannalda/projects/PlastidPipelineTesting/rawdata/SRR17032099/SRR17032099
+    SRR12917849: /scratch/sjannalda/projects/PlastidPipelineTesting/rawdata/SRR12917849/SRR12917849
+    #SRR12917857: /scratch/sjannalda/projects/PlastidPipelineTesting/rawdata/SRR12917857/SRR12917857
     #ERR5529317: /scratch/sjannalda/projects/PlastidPipelineTesting/rawdata/ERR5529317/ERR5529317
     #ERR5529436: /scratch/sjannalda/projects/PlastidPipelineTesting/rawdata/ERR5529436/ERR5529436
-    ERR5554746: /scratch/sjannalda/projects/PlastidPipelineTesting/rawdata/ERR5554746/ERR5554746
+    #ERR5554746: /scratch/sjannalda/projects/PlastidPipelineTesting/rawdata/ERR5554746/ERR5554746
     #ERR5529299: /scratch/sjannalda/projects/PlastidPipelineTesting/rawdata/ERR5529299/ERR5529299
     #Am09: /scratch/sjannalda/projects/Am09/run1/data/AM0909
     #Am21: /scratch/sjannalda/projects/Am21/run1/data/AM2134
@@ -15,6 +19,7 @@ samples:
 ### Pipeline Options
 Trimming: TRUE
 Standardization: TRUE
+Submission: TRUE
 
 
 
@@ -61,3 +66,8 @@ lsc_gene: "rbcL" # Gene located in LSC. Default is "rbcL" (previously used "psbA
 lsc_gene_dir: 1 # Gene direction of lsc. 1 is forward, -1 is reverse
 ssc_gene: "ndhF" # Gene located in SSC
 ssc_gene_dir: 1 # Gene direction of ssc. 1 is forward, -1 is reverse
+
+
+
+### Submission Options
+metadata_file: "/home/sjannalda/bgbm/projects/PlastidPipeline/config/metadata.txt"
