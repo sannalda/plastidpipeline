@@ -14,8 +14,6 @@ samples:
     #SRR17032105: /scratch/sjannalda/projects/PlastidPipelineTesting/rawdata/SRR17032105/SRR17032105
     #SRR12432532: /scratch/sjannalda/projects/PlastidPipelineTesting/rawdata/SRR12432532/SRR12432532
 
-
-
 ### Pipeline Options
 Trimming: TRUE
 Standardization: TRUE
