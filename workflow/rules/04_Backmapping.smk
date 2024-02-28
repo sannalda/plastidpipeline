@@ -6,7 +6,8 @@ def buildReferenceAnnotationBackmappingInputFunc(wildcards):
 
 rule BuildReferenceAnnotationBackmapping:
 	input:
-		buildReferenceAnnotationBackmappingInputFunc
+		ref=buildReferenceAnnotationBackmappingInputFunc,
+		unpause="{sample}/03_annotation/{sample}.unpause.txt"
 	output:
 		"{sample}/04_backmapping/mapping/{sample}.backmapping.1.bt2"
 	log:
@@ -19,7 +20,7 @@ rule BuildReferenceAnnotationBackmapping:
 		"Bowtie2"
 	shell:
 		"""
-		bowtie2-build --threads {threads} {input} {wildcards.sample}/04_backmapping/mapping/{wildcards.sample}.backmapping 2> {log}
+		bowtie2-build --threads {threads} {input.ref} {wildcards.sample}/04_backmapping/mapping/{wildcards.sample}.backmapping 2> {log}
 		"""
 
 rule Backmapping:
@@ -28,7 +29,7 @@ rule Backmapping:
 		read1="{sample}/01_data/{sample}_1.filt.fastq",
 		read2="{sample}/01_data/{sample}_2.filt.fastq"
 	output:
-		"{sample}/04_backmapping/mapping{sample}.backmapping.sam"
+		"{sample}/04_backmapping/mapping/{sample}.backmapping.sam"
 	log:
 		"{sample}/04_backmapping/qc/{sample}.bowtie2.backmapping.log"
 	resources:
