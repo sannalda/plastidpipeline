@@ -43,4 +43,4 @@ include: "rules/04_Backmapping.smk"
 
 include: "rules/04_Submission.smk"
 
-localrules: AnnotationPreStandardization, AnnotationPostStandardization, AnnotationQualityCheck
+localrules: AnnotationPreStandardization, AnnotationPostStandardization

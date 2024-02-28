@@ -4,9 +4,9 @@ def annotationSubmissionNCBIInphutFunc(wildcards):
 	if wildcards.sample in config["samples_metadata"]:
 		output += [config["samples_metadata"][wildcards.sample]]
 	if (not config["Standardization"]):
-		return output + ["{sample}/03_annotation/{sample}.annotated.gb","{sample}/03_annotation/{sample}.assembled.fasta","{sample}/03_annotation/{sample}.unpause.txt",]
+		return output + ["{sample}/03_annotation/{sample}.annotated.gb","{sample}/03_annotation/{sample}.assembled.fasta"]
 	else:
-		return output + ["{sample}/03_annotation/{sample}.standardardized.filt.gb","{sample}/03_annotation/{sample}.standardardized.fasta","{sample}/03_annotation/{sample}.unpause.txt"]
+		return output + ["{sample}/03_annotation/{sample}.standardardized.filt.gb","{sample}/03_annotation/{sample}.standardardized.fasta"]
 
 
 rule annotationSubmissionNCBI:

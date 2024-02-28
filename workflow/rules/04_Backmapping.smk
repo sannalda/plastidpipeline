@@ -6,8 +6,7 @@ def buildReferenceAnnotationBackmappingInputFunc(wildcards):
 
 rule BuildReferenceAnnotationBackmapping:
 	input:
-		ref=buildReferenceAnnotationBackmappingInputFunc,
-		unpause="{sample}/03_annotation/{sample}.unpause.txt"
+		ref=buildReferenceAnnotationBackmappingInputFunc
 	output:
 		"{sample}/04_backmapping/mapping/{sample}.backmapping.1.bt2"
 	log:

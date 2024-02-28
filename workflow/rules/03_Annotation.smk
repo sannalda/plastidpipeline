@@ -60,22 +60,6 @@ if (not config["Standardization"]):
 		script:
 			"../scripts/AnnotationQualityControl.py"
 
-	rule AnnotationQualityCheck:
-		input:
-			"{sample}/03_annotation/{sample}.annotated.filt.gb"
-		output:
-			"{sample}/03_annotation/{sample}.unpause.txt"
-		resources:
-			chrome=1
-		localrule: True
-		shell:
-			"""
-			echo "Hello, please introduce yourself."
-
-			echo -n "Your name: "
-			read -r name
-			"""
-
 else:
 	rule AnnotationQualityControl:
 		input:
@@ -94,27 +78,3 @@ else:
 			"../envs/Annotation.yaml"
 		script:
 			"../scripts/AnnotationQualityControl.py"
-
-	rule AnnotationQualityCheck:
-		input:
-			sfilt="{sample}/03_annotation/{sample}.standardardized.filt.gb",
-			log="{sample}/03_annotation/{sample}.standardardized.warnings.log"
-		output:
-			"{sample}/03_annotation/{sample}.unpause.txt"
-		resources:
-			chrome=1
-		localrule: True
-		shell:
-			"""
-			echo "Annoation finished for {wildcards.sample}. Please check {input.log} and make any necessary changes to {input.sfilt} before proceeding with the pipeline. 
-			To proceed, type 'y'. Else, type anything (i.e. 'n') and enter to exit the pipeline. This diaglogue will repear again when you rerun the pipeline if you exit."
-
-			echo -n "Response (y or n): "
-			read -r response
-
-			if [ "$response" = "y" ]; then 
-				touch {output}
-			else 
-				echo "Exiting the pipeline in 60 seconds..." 
-			fi
-			"""
