@@ -1,0 +1,35 @@
+name: backmapping
+channels:
+  - conda-forge
+  - bioconda
+  - defaults
+  - r
+  - default
+  - anaconda
+dependencies:
+  - _libgcc_mutex=0.1=conda_forge
+  - _openmp_mutex=4.5=2_gnu
+  - bedtools=2.31.1=hf5e1c6e_0
+  - bzip2=1.0.8=hd590300_5
+  - c-ares=1.11.0=h470a237_1
+  - ca-certificates=2024.2.2=hbcca054_0
+  - curl=7.71.1=he644dc0_8
+  - htslib=1.9=ha228f0b_7
+  - krb5=1.17.2=h926e7f8_0
+  - libcurl=7.71.1=hcdd3856_8
+  - libdeflate=1.0=h14c3975_1
+  - libedit=3.1.20191231=h46ee950_2
+  - libev=4.33=hd590300_2
+  - libgcc-ng=13.2.0=h807b86a_5
+  - libgomp=13.2.0=h807b86a_5
+  - libnghttp2=1.41.0=hab1572f_1
+  - libssh2=1.10.0=haa6b8db_3
+  - libstdcxx-ng=13.2.0=h7e041cc_5
+  - libzlib=1.2.13=hd590300_5
+  - ncurses=6.1=hf484d3e_1002
+  - openssl=1.1.1w=hd590300_0
+  - samtools=1.9=h10a08f8_12
+  - tk=8.6.13=noxft_h4845f30_101
+  - xz=5.2.6=h166bdaf_0
+  - zlib=1.2.13=hd590300_5
+prefix: /home/sjannalda/mambaforge-pypy3/envs/backmapping

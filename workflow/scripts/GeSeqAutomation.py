@@ -16,6 +16,11 @@ from webdriver_manager.core.os_manager import ChromeType
 from selenium.webdriver import ActionChains
 
 
+class GeSeqError(Exception):
+    pass
+
+class DownloadingError(Exception):
+    pass
 
 ##### Input Parameters
 annotation_file_input = os.path.join(snakemake.config["workdir"],snakemake.input[0])
@@ -197,6 +202,7 @@ submit_job_popup = driver.find_element(By.ID,"io_dialog")
 job_name_element = submit_job_popup.find_element(By.CLASS_NAME,"input_string")
 #driver.execute_script("arguments[0].setAttribute('value',arguments[1])",job_name_element,snakemake.wildcards["sample"])
 driver.execute_script("arguments[0].setAttribute('value',arguments[1])",job_name_element,"AutomatedScript")
+print("Submmited job to GetOrganelle for sample %s." %snakemake.wildcards["sample"])
 time.sleep(2)
 job_title = submit_job_popup.find_element(By.CLASS_NAME,"input_string").get_attribute("value")
 submit_job_popup.find_element(By.CLASS_NAME,"cms_button_ok").click()
@@ -211,16 +217,15 @@ start_time = time.time()
 job_status = results_block.find_element(By.CLASS_NAME,"gs_jobstatus").text.strip()
 while(job_status != 'Status: finished'):
     #WebDriverWait(driver,5,ignored_exceptions=ignored_exceptions).until(EC.presence_of_element_located((By.CLASS_NAME,"gs_jobstatus")))
-    time.sleep(1)
+    time.sleep(5)
     try:
         job_status = results_block.find_element(By.CLASS_NAME,"gs_jobstatus").text.strip()
     except StaleElementReferenceException as e:
         pass
-    print(job_status)
+    print("\t"+job_status)
     curr_time = time.time()
     if (curr_time - start_time > 1000):
-        print("GeSeq took too long, exiting...")
-        assert(1==0)
+        raise GeSeqError("GeSeq took too long, please try again later. Exiting...")
    
 
 
@@ -231,11 +236,19 @@ results_block.find_element(By.XPATH,'//a[@data-gs-format="GenBank"]').click()
 time.sleep(10)
 download_file_popup = driver.find_element(By.ID,"io_dialog")
 download_file_popup.find_element(By.CLASS_NAME,"cms_button_download").click()
-time.sleep(30)
-driver.quit()        
+start_time = time.time()
+while not os.path.exists(annotation_filename):
+    print("\tAnnotation completed. Wating for download to complete...")
+    time.sleep(5)
+    curr_time = time.time()
+    if (curr_time - start_time > 1000):
+        raise DownloadingError("Downloading took too long, please try again later. Exiting...")
+    
+time.sleep(10)
+driver.quit()  
+print("Annotation and download complete.")      
 
 
 
 ##### Rename file
-print(annotation_filename,annotation_file_output)
 os.rename(annotation_filename,annotation_file_output)

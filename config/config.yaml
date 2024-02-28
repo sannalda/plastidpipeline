@@ -1,6 +1,17 @@
-# Working directory where all the analysis will run. This should be in "scratch" or similar folder
-workdir: "/scratch/sjannalda/projects/PlastidPipelineTesting"
+##### Pipeline Options
+Trimming: TRUE
+Standardization: TRUE
+Submission: TRUE
+Backmapping: TRUE
 
+
+
+##### File path changes
+
+# Working directory where all the analysis will run. This should be in "scratch" or similar folder
+workdir: "/scratch/sjannalda/projects/ArnicaProcessing"
+
+# Samples to analyze
 samples:
     #SRR17032099: /scratch/sjannalda/projects/PlastidPipelineTesting/rawdata/SRR17032099/SRR17032099
     SRR12917849: /scratch/sjannalda/projects/PlastidPipelineTesting/rawdata/SRR12917849/SRR12917849
@@ -14,34 +25,33 @@ samples:
     #SRR17032105: /scratch/sjannalda/projects/PlastidPipelineTesting/rawdata/SRR17032105/SRR17032105
     #SRR12432532: /scratch/sjannalda/projects/PlastidPipelineTesting/rawdata/SRR12432532/SRR12432532
 
-### Pipeline Options
-Trimming: TRUE
-Standardization: TRUE
-Submission: TRUE
+# Metadata full file path for sample to analyze, but only if want to output in format for submission
+samples_metadata:
+    SRR12917849: /scratch/sjannalda/projects/SequenceInfoMetadata/SRS7602758_metadata.txt 
+    #SRR17032099: /scratch/sjannalda/projects/SequenceInfoMetadata/SRS11147532_metadata.txt
+
+# Trimming Adapter File
+adapter_trimming_file: "/home/sjannalda/bgbm/projects/PlastidPipeline/config/TruSeq3-PE-2.fa" # Path to adapter file, but you can provide your own file.
+
+# Quality Control Gene List File
+plant_genes_file: "/home/sjannalda/bgbm/projects/PlastidPipeline/config/plantgenes.txt" # Full path
 
 
 
-### Trimming Options
-adapter_trimming: "$EBROOTTRIMMOMATIC/adapters/TruSeq3-PE-2.fa" # Using adapters file provided by Trimmomatic on HPC, but you can provide your own file.
-
-
+##### Parameter Changes for the pipeline
 
 ### Filtering Options
 MinQualityScore: 30
 
-
-
 ### Assembly Options 
 organelle_database_folder: "database" # Can either provide a bath if already made, or it will be created within the workdir
-OrganelleDatabasesDownload: "embplant_pt,embplant_mt" # Apprently GetOrganelle needs both of these first before proceeding
+OrganelleDatabasesDownload: "embplant_pt,embplant_mt" # Apparently GetOrganelle needs both of these first before proceeding
 OrganelleDatabasesAssembly: "embplant_pt"
 
 # Parameters for GetOrganelle 
 KmerSpades: "21,45,65,85,105" #  -k. SPAdes kmer settings
 MaxRounds: 30 # -R. Max number of extended rounds. Default is 15 by GetOrganelle
 PreGrouped: 1000000 # -P. The maximum number (integer) of high-covered reads to be pre-grouped before extending process. pre_grouping is suggested when the whole genome coverage is shallow but the organ genome coverage is deep
-
-
 
 ### Annotation Options for GeSeq
 GenomeShape: "Linear" # Options: Linear, Circular
@@ -57,15 +67,12 @@ AnnotationRevision: "Best" # Options: Best, All. Refers to only keep best annota
 MPIMP_RefSet: True # Refers to use MPI's reference set of chloroplast land plants (CDS + rRNA)
 MultiGenBank: True # Refers to generate multi-GenBank
 
-
-
 ### Standardization Options
 lsc_gene: "rbcL" # Gene located in LSC. Default is "rbcL" (previously used "psbA" with direction -1)
 lsc_gene_dir: 1 # Gene direction of lsc. 1 is forward, -1 is reverse
 ssc_gene: "ndhF" # Gene located in SSC
 ssc_gene_dir: 1 # Gene direction of ssc. 1 is forward, -1 is reverse
 
+### Backmapping
+MinReadCoverageWarning: 100 # Minimum number of reads for read coverage warning
 
-
-### Submission Options
-metadata_file: "/home/sjannalda/bgbm/projects/PlastidPipeline/config/metadata.txt"

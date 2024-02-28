@@ -15,7 +15,6 @@ genome_file_input = os.path.join(snakemake.config["workdir"],snakemake.input[2])
 genome = SeqIO.read(genome_file_input, 'fasta')
 
 metadata = pd.read_csv(os.path.join(snakemake.config["workdir"],snakemake.input[0]), sep = "\t", header = None, names = ["fields","info"], index_col = 0)
-
 metadata = metadata.T
 if ("SOURCE_MOD" in metadata.columns):
     source_mod = list(metadata.columns[list(metadata.columns).index("SOURCE_MOD")+1:])
@@ -27,7 +26,7 @@ else:
 
 #####
 seq = genome.seq
-locus = metadata["SAMPLE"]["info"]
+locus = metadata["SAMPLE"]["info"].replace(" ","")
 definition = "%s accession %s plastid, complete genome" %(metadata["SPECIES"]["info"],metadata["SAMPLE"]["info"])
 
 ##### 
@@ -51,7 +50,7 @@ annotations["comment"] = """Preliminary file ? please verify!
             and versatile toolkit for accurate de novo assembly of organelle
             genomes. Genome Biology. https://doi.org/10.1186/s13059-020-02154-5"""
 annotations["molecule_type"] = "DNA"
-annotations["topology"] = "linear"
+annotations["topology"] = "circular"
 
 reference = Reference()
 reference.authors = metadata["AUTHORS"]["info"]
