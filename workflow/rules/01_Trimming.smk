@@ -3,12 +3,12 @@ rule TrimReads:
 		read1=lambda wildcards: f"{config['samples'][wildcards.sample]}_1.fastq",
 		read2=lambda wildcards: f"{config['samples'][wildcards.sample]}_2.fastq"
 	output:
-		read1="{sample}/data/{sample}_1.trimmed.fastq",
-		read2="{sample}/data/{sample}_2.trimmed.fastq",
-		read1_un="{sample}/data/{sample}_U1.trimmed.fastq",
-		read2_un="{sample}/data/{sample}_U2.trimmed.fastq"
+		read1="{sample}/01_data/{sample}_1.trimmed.fastq",
+		read2="{sample}/01_data/{sample}_2.trimmed.fastq",
+		read1_un="{sample}/01_data/{sample}_U1.trimmed.fastq",
+		read2_un="{sample}/01_data/{sample}_U2.trimmed.fastq"
 	params:
-		adapters=config["adapter_trimming"]
+		adapters=config["adapter_trimming_file"]
 	resources:
 		mem_mb=5000,
 		time="0-02:00:00"
@@ -21,9 +21,9 @@ rule TrimReads:
 
 rule TrimmingQC_fastqc:
 	input:
-		read="{sample}/data/{sample}_{read}.trimmed.fastq"
+		read="{sample}/01_data/{sample}_{read}.trimmed.fastq"
 	output:
-		read="{sample}/qc/trimming/{sample}_{read}.trimmed.fastqc.html" 
+		read="{sample}/01_data/qc/trimming/{sample}_{read}.trimmed.fastqc.html" 
 	params:
 		read = lambda wildcards, output: output.read.replace('.fastqc', '_fastqc')
 	resources:
@@ -33,17 +33,17 @@ rule TrimmingQC_fastqc:
 		"FastQC/0.11.9-Java-11"
 	shell:
 		"""
-		mkdir -p {wildcards.sample}/qc
-		mkdir -p {wildcards.sample}/qc/trimming
-		fastqc -o {wildcards.sample}/qc/trimming {input.read} 
+		mkdir -p {wildcards.sample}/01_data/qc
+		mkdir -p {wildcards.sample}/01_data/qc/trimming
+		fastqc -o {wildcards.sample}/01_data/qc/trimming {input.read} 
 		mv {params.read} {output.read}
 		"""
 
 rule TrimmingQC_multiqc:
 	input:
-		expand("{{sample}}/qc/trimming/{{sample}}_{read}.trimmed.fastqc.html", read=["1","2"])
+		expand("{{sample}}/01_data/qc/trimming/{{sample}}_{read}.trimmed.fastqc.html", read=["1","2"])
 	output:
-		"{sample}/qc/trimming/trimming_report_{sample}.html"
+		"{sample}/01_data/qc/trimming_report_{sample}.html"
 	resources:
 		mem_mb=5000,
 		time="0-00:10:00"
@@ -51,5 +51,5 @@ rule TrimmingQC_multiqc:
 		"MultiQC"
 	shell:
 		"""
-		multiqc -n {output} --no-data-dir {wildcards.sample}/qc/trimming
+		multiqc -n {output} --no-data-dir {wildcards.sample}/01_data/qc/trimming
 		"""

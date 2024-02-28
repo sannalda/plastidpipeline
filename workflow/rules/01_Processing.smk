@@ -1,6 +1,6 @@
 def sortReadsInputFunc(wildcards):
 	if (config["Trimming"]):
-		return "{sample}/data/{sample}_{read}.trimmed.fastq"
+		return "{sample}/01_data/{sample}_{read}.trimmed.fastq"
 	else:
 		return f"{config['samples'][wildcards.sample]}_{wildcards.read}.fastq"
 
@@ -8,7 +8,7 @@ rule SortReads:
 	input:
 		read=sortReadsInputFunc			
 	output:
-		read="{sample}/data/{sample}_{read}.sorted.fastq"
+		read="{sample}/01_data/{sample}_{read}.sorted.fastq"
 	resources:
 		mem_mb=5000,
 		time="0-01:00:00"
@@ -23,7 +23,7 @@ rule FilteringReads:
 	input:
 		read=rules.SortReads.output.read
 	output:
-		read="{sample}/data/{sample}_{read}.filt.fastq"
+		read="{sample}/01_data/{sample}_{read}.filt.fastq"
 	params:
 		q=config["MinQualityScore"]
 	resources:
@@ -40,7 +40,7 @@ rule FilteringQC_fastqc:
 	input:
 		read = rules.FilteringReads.output.read
 	output:
-		read = "{sample}/qc/filtering/{sample}_{read}.filt.fastqc.html"
+		read = "{sample}/01_data/qc/filtering/{sample}_{read}.filt.fastqc.html"
 	params:
 		read = lambda wildcards, output: output.read.replace('.fastqc', '_fastqc'),
 	resources:
@@ -50,17 +50,17 @@ rule FilteringQC_fastqc:
 		"FastQC/0.11.9-Java-11"
 	shell:
 		"""
-		mkdir -p {wildcards.sample}/qc
-		mkdir -p {wildcards.sample}/qc/filtering
-		fastqc -o {wildcards.sample}/qc/filtering {input.read}
+		mkdir -p {wildcards.sample}/01_data/qc
+		mkdir -p {wildcards.sample}/01_data/qc/filtering
+		fastqc -o {wildcards.sample}/01_data/qc/filtering {input.read}
 		mv {params.read} {output.read}
 		"""
 
 rule FilteringQC_multiqc:
 	input:
-		expand("{{sample}}/qc/filtering/{{sample}}_{read}.filt.fastqc.html", read=["1","2"]),
+		expand("{{sample}}/01_data/qc/filtering/{{sample}}_{read}.filt.fastqc.html", read=["1","2"]),
 	output:
-		"{sample}/qc/filtering/filtering_report_{sample}.html" 
+		"{sample}/01_data/qc/filtering_report_{sample}.html" 
 	resources:
 		mem_mb=5000,
 		time="0-00:10:00"
@@ -68,5 +68,5 @@ rule FilteringQC_multiqc:
 		"MultiQC"
 	shell:
 		"""
-		multiqc -n {output} --no-data-dir {wildcards.sample}/qc/filtering
+		multiqc -n {output} --no-data-dir {wildcards.sample}/01_data/qc/filtering
 		"""

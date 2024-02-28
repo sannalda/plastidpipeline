@@ -1,31 +1,46 @@
 workdir:config["workdir"]
 
+
+def allInputFunction(wildcards):
+	output = []
+
+	if (config["Trimming"]):
+		output += expand("{sample}/01_data/qc/trimming_report_{sample}.html", sample=config["samples"])
+	
+	output += expand("{sample}/01_data/qc/filtering_report_{sample}.html", sample=config["samples"])
+
+	if (config["Standardization"]):
+		output += expand("{sample}/03_annotation/{sample}.standardardized.filt.gb", sample=config["samples"])
+	else:
+		output += expand("{sample}/03_annotation/{sample}.annotated.filt.gb",sample=config["samples"])
+
+	if (config["Submission"]):
+		for i in config["samples"]:
+			if i in config["samples_metadata"]:
+				output += ["%s/04_submission/%s.submission.gb" %(i,i)]
+
+	if (config["Backmapping"]):
+		output += expand("{sample}/04_backmapping/{sample}.backmapping.visualization.html", sample=config["samples"])
+
+	return output
+
 rule all:
 	input:
-		#expand("{sample}/qc/start/StartReportQC_{sample}.html", sample=config["samples"]),
-		#expand("{sample}/qc/trimming/trimming_report_{sample}.html", sample=config["samples"]),
-		expand("{sample}/qc/filtering/filtering_report_{sample}.html", sample=config["samples"]),
-		expand("{sample}/annotation/{sample}.standardardized.gb", sample=config["samples"]) if (config["Standardization"]) else expand("{sample}/annotation/{sample}.original.gb",sample=config["samples"]),
-		expand("{sample}/annotation/{sample}.standardardized.fasta", sample=config["samples"]) if (config["Standardization"]) else expand("{sample}/assembly/{sample}.original.fasta",sample=config["samples"]),
-		expand("{sample}/annotation/{sample}.standardardized.cleaned.gb", sample=config["samples"]) if (config["Standardization"]) else expand("{sample}/annotation/{sample}.original.cleaned.gb",sample=config["samples"]),
-		expand("{sample}/annotation/{sample}.submission.gb", sample=config["samples"]) if (config["Submission"]) else "",
-		expand("{sample}/qc/backmapping/{sample}.backmapping.readcoverage.log", sample=config["samples"]),
-
-		
+		allInputFunction		
 
 
-include: "rules/Preprocessing.smk"
+include: "rules/00_Preprocessing.smk"
 
-include: "rules/Trimming.smk"
+include: "rules/01_Trimming.smk"
 
-include: "rules/Processing.smk"
+include: "rules/01_Processing.smk"
 
-include: "rules/Assembly.smk"
+include: "rules/02_Assembly.smk"
 
-include: "rules/Annotation.smk"
+include: "rules/03_Annotation.smk"
 
-include: "rules/Backmapping.smk"
+include: "rules/04_Backmapping.smk"
 
-include: "rules/Submission.smk"
+include: "rules/04_Submission.smk"
 
-localrules: AnnotationPreStandardization, AnnotationPostStandardization
+localrules: AnnotationPreStandardization, AnnotationPostStandardization, AnnotationQualityCheck

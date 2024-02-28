@@ -18,12 +18,12 @@ rule AssemblyConfig:
 rule Assembly:
 	input:
 		expand("%s/SeedDatabase/{organelle_dbs}.fasta" %config["organelle_database_folder"], organelle_dbs=config["OrganelleDatabasesAssembly"].split(",")),
-		read1="{sample}/data/{sample}_1.filt.fastq",
-		read2="{sample}/data/{sample}_2.filt.fastq"
+		read1="{sample}/01_data/{sample}_1.filt.fastq",
+		read2="{sample}/01_data/{sample}_2.filt.fastq"
 	output:
-		assembly="{sample}/assembly/{sample}.original.fasta"
+		assembly="{sample}/02_assembly/{sample}.assembled.fasta"
 	params:
-		assembly_pattern=".complete.graph1.1.path_sequence.fasta" # This is a janky way of doing it, but it works haha
+		assembly_pattern=".complete.graph1.1.path_sequence.fasta"
 	resources:
 		mem_mb=20000,
 		time="0-6:00:00"
@@ -37,9 +37,9 @@ rule Assembly:
 	shell:
 		"""
 		get_organelle_from_reads.py -1 {input.read1} -2 {input.read2} \\
-			-o {wildcards.sample}/assembly -R {config[MaxRounds]} -k {config[KmerSpades]} -P {config[PreGrouped]} \\
+			-o {wildcards.sample}/02_assembly -R {config[MaxRounds]} -k {config[KmerSpades]} -P {config[PreGrouped]} \\
 			-F {config[OrganelleDatabasesAssembly]} --config-dir {config[organelle_database_folder]}\\
 			-t {threads} --prefix {wildcards.sample} --overwrite
-		scp {wildcards.sample}/assembly/*{params.assembly_pattern} {output.assembly}
+		scp {wildcards.sample}/02_assembly/*{params.assembly_pattern} {output.assembly}
 		sed -i '1s/.*/>>{wildcards.sample}/' {output.assembly}
 		"""
