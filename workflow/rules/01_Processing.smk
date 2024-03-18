@@ -1,72 +1,43 @@
+rule TrimReads:
+	input:
+		read1=lambda wildcards: f"{config['samples'][wildcards.sample]}_1"+end,
+		read2=lambda wildcards: f"{config['samples'][wildcards.sample]}_2"+end
+	output:
+		read1="{sample}/01_data/{sample}_1.trimmed"+end,
+		read2="{sample}/01_data/{sample}_2.trimmed"+end,
+		qc="{sample}/01_data/{sample}.trimmed.qc.html",
+		json="{sample}/01_data/{sample}.trimmed.qc.json"
+	params:
+		adapters=config["adapter_trimming_file"]
+	resources:
+		mem_mb=20000,
+		time="0-02:00:00"
+	threads: 8
+	conda:
+		"../envs/Fastp.yaml"
+	shell:
+		"""
+		fastp -i {input.read1} -I {input.read2} -o {output.read1} -O {output.read2} -h {output.qc} -j {output.json} --detect_adapter_for_pe --adapter_fasta {params.adapters} -w {threads}
+		"""
+
+
 def sortReadsInputFunc(wildcards):
 	if (config["Trimming"]):
-		return "{sample}/01_data/{sample}_{read}.trimmed.fastq"
+		return "{sample}/01_data/{sample}_{read}.trimmed"+end
 	else:
-		return f"{config['samples'][wildcards.sample]}_{wildcards.read}.fastq"
+		return f"{config['samples'][wildcards.sample]}_{wildcards.read}{end}"
 
 rule SortReads:
 	input:
 		read=sortReadsInputFunc			
 	output:
-		read="{sample}/01_data/{sample}_{read}.sorted.fastq"
+		read="{sample}/01_data/{sample}_{read}.trimmed.sorted.fastq.gz"
 	resources:
-		mem_mb=5000,
+		mem_mb=20000,
 		time="0-01:00:00"
 	envmodules:
 		"bioawk"
 	shell:
 		"""
-		bioawk -c fastx '{{print}}' {input} | sort | awk -F'\\t' '{{print "@"$1;print $2;print "+"$1;print $3}}' > {output.read}
-		"""
-
-rule FilteringReads:
-	input:
-		read=rules.SortReads.output.read
-	output:
-		read="{sample}/01_data/{sample}_{read}.filt.fastq"
-	params:
-		q=config["MinQualityScore"]
-	resources:
-		mem_mb=10000,
-		time="0-03:00:00"
-	envmodules:
-		"FASTX-Toolkit"
-	shell:
-		"""
-		fastq_quality_filter -q {config[MinQualityScore]} -i {input.read} -o {output.read}
-		"""
-
-rule FilteringQC_fastqc:
-	input:
-		read = rules.FilteringReads.output.read
-	output:
-		read = "{sample}/01_data/qc/filtering/{sample}_{read}.filt.fastqc.html"
-	params:
-		read = lambda wildcards, output: output.read.replace('.fastqc', '_fastqc'),
-	resources:
-		mem_mb=5000,
-		time="0-00:30:00"
-	envmodules:
-		"FastQC/0.11.9-Java-11"
-	shell:
-		"""
-		mkdir -p {wildcards.sample}/01_data/qc
-		mkdir -p {wildcards.sample}/01_data/qc/filtering
-		fastqc -o {wildcards.sample}/01_data/qc/filtering {input.read}
-		mv {params.read} {output.read}
-		"""
-
-rule FilteringQC_multiqc:
-	input:
-		expand("{{sample}}/01_data/qc/filtering/{{sample}}_{read}.filt.fastqc.html", read=["1","2"]),
-	output:
-		"{sample}/01_data/qc/filtering_report_{sample}.html" 
-	resources:
-		mem_mb=5000,
-		time="0-00:10:00"
-	envmodules:
-		"MultiQC"
-	shell:
-		"""
-		multiqc -n {output} --no-data-dir {wildcards.sample}/01_data/qc/filtering
+		bioawk -c fastx '{{print}}' {input} | sort | awk -F'\\t' '{{print "@"$1;print $2;print "+"$1;print $3}}' | gzip > {output.read}
 		"""

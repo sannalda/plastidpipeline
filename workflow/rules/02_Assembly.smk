@@ -18,8 +18,8 @@ rule AssemblyConfig:
 rule Assembly:
 	input:
 		expand("%s/SeedDatabase/{organelle_dbs}.fasta" %config["organelle_database_folder"], organelle_dbs=config["OrganelleDatabasesAssembly"].split(",")),
-		read1="{sample}/01_data/{sample}_1.filt.fastq",
-		read2="{sample}/01_data/{sample}_2.filt.fastq"
+		read1="{sample}/01_data/{sample}_1.trimmed.sorted.fastq.gz",
+		read2="{sample}/01_data/{sample}_2.trimmed.sorted.fastq.gz"
 	output:
 		assembly="{sample}/02_assembly/{sample}.assembled.fasta"
 	params:

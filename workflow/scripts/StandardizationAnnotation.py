@@ -1,9 +1,9 @@
 import os
+import copy
 
 from Bio import SeqIO
 from Bio.Seq import Seq
 from Bio.SeqRecord import SeqRecord
-import copy
 
 
 ##### Input/output paths 

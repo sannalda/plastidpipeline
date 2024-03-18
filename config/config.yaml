@@ -1,21 +1,22 @@
 ##### Pipeline Options
-Trimming: TRUE
-Standardization: TRUE
-Submission: TRUE
-Backmapping: TRUE
+Trimming: False
+Standardization: True
+Metadata: False
+Backmapping: True
 
 
-
-##### File path changes
+##### Important File Paths
 
 # Working directory where all the analysis will run. This should be in "scratch" or similar folder
 workdir: "/scratch/sjannalda/projects/ArnicaProcessing"
 
 # Samples to analyze
 samples:
-    #SRR17032099: /scratch/sjannalda/projects/PlastidPipelineTesting/rawdata/SRR17032099/SRR17032099
-    SRR12917849: /scratch/sjannalda/projects/PlastidPipelineTesting/rawdata/SRR12917849/SRR12917849
-    #SRR12917857: /scratch/sjannalda/projects/PlastidPipelineTesting/rawdata/SRR12917857/SRR12917857
+    #spain1: /remote/trove/bgbm/baobab/2018_ArnicaSNP/spain/FASTQ/HFYM3DSX7_1_379UDI-idt-UMI
+    #ERR8268641: /scratch/sjannalda/bgbm/data/DownloadedData/ERR8268641/test/ERR8268641
+    SRR17032099: /scratch/sjannalda/projects/PlastidPipelineTesting/rawdata/SRR17032099/SRR17032099
+    #SRR12917849: /scratch/sjannalda/projects/PlastidPipelineTesting/rawdata/SRR12917849/SRR12917849
+    SRR12917857: /scratch/sjannalda/projects/PlastidPipelineTesting/rawdata/SRR12917857/SRR12917857
     #ERR5529317: /scratch/sjannalda/projects/PlastidPipelineTesting/rawdata/ERR5529317/ERR5529317
     #ERR5529436: /scratch/sjannalda/projects/PlastidPipelineTesting/rawdata/ERR5529436/ERR5529436
     #ERR5554746: /scratch/sjannalda/projects/PlastidPipelineTesting/rawdata/ERR5554746/ERR5554746
@@ -27,8 +28,9 @@ samples:
 
 # Metadata full file path for sample to analyze, but only if want to output in format for submission
 samples_metadata:
-    SRR12917849: /scratch/sjannalda/projects/SequenceInfoMetadata/SRS7602758_metadata.txt 
-    #SRR17032099: /scratch/sjannalda/projects/SequenceInfoMetadata/SRS11147532_metadata.txt
+    #SRR12917849: /scratch/sjannalda/projects/SequenceInfoMetadata/SRS7602758_metadata.txt 
+    SRR17032099: /scratch/sjannalda/projects/SequenceInfoMetadata/SRS11147532_metadata.txt
+    SRR12917857: /scratch/sjannalda/projects/SequenceInfoMetadata/SRS7602750_metadata.txt
 
 # Trimming Adapter File
 adapter_trimming_file: "/home/sjannalda/bgbm/projects/PlastidPipeline/config/TruSeq3-PE-2.fa" # Path to adapter file, but you can provide your own file.
@@ -38,13 +40,13 @@ plant_genes_file: "/home/sjannalda/bgbm/projects/PlastidPipeline/config/plantgen
 
 
 
-##### Parameter Changes for the pipeline
+##### Parameters for each section of the pipeline
 
 ### Filtering Options
 MinQualityScore: 30
 
 ### Assembly Options 
-organelle_database_folder: "database" # Can either provide a bath if already made, or it will be created within the workdir
+organelle_database_folder: "database" # Can either provide a path if already made, or it will be created within the workdir
 OrganelleDatabasesDownload: "embplant_pt,embplant_mt" # Apparently GetOrganelle needs both of these first before proceeding
 OrganelleDatabasesAssembly: "embplant_pt"
 
@@ -73,6 +75,6 @@ lsc_gene_dir: 1 # Gene direction of lsc. 1 is forward, -1 is reverse
 ssc_gene: "ndhF" # Gene located in SSC
 ssc_gene_dir: 1 # Gene direction of ssc. 1 is forward, -1 is reverse
 
-### Backmapping
-MinReadCoverageWarning: 100 # Minimum number of reads for read coverage warning
+### Backmapping Visualization OPtions
+MinReadCoverageWarning: 30 # Minimum number of reads for read coverage warning
 

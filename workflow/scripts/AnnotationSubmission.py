@@ -5,6 +5,7 @@ import Bio
 import pandas as pd
 from datetime import datetime
 import os
+import sys
 
 
 ##### Input Files
@@ -14,7 +15,11 @@ annotation = SeqIO.read(annotation_file_input, 'genbank')
 genome_file_input = os.path.join(snakemake.config["workdir"],snakemake.input[2])
 genome = SeqIO.read(genome_file_input, 'fasta')
 
-metadata = pd.read_csv(os.path.join(snakemake.config["workdir"],snakemake.input[0]), sep = "\t", header = None, names = ["fields","info"], index_col = 0)
+try:
+    metadata = pd.read_csv(os.path.join(snakemake.config["workdir"],snakemake.input[0]), sep = "\t", header = None, names = ["fields","info"], index_col = 0)
+except pd.errors.ParserError as inst:
+    raise Exception("\nThere seems to be a formatting problem in the metadata file: %s. Maybe there is an extra 'tab' somewhere. Exiting the script..." %snakemake.input[0])
+
 metadata = metadata.T
 if ("SOURCE_MOD" in metadata.columns):
     source_mod = list(metadata.columns[list(metadata.columns).index("SOURCE_MOD")+1:])
@@ -25,7 +30,7 @@ else:
     source_mod = None
 
 #####
-seq = genome.seq
+seq = enome.seq
 locus = metadata["SAMPLE"]["info"].replace(" ","")
 definition = "%s accession %s plastid, complete genome" %(metadata["SPECIES"]["info"],metadata["SAMPLE"]["info"])
 
@@ -80,7 +85,5 @@ record = SeqRecord(seq = seq,
                    features = [feature_source])
 record.annotations["data_file_division"] = "PLN"
 record.features.extend(annotation.features)
-
-
 
 SeqIO.write(record, os.path.join(snakemake.config["workdir"],snakemake.output[0]), "genbank")

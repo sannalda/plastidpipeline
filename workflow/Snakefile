@@ -1,37 +1,55 @@
+import os
+
 workdir:config["workdir"]
 
+for sample in config["samples"]:
+	if os.path.exists("%s_1.fq" %config["samples"][sample]):
+		end=".fq"
+	elif  os.path.exists("%s_1.fq.gz" %config["samples"][sample]):
+		end=".fq.gz"
+	elif  os.path.exists("%s_1.fastq" %config["samples"][sample]):
+		end=".fastq"
+	elif os.path.exists("%s_1.fastq.gz" %config["samples"][sample]):
+		end=".fastq.gz"
+	else:
+		raise Exception("Input data %s not in proper format (either '.fq', '.fq.gz', '.fastq', or '.fastq.gz') or does not exist." %sample)
 
 def allInputFunction(wildcards):
 	output = []
 
-	if (config["Trimming"]):
-		output += expand("{sample}/01_data/qc/trimming_report_{sample}.html", sample=config["samples"])
+	#if (config["Trimming"]):
+	#	output += expand("{sample}/01_data/qc/trimming_report_{sample}.html", sample=config["samples"])
+	#
+	#output += expand("{sample}/01_data/qc/filtering_report_{sample}.html", sample=config["samples"])
+
+	output += expand("{sample}/01_data/{sample}.trimmed.qc.html",sample=config["samples"])
+
 	
-	output += expand("{sample}/01_data/qc/filtering_report_{sample}.html", sample=config["samples"])
 
 	if (config["Standardization"]):
 		output += expand("{sample}/03_annotation/{sample}.standardardized.filt.gb", sample=config["samples"])
 	else:
 		output += expand("{sample}/03_annotation/{sample}.annotated.filt.gb",sample=config["samples"])
 
-	if (config["Submission"]):
-		for i in config["samples"]:
-			if i in config["samples_metadata"]:
-				output += ["%s/04_submission/%s.submission.gb" %(i,i)]
+	if (config["Metadata"]):
+		for sample in config["samples"]:
+			if (config["samples_metadata"] == None):
+				print("No metadata files provided. Running the pipeline without metadata file. If providing metadata file later, then rerun the pipeline with the metadata file.")
+			else:
+				if sample in config["samples_metadata"]:
+					output += ["%s/04_submission/%s.submission.gb" %(sample,sample)]
+					if (not os.path.exists(config["samples_metadata"][sample])):
+						raise Exception("Metadata file %s not found." %config["samples_metadata"][sample])
 
 	if (config["Backmapping"]):
 		output += expand("{sample}/04_backmapping/{sample}.backmapping.visualization.html", sample=config["samples"])
-
+	
 	return output
 
 rule all:
 	input:
 		allInputFunction		
 
-
-include: "rules/00_Preprocessing.smk"
-
-include: "rules/01_Trimming.smk"
 
 include: "rules/01_Processing.smk"
 
