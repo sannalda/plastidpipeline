@@ -34,7 +34,7 @@ rule SortReads:
 		read="{sample}/01_data/{sample}_{read}.trimmed.sorted.fastq.gz"
 	resources:
 		mem_mb=20000,
-		time="0-01:00:00"
+		time="0-03:00:00"
 	envmodules:
 		"bioawk"
 	shell:

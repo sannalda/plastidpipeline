@@ -12,11 +12,11 @@ workdir: "/scratch/sjannalda/projects/ArnicaProcessing"
 
 # Samples to analyze
 samples:
-    #spain1: /remote/trove/bgbm/baobab/2018_ArnicaSNP/spain/FASTQ/HFYM3DSX7_1_379UDI-idt-UMI
+    spain1:  /scratch/reichel/pipelinetest/Spain/FASTQ/HFYM3DSX7_1_379UDI-idt-UMI
     #ERR8268641: /scratch/sjannalda/bgbm/data/DownloadedData/ERR8268641/test/ERR8268641
-    SRR17032099: /scratch/sjannalda/projects/PlastidPipelineTesting/rawdata/SRR17032099/SRR17032099
+    #SRR17032099: /scratch/sjannalda/projects/PlastidPipelineTesting/rawdata/SRR17032099/SRR17032099
     #SRR12917849: /scratch/sjannalda/projects/PlastidPipelineTesting/rawdata/SRR12917849/SRR12917849
-    SRR12917857: /scratch/sjannalda/projects/PlastidPipelineTesting/rawdata/SRR12917857/SRR12917857
+    #SRR12917857: /scratch/sjannalda/projects/PlastidPipelineTesting/rawdata/SRR12917857/SRR12917857
     #ERR5529317: /scratch/sjannalda/projects/PlastidPipelineTesting/rawdata/ERR5529317/ERR5529317
     #ERR5529436: /scratch/sjannalda/projects/PlastidPipelineTesting/rawdata/ERR5529436/ERR5529436
     #ERR5554746: /scratch/sjannalda/projects/PlastidPipelineTesting/rawdata/ERR5554746/ERR5554746

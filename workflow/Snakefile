@@ -3,16 +3,17 @@ import os
 workdir:config["workdir"]
 
 for sample in config["samples"]:
-	if os.path.exists("%s_1.fq" %config["samples"][sample]):
-		end=".fq"
-	elif  os.path.exists("%s_1.fq.gz" %config["samples"][sample]):
+	if  os.path.exists("%s_1.fq.gz" %config["samples"][sample]):
 		end=".fq.gz"
-	elif  os.path.exists("%s_1.fastq" %config["samples"][sample]):
-		end=".fastq"
 	elif os.path.exists("%s_1.fastq.gz" %config["samples"][sample]):
 		end=".fastq.gz"
+	elif  os.path.exists("%s_1.fastq" %config["samples"][sample]):
+		end=".fastq"
+	elif os.path.exists("%s_1.fq" %config["samples"][sample]):
+		end=".fq"
 	else:
 		raise Exception("Input data %s not in proper format (either '.fq', '.fq.gz', '.fastq', or '.fastq.gz') or does not exist." %sample)
+	print(end)
 
 def allInputFunction(wildcards):
 	output = []
@@ -24,7 +25,6 @@ def allInputFunction(wildcards):
 
 	output += expand("{sample}/01_data/{sample}.trimmed.qc.html",sample=config["samples"])
 
-	
 
 	if (config["Standardization"]):
 		output += expand("{sample}/03_annotation/{sample}.standardardized.filt.gb", sample=config["samples"])
