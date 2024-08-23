@@ -1,5 +1,4 @@
-import time
-import os
+import time, os, logging
 
 from selenium.webdriver.chrome.service import Service as ChromeService
 from selenium import webdriver
@@ -15,6 +14,22 @@ from webdriver_manager.chrome import ChromeDriverManager
 from webdriver_manager.core.os_manager import ChromeType
 from selenium.webdriver import ActionChains
 
+def setup_logger(log_file_path):
+    loggerPP = logging.getLogger("PlastidPipeline_%s" %snakemake.wildcards["sample"])
+    loggerPP.setLevel(logging.DEBUG)
+
+    console_handler = logging.StreamHandler()
+    console_handler.setLevel(logging.INFO)
+    formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(message)s', datefmt='%d/%m/%Y %I:%M:%S %p')
+    console_handler.setFormatter(formatter)
+    loggerPP.addHandler(console_handler)
+
+    file_handler = logging.FileHandler(log_file_path)
+    file_handler.setLevel(logging.DEBUG)
+    file_handler.setFormatter(formatter)
+    loggerPP.addHandler(file_handler)
+
+    return loggerPP
 
 class GeSeqError(Exception):
     pass
@@ -23,24 +38,26 @@ class DownloadingError(Exception):
     pass
 
 ##### Input Parameters
+loggerPP = setup_logger(os.path.join(snakemake.config["workdir"],snakemake.log[0]))
 annotation_file_input = os.path.join(snakemake.config["workdir"],snakemake.input[0])
 annotation_file_output = os.path.join(snakemake.config["workdir"],snakemake.output[0])
 
 
 
+
 ##### Config Parameters
-GenomeShape = snakemake.config["GenomeShape"] 
-SequenceSource = snakemake.config["SequenceSource"] 
-AnnotateIR = snakemake.config["AnnotateIR"] 
-AnnotateRPS12 = snakemake.config["AnnotateRPS12"] 
-AnnotationChloe = snakemake.config["AnnotationChloe"] 
-ChloeAnnotateCDS = snakemake.config["ChloeAnnotateCDS"]
-ChloeAnnotateTRNA = snakemake.config["ChloeAnnotateTRNA"]  
-ChloeAnnotateRRNA = snakemake.config["ChloeAnnotateRRNA"] 
-AnnotationMFannot = snakemake.config["AnnotationMFannot"] 
-AnnotationRevision = snakemake.config["AnnotationRevision"] 
-MPIMP_RefSet = snakemake.config["MPIMP_RefSet"] 
-MultiGenBank = snakemake.config["MultiGenBank"] 
+GenomeShape = snakemake.config["GeSeq"]["GenomeShape"] 
+SequenceSource = snakemake.config["GeSeq"]["SequenceSource"] 
+AnnotateIR = snakemake.config["GeSeq"]["AnnotateIR"] 
+AnnotateRPS12 = snakemake.config["GeSeq"]["AnnotateRPS12"] 
+AnnotationChloe = snakemake.config["GeSeq"]["AnnotationChloe"] 
+ChloeAnnotateCDS = snakemake.config["GeSeq"]["ChloeAnnotateCDS"]
+ChloeAnnotateTRNA = snakemake.config["GeSeq"]["ChloeAnnotateTRNA"]  
+ChloeAnnotateRRNA = snakemake.config["GeSeq"]["ChloeAnnotateRRNA"] 
+AnnotationMFannot = snakemake.config["GeSeq"]["AnnotationMFannot"] 
+AnnotationRevision = snakemake.config["GeSeq"]["AnnotationRevision"] 
+MPIMP_RefSet = snakemake.config["GeSeq"]["MPIMP_RefSet"] 
+MultiGenBank = snakemake.config["GeSeq"]["MultiGenBank"] 
 
 
 
@@ -54,11 +71,23 @@ op.add_argument('--ignore-certificate-errors')
 op.add_argument("--no-sandbox")
 op.add_argument("--disable-dev-shm-usage")
 op.add_argument("--start-maximized")
-driver = webdriver.Chrome(options=op,service=ChromiumService(ChromeDriverManager(chrome_type=ChromeType.CHROMIUM).install()))
+op.add_argument("--disable-gpu");
+
+
+############# Code from "https://github.com/SergeyPirogov/webdriver_manager/issues/664#issuecomment-2247178221" to fix "OSError: [Errno 8] Exec format error:" die to THIRD_PARTY_NOTICES.chromedriver being added in July 2024 
+driver_path = ChromeDriverManager(chrome_type=ChromeType.CHROMIUM).install()
+if driver_path:
+    driver_name = driver_path.split('/')[-1]
+    if driver_name!="chromedriver":
+        driver_path = "/".join(driver_path.split('/')[:-1]+["chromedriver"])
+        os.chmod(driver_path, 0o755)
+#######################################
+
+Service = ChromiumService(driver_path)
+driver = webdriver.Chrome(options=op,service=Service)
 #driver = webdriver.Chrome(options=op)
 driver.get("https://chlorobox.mpimp-golm.mpg.de/geseq.html")
 time.sleep(15)
-
 
 ##### Initialize tool
 
@@ -77,7 +106,7 @@ annotation_options = left_column_elements[1]
 
 ### Fasta files to annotate
 # Uploading fasta files to annotate
-upload_fasta_input = upload_fasta_block.find_element(By.CLASS_NAME,"fl_head")
+upload_fasta_input = upload_fasta_block.find_element(By.CLASS_NAME,"fl_head")####
 upload_fasta_input_file = upload_fasta_input.find_element(By.XPATH, "//input[@type='file']")
 upload_fasta_input_file.send_keys(annotation_file_input)
 time.sleep(5)
@@ -202,9 +231,9 @@ submit_job_popup = driver.find_element(By.ID,"io_dialog")
 job_name_element = submit_job_popup.find_element(By.CLASS_NAME,"input_string")
 #driver.execute_script("arguments[0].setAttribute('value',arguments[1])",job_name_element,snakemake.wildcards["sample"])
 driver.execute_script("arguments[0].setAttribute('value',arguments[1])",job_name_element,"AutomatedScript")
-print("Submmited job to GetOrganelle for sample %s." %snakemake.wildcards["sample"])
+loggerPP.debug("Submmited job to GeSeq for sample %s..." %snakemake.wildcards["sample"])
 time.sleep(2)
-job_title = submit_job_popup.find_element(By.CLASS_NAME,"input_string").get_attribute("value")
+job_title = submit_job_popup.find_element(By.CLASS_NAME,"input_string").get_attribute('value')
 submit_job_popup.find_element(By.CLASS_NAME,"cms_button_ok").click()
 
 # Waiting for job to run
@@ -217,16 +246,18 @@ start_time = time.time()
 job_status = results_block.find_element(By.CLASS_NAME,"gs_jobstatus").text.strip()
 while(job_status != 'Status: finished'):
     #WebDriverWait(driver,5,ignored_exceptions=ignored_exceptions).until(EC.presence_of_element_located((By.CLASS_NAME,"gs_jobstatus")))
-    time.sleep(5)
+    time.sleep(15)
     try:
         job_status = results_block.find_element(By.CLASS_NAME,"gs_jobstatus").text.strip()
     except StaleElementReferenceException as e:
         pass
-    print("\t"+job_status)
+    loggerPP.debug("\t"+job_status)
     curr_time = time.time()
-    if (curr_time - start_time > 1000):
-        raise GeSeqError("GeSeq took too long, please try again later. Exiting...")
-   
+    try:
+        if (curr_time - start_time > 1000):
+            raise GeSeqError("GeSeq took too long, most likely because could not access the server/website. Please try again later by rerunning the script. Exiting...")
+    except GeSeqError as e:
+        loggingPP.error("GESeqError error detected: %s", e)
 
 
 time.sleep(5)
@@ -238,15 +269,18 @@ download_file_popup = driver.find_element(By.ID,"io_dialog")
 download_file_popup.find_element(By.CLASS_NAME,"cms_button_download").click()
 start_time = time.time()
 while not os.path.exists(annotation_filename):
-    print("\tAnnotation completed. Wating for download to complete...")
-    time.sleep(5)
+    loggerPP.debug("\tAnnotation completed. Wating for download to complete...")
+    time.sleep(10)
     curr_time = time.time()
-    if (curr_time - start_time > 1000):
-        raise DownloadingError("Downloading took too long, please try again later. Exiting...")
+    try:
+        if (curr_time - start_time > 1000):
+            raise DownloadingError("Downloading took too long, please try again later by rerunning the script. Exiting...")
+    except DownloadingError as e:
+        loggingPP.error("DownloadingError error detected: %s", e)
     
 time.sleep(10)
 driver.quit()  
-print("Annotation and download complete.")      
+loggerPP.info("Annotation and download complete.")      
 
 
 

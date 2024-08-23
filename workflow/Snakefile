@@ -1,48 +1,65 @@
-import os
+import os,copy
+from datetime import datetime
 
+#snakemake --profile resources/ --configfile config/config.yaml --resources chrome=1 --use-conda --conda-prefix /scratch/sjannalda/projects/PlastidTutorial/envs --restart-times 3
+
+#snakemake --configfile config/config.yaml --resources chrome=1 --use-conda --conda-prefix /scratch/sjannalda/projects/PlastidTutorial/envs 
+#salloc --partition=interactive --ntasks=1 --time=05:00:00 --mem=10000 --qos=standard
+
+# Set current working directory with respective to what is defined in config file
+if not os.path.exists(config["workdir"]):
+	raise Exception("Path to working directory not found!!! Please see config file.")
 workdir:config["workdir"]
 
-for sample in config["samples"]:
-	if  os.path.exists("%s_1.fq.gz" %config["samples"][sample]):
-		end=".fq.gz"
-	elif os.path.exists("%s_1.fastq.gz" %config["samples"][sample]):
-		end=".fastq.gz"
-	elif  os.path.exists("%s_1.fastq" %config["samples"][sample]):
-		end=".fastq"
-	elif os.path.exists("%s_1.fq" %config["samples"][sample]):
-		end=".fq"
-	else:
-		raise Exception("Input data %s not in proper format (either '.fq', '.fq.gz', '.fastq', or '.fastq.gz') or does not exist." %sample)
-	print(end)
+#loggerPP.error("InputDataFormat error occured: %s", e)
+"""
+def setup_logger(log_file_path):
+    loggerPP = logging.getLogger("PlastidPipeline")
+    loggerPP.setLevel(logging.DEBUG)
 
+    console_handler = logging.StreamHandler()
+    console_handler.setLevel(logging.INFO)
+    formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(message)s', datefmt='%d/%m/%Y %I:%M:%S %p')
+    console_handler.setFormatter(formatter)
+    loggerPP.addHandler(console_handler)
+
+    file_handler = logging.FileHandler(log_file_path)
+    file_handler.setLevel(logging.DEBUG)
+    file_handler.setFormatter(formatter)
+    loggerPP.addHandler(file_handler)
+
+    return loggerPP
+"""
+time_start = datetime.now()
+
+
+# Determining the output files to be created based on the user inputs 
 def allInputFunction(wildcards):
 	output = []
 
-	#if (config["Trimming"]):
-	#	output += expand("{sample}/01_data/qc/trimming_report_{sample}.html", sample=config["samples"])
-	#
-	#output += expand("{sample}/01_data/qc/filtering_report_{sample}.html", sample=config["samples"])
-
-	output += expand("{sample}/01_data/{sample}.trimmed.qc.html",sample=config["samples"])
-
+	if (config["Assembly"]):
+		output += expand("{sample}/01_data/{sample}_1.trimmed.fastq.gz",sample=config["samples"])
+		output += expand("{sample}/01_data/{sample}_2.trimmed.fastq.gz",sample=config["samples"])
+		output += expand("{sample}/02_assembly/{sample}.assembled.fasta", sample=config["samples"])
 
 	if (config["Standardization"]):
 		output += expand("{sample}/03_annotation/{sample}.standardardized.filt.gb", sample=config["samples"])
 	else:
 		output += expand("{sample}/03_annotation/{sample}.annotated.filt.gb",sample=config["samples"])
+					
+	if (config['Backmapping']):
+		output += expand("{sample}/04_backmapping/{sample}.backmapping.visualization.html", sample=config["samples"])
 
-	if (config["Metadata"]):
-		for sample in config["samples"]:
-			if (config["samples_metadata"] == None):
+	if (config['Metadata']):
+		for sample in config['samples']:
+			if (config['samples_metadata'] == None):
 				print("No metadata files provided. Running the pipeline without metadata file. If providing metadata file later, then rerun the pipeline with the metadata file.")
 			else:
 				if sample in config["samples_metadata"]:
-					output += ["%s/04_submission/%s.submission.gb" %(sample,sample)]
 					if (not os.path.exists(config["samples_metadata"][sample])):
-						raise Exception("Metadata file %s not found." %config["samples_metadata"][sample])
+						print("Metadata file %s not found." %config["samples_metadata"][sample])
 
-	if (config["Backmapping"]):
-		output += expand("{sample}/04_backmapping/{sample}.backmapping.visualization.html", sample=config["samples"])
+					output += ["%s/05_metadata/%s.submission.gb" %(sample,sample)]
 	
 	return output
 
@@ -51,14 +68,11 @@ rule all:
 		allInputFunction		
 
 
+
+# Import rules 
 include: "rules/01_Processing.smk"
-
 include: "rules/02_Assembly.smk"
-
 include: "rules/03_Annotation.smk"
-
 include: "rules/04_Backmapping.smk"
-
-include: "rules/04_Submission.smk"
-
-localrules: AnnotationPreStandardization, AnnotationPostStandardization
+include: "rules/05_Metadata.smk"
+localrules: GeSeqAutomation_AnnotationPreStandardization, GeSeqAutomation_AnnotationPostStandardization
