@@ -1,6 +1,6 @@
 # PlastidPipeline
 
-Current trending name: Plastid Pipeline
+Current name: Plastid Pipeline
 
 The current (in development) documentation: [PlastidPipeline Google Docs](https://docs.google.com/document/d/1kSNYbWYWll7QQv1zzU0TqP_HkZW93I5C3cAuKrxtv6g/edit?usp=sharing)
 
