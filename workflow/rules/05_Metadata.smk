@@ -1,4 +1,4 @@
-def annotationSubmissionNCBIInphutFunc(wildcards):
+def AnnotationSubmissionNCBIInputFunc(wildcards):
 	output = []
 	#for i in config["samples"]:
 	if wildcards.sample in config["samples_metadata"]:
@@ -9,15 +9,17 @@ def annotationSubmissionNCBIInphutFunc(wildcards):
 		return output + ["{sample}/03_annotation/{sample}.standardardized.filt.gb","{sample}/03_annotation/{sample}.standardardized.fasta"]
 
 
-rule annotationSubmissionNCBI:
+rule AnnotationMetadata:
 	input:
-		gb=annotationSubmissionNCBIInphutFunc
+		gb=AnnotationSubmissionNCBIInputFunc
 	output:
-		"{sample}/04_submission/{sample}.submission.gb"
+		"{sample}/05_metadata/{sample}.submission.gb"
+	log:
+		"{sample}/logs/{sample}_05_1AnnotationMetadata.log"
 	resources:
-		mem_mb=5000,
-		time="0-0:20:00"
+		mem_mb=lambda wildcards, input: max(int(os.stat(input[0]).st_size*2/1000000),1000),
+		time="0-0:30:00"
 	conda:
 		"../envs/Annotation.yaml"
 	script:
-		"../scripts/AnnotationSubmission.py"
+		"../scripts/AnnotationMetadata.py"

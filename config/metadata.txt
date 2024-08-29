@@ -5,7 +5,7 @@ SOURCE	Arnica montana L. silica-dried leaf sample
 SPECIES	Arnica montana
 TAXONOMY	cellular organisms; Eukaryota; Viridiplantae; Streptophyta; Streptophytina; Embryophyta; Tracheophyta; Euphyllophyta; Spermatophyta; Magnoliopsida; Mesangiospermae; eudicotyledons; Gunneridae; Pentapetalae; asterids; campanulids; Asterales; Asteraceae; Asteroideae; Heliantheae alliance; Madieae; Arnicinae; Arnica
 TAXREF	436207
-SOURCE_MOD	
+SOURCE_MOD
 /altitude="0 m"
 /collected_by="Esther Sossai, Elke Zippel"
 /collection_date="17-Jun-2023"
