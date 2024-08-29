@@ -4,6 +4,27 @@ import plotly
 import plotly.graph_objs as go
 import plotly.express as px
 
+
+def setup_logger(log_file_path):
+    loggerPP = logging.getLogger("PlastidPipeline_%s" %snakemake.wildcards["sample"])
+    loggerPP.setLevel(logging.DEBUG)
+
+    console_handler = logging.StreamHandler()
+    console_handler.setLevel(logging.INFO)
+    formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(message)s', datefmt='%d/%m/%Y %I:%M:%S %p')
+    console_handler.setFormatter(formatter)
+    loggerPP.addHandler(console_handler)
+
+    file_handler = logging.FileHandler(log_file_path)
+    file_handler.setLevel(logging.DEBUG)
+    file_handler.setFormatter(formatter)
+    loggerPP.addHandler(file_handler)
+
+    return loggerPP
+
+#loggerPP = setup_logger(os.path.join(snakemake.config["workdir"],snakemake.log[0]))
+
+
 error_log_file = os.path.join(snakemake.config["workdir"],snakemake.log[0])
 sys.stderr = sys.stdout = open(error_log_file, "w+")
 
@@ -43,14 +64,13 @@ def highLights(fig, variable, level, mode, fillcolor, layer):
                         fillcolor=fillcolor,
                         layer=layer) 
         print("Range of loci with number of reads %s %d: %d-%d" %(mode,level,row['first'],row['last']))
+        #loggerPP.debug("Range of loci with number of reads %s %d: %d-%d" %(mode,level,row['first'],row['last']))
     return(fig)
-
-level = snakemake.config["MinReadCoverageWarning"]
 
 df = pd.read_csv(os.path.join(snakemake.config["workdir"],snakemake.input[0]),sep = "\t",names=["sample","pos","reads"])
 fig = px.line(df, x="pos", y="reads")
-fig.add_hline(y=level)
-fig = highLights(fig = fig, variable = 'reads', level = level, mode = 'below',
+fig.add_hline(y=snakemake.config["Backmapping"]["MinReadCoverageWarning"])
+fig = highLights(fig = fig, variable = 'reads', level = snakemake.config["Backmapping"]["MinReadCoverageWarning"], mode = 'below',
                fillcolor = 'rgba(255,0,0,0.75)', layer = 'below')
 fig.update_layout(title='Number of Reads Backmapped to Assembled Genome, Sample %s' %snakemake.wildcards["sample"],
                    xaxis_title='Position',
