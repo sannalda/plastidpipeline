@@ -2,7 +2,7 @@ name: Samtools
 channels:
   - conda-forge
   - bioconda
-  - defaults
+  - nodefaults
   - r
   - default
   - anaconda

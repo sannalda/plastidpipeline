@@ -2,7 +2,7 @@ name: GetOrganelle
 channels:
   - bioconda
   - conda-forge
-  - defaults
+  - nodefaults
   - r
   - default
   - anaconda
