@@ -1,15 +1,16 @@
 AUTHORS	Siddarth Annaldasula, Katja Reichel
 INSTITUTION	Institut fuer Biologie-Botanik, Freie Universitaet Berlin, Altensteinstrasse 6, Berlin, Berlin 14195,Germany
-SAMPLE	AM09_01
-SOURCE	Arnica montana L. silica-dried leaf sample
+SAMPLE	Amon_AG
+SOURCE	Arnica montana L. herbarium specimen
 SPECIES	Arnica montana
 TAXONOMY	cellular organisms; Eukaryota; Viridiplantae; Streptophyta; Streptophytina; Embryophyta; Tracheophyta; Euphyllophyta; Spermatophyta; Magnoliopsida; Mesangiospermae; eudicotyledons; Gunneridae; Pentapetalae; asterids; campanulids; Asterales; Asteraceae; Asteroideae; Heliantheae alliance; Madieae; Arnicinae; Arnica
 TAXREF	436207
 SOURCE_MOD
-/altitude="0 m"
-/collected_by="Esther Sossai, Elke Zippel"
-/collection_date="17-Jun-2023"
-/country="Germany:Mecklenburg-Vorpommern:Barth"
-/identified_by="Elke Zippel"
-/lat_lon="54.393536 N 12.701389 E"
+/altitude="28 m"
+/collected_by="Engelskjon, Torstein; Vagen, Inger"
+/collection_date="07-07-1996"
+/country="Norway:Agder:Rasvaag"
+/identified_by="Engelskjon, Torstein; Vagen, Inger"
+/lat_lon="58.2176 N 6.5742 E"
+/sample_voucher="TROM_V_59412"
 /tissue_type="leaf"

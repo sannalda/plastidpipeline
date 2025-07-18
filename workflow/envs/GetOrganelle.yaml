@@ -111,4 +111,4 @@ dependencies:
   - xz=5.2.6=h166bdaf_0
   - zlib=1.2.13=hd590300_5
   - zstd=1.5.2=hfc55251_7
-prefix: /home/sjannalda/mambaforge-pypy3/envs/GetOrganelle
+prefix: /home/user/mambaforge-pypy3/envs/GetOrganelle

@@ -1,6 +1,6 @@
 def buildReferenceAnnotationBackmappingInputFunc(wildcards):
 	if (config["Standardization"]):
-		return "{sample}/03_annotation/{sample}.standardardized.fasta"
+		return "{sample}/03_annotation/{sample}.standardized.fasta"
 	else:
 		return "{sample}/02_assembly/{sample}.assembled.fasta"
 
@@ -49,7 +49,7 @@ rule BackmappingQC:
 		sbam="{sample}/04_backmapping/{sample}.backmapping.sorted.bam",
 		qc="{sample}/04_backmapping/{sample}.backmapping.readcoverage.log"
 	resources:
-		mem_mb=lambda wildcards, input: max(int(os.stat(input[0]).st_size*2/1000000),config["Backmapping"]["mem_mb"]),
+		mem_mb=lambda wildcards, input: max(int(os.stat(input[0]).st_size*1/10000000),config["Backmapping"]["mem_mb"]),
 		time=lambda wildcards, attempt: config["Backmapping"]["time"]
 	conda:
 		"../envs/Samtools.yaml"

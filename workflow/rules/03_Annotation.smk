@@ -4,10 +4,10 @@ rule GeSeqAutomation_AnnotationPreStandardization:
 	output:
 		"{sample}/03_annotation/{sample}.annotated.gb"
 	log:
-		"{sample}/logs/{sample}_03_1GeSeqAutomation_AnnotationPreStandardization.log"
+		"{sample}/03_annotation/logs/{sample}_03_1GeSeqAutomation_AnnotationPreStandardization.log"
 	resources:
-		mem_mb=lambda wildcards, input: max(int(os.stat(input[0]).st_size*3/1000000),config["Standardization"]["mem_mb"]),
-		time=lambda wildcards, attempt: config["Standardization"]["time"],
+		mem_mb=lambda wildcards, input: max(int(os.stat(input[0]).st_size*3/1000000),config["Standardize"]["mem_mb"]),
+		time=lambda wildcards, attempt: config["Standardize"]["time"],
 		chrome=1
 	conda:
 		"../envs/Annotation.yaml"
@@ -19,12 +19,12 @@ rule StandardizationAnnotation:
 	input:
 		"{sample}/03_annotation/{sample}.annotated.gb",
 	output:
-		"{sample}/03_annotation/{sample}.standardardized.fasta"
+		"{sample}/03_annotation/{sample}.standardized.fasta"
 	log:
-		"{sample}/logs/{sample}_03_2StandardizedAnnotation.log"
+		"{sample}/03_annotation/logs/{sample}_03_2StandardizedAnnotation.log"
 	resources:
-		mem_mb=lambda wildcards, input: max(int(os.stat(input[0]).st_size*3/1000000),config["Standardization"]["mem_mb"]),
-		time=lambda wildcards, attempt: config["Standardization"]["time"]
+		mem_mb=lambda wildcards, input: max(int(os.stat(input[0]).st_size*3/1000000),config["Standardize"]["mem_mb"]),
+		time=lambda wildcards, attempt: config["Standardize"]["time"]
 	conda:
 		"../envs/Annotation.yaml"
 	script:
@@ -32,14 +32,14 @@ rule StandardizationAnnotation:
 
 rule GeSeqAutomation_AnnotationPostStandardization:
 	input:
-		"{sample}/03_annotation/{sample}.standardardized.fasta",
+		"{sample}/03_annotation/{sample}.standardized.fasta",
 	output:
-		"{sample}/03_annotation/{sample}.standardardized.gb"
+		"{sample}/03_annotation/{sample}.standardized.gb"
 	log:
-		"{sample}/logs/{sample}_03_3GeSeqAutomation_AnnotationPostStandardization.log"
+		"{sample}/03_annotation/logs/{sample}_03_3GeSeqAutomation_AnnotationPostStandardization.log"
 	resources:
-		mem_mb=lambda wildcards, input: max(int(os.stat(input[0]).st_size*3/1000000),config["Standardization"]["mem_mb"]),
-		time=lambda wildcards, attempt: config["Standardization"]["time"],
+		mem_mb=lambda wildcards, input: max(int(os.stat(input[0]).st_size*3/1000000),config["Standardize"]["mem_mb"]),
+		time=lambda wildcards, attempt: config["Standardize"]["time"],
 		chrome=1
 	conda:
 		"../envs/Annotation.yaml"
@@ -51,22 +51,25 @@ def AnnotationQualityControlInputFunc(wildcards):
 	if (not config["Standardization"]):
 		return ["{sample}/02_assembly/{sample}.assembled.fasta","{sample}/03_annotation/{sample}.annotated.gb"]
 	else:
-		return ["{sample}/03_annotation/{sample}.standardardized.fasta","{sample}/03_annotation/{sample}.standardardized.gb"]
+		return ["{sample}/03_annotation/{sample}.standardized.fasta","{sample}/03_annotation/{sample}.standardized.gb"]
 
 
 rule AnnotationQualityControl:
 	input:
 		AnnotationQualityControlInputFunc
 	output:
-		"{sample}/03_annotation/{sample}.standardardized.filt.gb" if config["Standardization"] else "{sample}/03_annotation/{sample}.annotated.filt.gb"
+		"{sample}/03_annotation/{sample}.standardized.filt.gb" if config["Standardization"] else "{sample}/03_annotation/{sample}.annotated.filt.gb"
 	params:
-		config["plant_genes_file"] if os.path.exists(config["Standardization"]["plant_genes_qc_file"]) else os.path.join(workflow.basedir, config["Standardization"]["plant_genes_qc_file"])
+		config["plant_genes_qc_file"] if os.path.exists(config["Standardize"]["plant_genes_qc_file"]) else os.path.join(workflow.basedir, config["Standardize"]["plant_genes_qc_file"]),
+		alt_start=config["Standardize"]["alt_start"], 
+		annotator=config["Standardize"]["annotator"]
+
 	log:
-		"{sample}/logs/{sample}_03_4AnnotationQualityControl.log",
-		#"{sample}/03_annotation/{sample}.standardardized.warnings.log" if config["Standardization"] else "{sample}/03_annotation/{sample}.annotated.warnings.log"
+		#"{sample}/03_annotation/logs/{sample}_03_4AnnotationQualityControl.log",
+		"{sample}/03_annotation/{sample}.AnnotationCheckfile.log" if config["Standardization"] else "{sample}/03_annotation/logs/{sample}_03_4AnnotationQualityControl.log"
 	resources:
-		mem_mb=lambda wildcards, input: max(int(os.stat(input[0]).st_size*3/1000000),config["Standardization"]["mem_mb"]),
-		time=lambda wildcards, attempt: config["Standardization"]["time"]
+		mem_mb=lambda wildcards, input: max(int(os.stat(input[0]).st_size*3/1000000),config["Standardize"]["mem_mb"]),
+		time=lambda wildcards, attempt: config["Standardize"]["time"]
 	conda:
 		"../envs/Annotation.yaml"
 	script:

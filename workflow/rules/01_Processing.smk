@@ -14,18 +14,6 @@ def DetermineFileExt(sample_name):
 		raise InputDataFormat
 	return end
 
-#def AdjustResources_TrimReads(wildcards, attempt):
-    # Adjust resources based on the number of attempts
-#    if attempt == 1:
-#    	print("Trying at starting time limit 1 (00:30:00)...")
-#        return {"time": "00:30:00"}
-#    elif attempt == 2:
-#    	print("Trying at increased time limit 2 (02:00:00)...")
-#        return {"time": "02:00:00"}
-#    elif attempt >= 3:
-#    	print("Trying at increased time limit 3 (%s). If this doesn't work, try changing 'time' parameter in config file..." %config["time"])
-#        return {"time": config["time"]}
-
 rule TrimReads:
 	input:
 		read1=lambda wildcards: f"{config['samples'][wildcards.sample]}_1"+DetermineFileExt(wildcards.sample),

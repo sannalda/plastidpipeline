@@ -16,4 +16,4 @@ dependencies:
   - libstdcxx-ng=13.2.0=h7e041cc_5
   - libzlib=1.2.13=hd590300_5
   - xz=5.2.6=h166bdaf_0
-prefix: /home/sjannalda/mambaforge-pypy3/envs/Bedtools
+prefix: /home/user/mambaforge-pypy3/envs/Bedtools

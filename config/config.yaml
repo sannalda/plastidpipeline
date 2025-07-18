@@ -1,89 +1,116 @@
-##### Pipeline Options, either 'True' or 'False'
+##### 
+## PlastidPipeline Config File
+#####
+
+##### Pipeline Options
+## Options: True, False. Excludes parts of the pipeline from running if False.
 Assembly: True
 Standardization: True
-Metadata: False
-Backmapping: False
-
+Metadata: True
+Backmapping: True
 
 ##### Important File Paths
 
-# Working directory where all the analysis will run. This should be in "scratch" or similar folder
-workdir: "/data/cephfs-1/work/groups/kuebler/users/sian10_c/projects/bgbm/ArnicaProcessing"
+### Working directory 
+## All results will be stored here. This should be in "scratch" or a similar directory.
+workdir: "/scratch/user/projects/Arnica/Results"
 
-# Samples to analyze
+
+### Read Datasets
+## Names + paths to read files for samples to analyze. Precede with "#" if a dataset should not be run.
+## Only provide file name part shared between paired reads, leave off the terminal "_1/2.fastq.gz" etc.
 samples:
-    #SAL023: /scratch/ademestier/5_NGS/5_Plastid_pipeline/data/SAL023
-    #spain1: /scratch/sjannalda/bgbm/data/DownloadedData/Spain/merged.downsampled
-    #ERR8268641: /scratch/sjannalda/bgbm/data/DownloadedData/ERR8268641/test/ERR8268641
-    SRR17032099: /data/cephfs-1/work/groups/kuebler/users/sian10_c/projects/bgbm/ArnicaProcessing/data/SRR17032099
-    #SRR12917849: /scratch/sjannalda/projects/PlastidPipelineTesting/rawdata/SRR12917849/SRR12917849
-    #SRR12917857: /scratch/sjannalda/projects/PlastidPipelineTesting/rawdata/SRR12917857/SRR12917857
-    #ERR5529317: /scratch/sjannalda/projects/PlastidPipelineTesting/rawdata/ERR5529317/ERR5529317
-    #ERR5529436: /scratch/sjannalda/projects/PlastidPipelineTesting/rawdata/ERR5529436/ERR5529436
-    #ERR5554746: /scratch/sjannalda/projects/PlastidPipelineTesting/rawdata/ERR5554746/ERR5554746
-    #ERR5529299: /scratch/sjannalda/projects/PlastidPipelineTesting/rawdata/ERR5529299/ERR5529299
-    #Am09: /scratch/sjannalda/projects/Am09/run1/data/AM0909
-    #Am21: /scratch/sjannalda/projects/Am21/run1/data/AM2134
-    #SRR17032105: /scratch/sjannalda/projects/PlastidPipelineTesting/rawdata/SRR17032105/SRR17032105
-    #SRR12432532: /scratch/sjannalda/projects/PlastidPipelineTesting/rawdata/SRR12432532/SRR12432532
+    ## Arnica montana
+    Amon_AG: /scratch/user/projects/Arnica/ReadData/ERR8268641/ERR8268641
+    #Amon_DK: /scratch/user/projects/Arnica/ReadData/SRR12432532/SRR12432532
+    Amon_CT: /scratch/user/projects/Arnica/ReadData/SRR17032105/SRR17032105
+    ## other Arnica
+    Aang_FI: /scratch/user/projects/Arnica/ReadData/ERR5554746/ERR5554746
+    Agri_AK: /scratch/user/projects/Arnica/ReadData/ERR5529436/ERR5529436
+    Ales_AK: /scratch/user/projects/Arnica/ReadData/ERR5529317/ERR5529317
+    #Auna_AK: /scratch/user/projects/Arnica/ReadData/ERR5529299/ERR5529299
 
-# Metadata full file path for sample to analyze, but only if want to output in format for submission
+
+### Metadata 
+## Full file path of (optional) metadata files for the samples. Sample names need to correspond to the above.
 samples_metadata:
-    #SRR12917849: /scratch/sjannalda/projects/SequenceInfoMetadata/SRS7602758_metadata.txt 
-    SRR17032099: /scratch/sjannalda/projects/SequenceInfoMetadata/SRS11147532_metadata.txt
-    #SRR12917857: /scratch/sjannalda/projects/SequenceInfoMetadata/SRS7602750_metadata.txt
+    ## Arnica montana
+    Amon_AG: /scratch/user/projects/Arnica/MetaData/ERS6824762_metadata.txt
+    Amon_DK: /scratch/user/projects/Arnica/MetaData/SRS7184476_metadata.txt
+    Amon_CT: /scratch/user/projects/Arnica/MetaData/SRS11147526_metadata.txt
+    ## other Arnica
+    Aang_FI: /scratch/user/projects/Arnica/MetaData/ERS5888933_metadata.txt
+    Agri_AK: /scratch/user/projects/Arnica/MetaData/ERS5888373_metadata.txt
+    Ales_AK: /scratch/user/projects/Arnica/MetaData/ERS5888374_metadata.txt
+    Auna_AK: /scratch/user/projects/Arnica/MetaData/ERS5888375_metadata.txt
+
 
 ##### Parameters for each section of the pipeline
 
-### Fastp Options
+### Trimming Options
+## Parameters for Fastp
 Trimming:
-    adapter_trimming_file: "../config/TruSeq3-PE-2.fa" # Path to adapter file, but you can provide your own file.
-    Fastp_AdditionalParameters: ""
+    adapter_trimming_file: "../config/TruSeq3-PE-2.fa" # Path to standard adapter file. Alternatively provide your own.
+    Fastp_AdditionalParameters: "" # any additional command-line parameters for fastp (see its documentation)
+    #
     time: "02:00:00"
-    mem_mb: 1000
+    mem_mb: 2000
+
 
 ### Assembly Options 
-# Parameters for GetOrganelle 
+## Parameters for GetOrganelle 
 Assembly:
-    organelle_database_folder: "database" # Can either provide a path if already made, or it will be created within the workdir
-    OrganelleDatabasesDownload: "embplant_pt,embplant_mt" # Apparently GetOrganelle needs both of these first before proceeding
-    OrganelleDatabasesAssembly: "embplant_pt"
+    organelle_database_folder: "database" # Path to a directory in which the databaes are stored, or a /database directory will be created within the workdir.
+    OrganelleDatabasesDownload: "embplant_pt,embplant_mt" # Seed databases for GetOrganelle (both needed by the software).
+    OrganelleDatabasesAssembly: "embplant_pt" # Seed database to use for the analysis.
     KmerSpades: "21,45,65,85,105" #  -k. SPAdes kmer settings
-    MaxRounds: 30 # -R. Max number of extended rounds. Default is 15 by GetOrganelle
-    PreGrouped: 1000000 # -P. The maximum number (integer) of high-covered reads to be pre-grouped before extending process. pre_grouping is suggested when the whole genome coverage is shallow but the organ genome coverage is deep
-    GetOrganelle_AdditionalParameters: "-w 85" #-w 65 i.e. (wordsize)
-    time: "04:00:00"
+    MaxRounds: 30 # -R, maximum number of extension rounds. GetOrganelle default is 15. 
+    ## Pre-grouping is suggested when the whole genome coverage is shallow, but the orgenelle genome coverage is deep.
+    PreGrouped: 1000000 # -P, the maximum number of high-covered reads to be pre-grouped before the extending process. 
+    GetOrganelle_AdditionalParameters: "" 
+    ## any additional parameters for GetOrganelle (see its documentation), for instance
+    ## -w wordsize, e.g. "-w 65". GetOrganelle default ("") is to estimate the wordsize based on the data, which sometimes fails.
+    ## "--verbose" to output the GetOrganelle log file content to screen.
+    #
+    time: "02:00:00"
     mem_mb: 10000
 
 
 ### Annotation 
-GeSeq: # Options for GeSeq
+## GeSeq Options
+GeSeq: 
     GenomeShape: "Linear" # Options: Linear, Circular
     SequenceSource: "Land" # Options: Land, Algae, Mito. Refers to Plastid (Land plants), Plastid (algae), or Mitochondria
-    AnnotateIR: True # Refers to annotate plastid Inverted Repeat (IR)
-    AnnotateRPS12: True # Refers to annotate plastid trans-spliced rps12
-    AnnotationChloe: True # Refers to support annotation by Chloë
-    ChloeAnnotateCDS: True # Refers to annotate CDS from Chloe, is support annotation by Chloe is selected
-    ChloeAnnotateTRNA: True # Refers to annotation tRNA from Chloe, if support annotation by Chloe is selected
-    ChloeAnnotateRRNA: False # Refers to annotation rRNA from Chloe, if support annotation by Chloe is selected
-    AnnotationMFannot: False # Refers to support annotation by MFannot. NOTE: Currently not supported
-    AnnotationRevision: "Best" # Options: Best, All. Refers to only keep best annotation, or keep all annotations
-    MPIMP_RefSet: True # Refers to use MPI's reference set of chloroplast land plants (CDS + rRNA)
-    MultiGenBank: True # Refers to generate multi-GenBank
+    AnnotateIR: True # Annotate plastid Inverted Repeat (IR)
+    AnnotateRPS12: True # Annotate plastid trans-spliced rps12 gene
+    AnnotationChloe: True # Support annotation by Chloe
+    ChloeAnnotateCDS: True # Annotate CDS with Chloe, if "support annotation by Chloe" is selected
+    ChloeAnnotateTRNA: True # Annotate tRNA with Chloe, if "support annotation by Chloe" is selected
+    ChloeAnnotateRRNA: False # Annotate rRNA with Chloe, if "support annotation by Chloe" is selected
+    AnnotationMFannot: False # Support annotation by MFannot. NOTE: Currently not supported
+    AnnotationRevision: "Best" # Options: Best, All. Only keep best annotation, or keep all annotations.
+    MPIMP_RefSet: True # Use MPI's reference set of chloroplast land plants (CDS + rRNA). NOTE: Currently no alternative.
+    MultiGenBank: True # Generate a Multi-GenBank file 
 
-Standardization: # Standardization
-    lsc_gene: "rbcL" # Gene located in LSC. Default is "rbcL" (previously used "psbA" with direction -1)
-    lsc_gene_dir: 1 # Gene direction of lsc. 1 is forward, -1 is reverse
-    ssc_gene: "ndhF" # Gene located in SSC
-    ssc_gene_dir: 1 # Gene direction of ssc. 1 is forward, -1 is reverse
-    plant_genes_qc_file: "../config/plantgenes.txt" # Quality Control Gene List File. Path to genes that should be annotated in plants, but your own file can be given
-    time: "02:00:00" # Takes care of both 
+## Standardization Script Options
+Standardize:
+    lsc_gene: "rbcL" # A gene located in the LSC. Default is "rbcL" (an alternative would be "psbA" with direction -1)
+    lsc_gene_dir: 1 # Direction of the gene in the LSC. 1 is forward, -1 is reverse
+    ssc_gene: "ndhF" # A gene located in the SSC (an alternative would be "ccsA" with direction -1)
+    ssc_gene_dir: 1 # Direction of the gene in the SSC. 1 is forward, -1 is reverse
+    plant_genes_qc_file: "../config/plantgenes.txt" # Path to file with list of genes which should be annotated. Alternatively provide your own.
+    alt_start: "GTG, ACG" # Accepted alternative start codons (they still give a warning). Put "" if none.
+    annotator: "blat" # Options: blat, Chloe, keep: which annotator to trust more for alternative annotations. "keep" keeps all GeSeq annotations.
+    #
+    time: "02:00:00" # for Annotation + Standardization
     mem_mb: 1000
 
 
-### Backmapping Visualization OPtions
+### Backmapping Visualization Options
 Backmapping:
-    MinReadCoverageWarning: 50 # Minimum number of reads for read coverage warning
-    time: "02:00:00"
-    mem_mb: 1000
+    MinReadCoverageWarning: 50 # Threshold for read depth in the visualization plot, base positions highlighted if value below.
+    #
+    time: "10:00:00"
+    mem_mb: 10000
 
+### End

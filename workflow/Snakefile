@@ -1,39 +1,14 @@
 import os,copy
 from datetime import datetime
 
-#snakemake --profile resources/ --configfile config/config.yaml --resources chrome=1 --use-conda --conda-prefix /scratch/sjannalda/projects/PlastidTutorial/envs --restart-times 3
-
-#snakemake --configfile config/config.yaml --resources chrome=1 --use-conda --conda-prefix /scratch/sjannalda/projects/PlastidTutorial/envs 
-#salloc --partition=interactive --ntasks=1 --time=05:00:00 --mem=10000 --qos=standard
-
-# Set current working directory with respective to what is defined in config file
+# Set current working directory with respect to what is defined in config file
 if not os.path.exists(config["workdir"]):
 	raise Exception("Path to working directory not found!!! Please see config file.")
 workdir:config["workdir"]
 
-#loggerPP.error("InputDataFormat error occured: %s", e)
-"""
-def setup_logger(log_file_path):
-    loggerPP = logging.getLogger("PlastidPipeline")
-    loggerPP.setLevel(logging.DEBUG)
-
-    console_handler = logging.StreamHandler()
-    console_handler.setLevel(logging.INFO)
-    formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(message)s', datefmt='%d/%m/%Y %I:%M:%S %p')
-    console_handler.setFormatter(formatter)
-    loggerPP.addHandler(console_handler)
-
-    file_handler = logging.FileHandler(log_file_path)
-    file_handler.setLevel(logging.DEBUG)
-    file_handler.setFormatter(formatter)
-    loggerPP.addHandler(file_handler)
-
-    return loggerPP
-"""
 time_start = datetime.now()
 
-
-# Determining the output files to be created based on the user inputs 
+# Determining the output files to be created based on the user input 
 def allInputFunction(wildcards):
 	output = []
 
@@ -43,7 +18,7 @@ def allInputFunction(wildcards):
 		output += expand("{sample}/02_assembly/{sample}.assembled.fasta", sample=config["samples"])
 
 	if (config["Standardization"]):
-		output += expand("{sample}/03_annotation/{sample}.standardardized.filt.gb", sample=config["samples"])
+		output += expand("{sample}/03_annotation/{sample}.standardized.filt.gb", sample=config["samples"])
 	else:
 		output += expand("{sample}/03_annotation/{sample}.annotated.filt.gb",sample=config["samples"])
 					
@@ -59,7 +34,7 @@ def allInputFunction(wildcards):
 					if (not os.path.exists(config["samples_metadata"][sample])):
 						print("Metadata file %s not found." %config["samples_metadata"][sample])
 
-					output += ["%s/05_metadata/%s.submission.gb" %(sample,sample)]
+					output += ["%s/05_metadata/%s.final.gb" %(sample,sample)]
 	
 	return output
 

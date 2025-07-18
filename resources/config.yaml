@@ -8,14 +8,14 @@ cluster:
     --job-name=smk-{rule}-{wildcards}
     --output=logs/{rule}/{rule}-{wildcards}-%j.out
     --error=logs/{rule}/{rule}-{wildcards}-%j.err
-    --mail-user=sjannalda@zedat.fu-berlin.de
+    --mail-user=default@zedat.fu-berlin.de
     --mail-type=end
     --parsable
 default-resources:
   - mem_mb=1000
   - time="0-00:05:00"
   - qos="standard"
-cluster-status: "/home/sjannalda/bgbm/projects/PlastidPipeline/resources/status-sacct.sh"
+cluster-status: "status-sacct.sh"
 restart-times: 0
 max-jobs-per-second: 10
 max-status-checks-per-second: 1
