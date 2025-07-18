@@ -13,7 +13,7 @@ Backmapping: True
 
 ### Working directory 
 ## All results will be stored here. This should be in "scratch" or a similar directory.
-workdir: "/data/cephfs-1/home/users/sian10_c/work/projects/plastidtest"
+workdir: "/scratch/user/projects/Arnica/Results"
 
 
 ### Read Datasets
@@ -25,7 +25,7 @@ samples:
     #Amon_DK: /scratch/user/projects/Arnica/ReadData/SRR12432532/SRR12432532
     #Amon_CT: /scratch/user/projects/Arnica/ReadData/SRR17032105/SRR17032105
     ## other Arnica
-    #Aang_FI: /scratch/user/projects/Arnica/ReadData/ERR5554746/ERR5554746
+    Aang_FI: /scratch/user/projects/Arnica/ReadData/ERR5554746/ERR5554746
     #Agri_AK: /scratch/user/projects/Arnica/ReadData/ERR5529436/ERR5529436
     #Ales_AK: /scratch/user/projects/Arnica/ReadData/ERR5529317/ERR5529317
     #Auna_AK: /scratch/user/projects/Arnica/ReadData/ERR5529299/ERR5529299
@@ -35,11 +35,11 @@ samples:
 ## Full file path of (optional) metadata files for the samples. Sample names need to correspond to the above.
 samples_metadata:
     ## Arnica montana
-    #Amon_AG: /scratch/user/projects/Arnica/MetaData/ERS6824762_metadata.txt
+    Amon_AG: /scratch/user/projects/Arnica/MetaData/ERS6824762_metadata.txt
     #Amon_DK: /scratch/user/projects/Arnica/MetaData/SRS7184476_metadata.txt
     #Amon_CT: /scratch/user/projects/Arnica/MetaData/SRS11147526_metadata.txt
     ## other Arnica
-    #Aang_FI: /scratch/user/projects/Arnica/MetaData/ERS5888933_metadata.txt
+    Aang_FI: /scratch/user/projects/Arnica/MetaData/ERS5888933_metadata.txt
     #Agri_AK: /scratch/user/projects/Arnica/MetaData/ERS5888373_metadata.txt
     #Ales_AK: /scratch/user/projects/Arnica/MetaData/ERS5888374_metadata.txt
     #Auna_AK: /scratch/user/projects/Arnica/MetaData/ERS5888375_metadata.txt
