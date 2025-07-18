@@ -6,16 +6,16 @@ def AnnotationSubmissionNCBIInputFunc(wildcards):
 	if (not config["Standardization"]):
 		return output + ["{sample}/03_annotation/{sample}.annotated.gb","{sample}/03_annotation/{sample}.assembled.fasta"]
 	else:
-		return output + ["{sample}/03_annotation/{sample}.standardardized.filt.gb","{sample}/03_annotation/{sample}.standardardized.fasta"]
+		return output + ["{sample}/03_annotation/{sample}.standardized.filt.gb","{sample}/03_annotation/{sample}.standardized.fasta"]
 
 
 rule AnnotationMetadata:
 	input:
 		gb=AnnotationSubmissionNCBIInputFunc
 	output:
-		"{sample}/05_metadata/{sample}.submission.gb"
+		"{sample}/05_metadata/{sample}.final.gb"
 	log:
-		"{sample}/logs/{sample}_05_1AnnotationMetadata.log"
+		"{sample}/05_metadata/{sample}_05_1AnnotationMetadata.log"
 	resources:
 		mem_mb=lambda wildcards, input: max(int(os.stat(input[0]).st_size*2/1000000),1000),
 		time="0-0:30:00"

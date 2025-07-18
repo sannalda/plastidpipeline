@@ -73,6 +73,9 @@ op.add_argument("--disable-dev-shm-usage")
 op.add_argument("--start-maximized")
 op.add_argument("--disable-gpu");
 
+### Download location
+prefs = {"download.default_directory": snakemake.config["workdir"]};
+op.add_experimental_option("prefs", prefs);
 
 ############# Code from "https://github.com/SergeyPirogov/webdriver_manager/issues/664#issuecomment-2247178221" to fix "OSError: [Errno 8] Exec format error:" die to THIRD_PARTY_NOTICES.chromedriver being added in July 2024 
 driver_path = ChromeDriverManager(chrome_type=ChromeType.CHROMIUM).install()
@@ -257,8 +260,8 @@ while(job_status != 'Status: finished'):
         if (curr_time - start_time > 1000):
             raise GeSeqError("GeSeq took too long, most likely because could not access the server/website. Please try again later by rerunning the script. Exiting...")
     except GeSeqError as e:
-        loggingPP.error("GESeqError error detected: %s", e)
-
+        loggerPP.error("GESeqError error detected: %s", e)
+        break
 
 time.sleep(5)
 ##### Downloading GenBank file
@@ -266,21 +269,27 @@ annotation_filename = results_block.find_element(By.XPATH,'//a[@data-gs-format="
 results_block.find_element(By.XPATH,'//a[@data-gs-format="GenBank"]').click()
 time.sleep(10)
 download_file_popup = driver.find_element(By.ID,"io_dialog")
+#time.sleep(2)
 download_file_popup.find_element(By.CLASS_NAME,"cms_button_download").click()
 start_time = time.time()
-while not os.path.exists(annotation_filename):
+
+while not os.path.exists(os.path.join(snakemake.config["workdir"],annotation_filename)):
     loggerPP.debug("\tAnnotation completed. Wating for download to complete...")
     time.sleep(10)
     curr_time = time.time()
     try:
-        if (curr_time - start_time > 1000):
+        if (curr_time - start_time > 500):
             raise DownloadingError("Downloading took too long, please try again later by rerunning the script. Exiting...")
     except DownloadingError as e:
-        loggingPP.error("DownloadingError error detected: %s", e)
+        loggerPP.error("DownloadingError error detected: %s", e)
+        break
     
 time.sleep(10)
 driver.quit()  
-loggerPP.info("Annotation and download complete.")      
+if not os.path.exists(os.path.join(snakemake.config["workdir"],annotation_filename)):
+    loggerPP.info("Downloading of annotated file failed. Location:", os.getcwd(),"- Filename:", annotation_filename)
+else:
+    loggerPP.info("Annotation and download complete.")      
 
 
 

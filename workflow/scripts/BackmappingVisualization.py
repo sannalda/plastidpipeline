@@ -28,7 +28,7 @@ def setup_logger(log_file_path):
 error_log_file = os.path.join(snakemake.config["workdir"],snakemake.log[0])
 sys.stderr = sys.stdout = open(error_log_file, "w+")
 
-# Taken from StackdOverflow
+# Adapted from StackOverflow user vestland (thanks!)
 def highLights(fig, variable, level, mode, fillcolor, layer):
     """
     Set a specified color as background for given

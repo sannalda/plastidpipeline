@@ -2,7 +2,7 @@ name: fastp
 channels:
   - conda-forge
   - bioconda
-  - defaults
+  - nodefaults
   - r
   - default
   - anaconda
@@ -15,4 +15,4 @@ dependencies:
   - libstdcxx-ng=13.2.0=h7e041cc_5
   - libzlib=1.2.13=hd590300_5
   - zlib=1.2.13=hd590300_5
-prefix: /home/sjannalda/mambaforge-pypy3/envs/fastp
+prefix: /home/user/mambaforge-pypy3/envs/fastp

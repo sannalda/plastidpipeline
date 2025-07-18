@@ -2,7 +2,7 @@ name: Bioawk
 channels:
   - conda-forge
   - bioconda
-  - defaults
+  - nodefaults
   - r
   - default
   - anaconda

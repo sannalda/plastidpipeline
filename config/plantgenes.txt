@@ -10,7 +10,7 @@ cemA
 chlB
 chlL
 chlN
-clpP
+clpP1
 infA
 matK
 ndhA
@@ -24,6 +24,9 @@ ndhH
 ndhI
 ndhJ
 ndhK
+pafI
+pafII
+pbf1
 petA
 petB
 petD
@@ -48,7 +51,6 @@ psbJ
 psbK
 psbL
 psbM
-psbN
 psbT
 psbZ
 rbcL
@@ -79,8 +81,6 @@ rps7
 rps8
 ycf1
 ycf2
-ycf3
-ycf4
 trnA-UGC
 trnC-GCA
 trnD-GUC
