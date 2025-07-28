@@ -2,7 +2,7 @@
 
 A software pipeline for the automated, reproducible and well-documented production of assembled, annotated and standardized plastid genomes, developed by Siddharth Annaldasula and Katja Reichel.
 
-Full documentation: [PlastidPipeline Google Docs](https://docs.google.com/document/d/1kSNYbWYWll7QQv1zzU0TqP_HkZW93I5C3cAuKrxtv6g/edit?usp=sharing)
+Full documentation: [PlastidPipeline Google Docs](https://docs.google.com/document/d/1IMNBgDMINWmh4GxIRVXHa5OYy62vwmkHGTyC2QooW_E/edit?usp=sharing)
 
 To run the pipeline on the HPC (remember to adapt the conda prefix & profile paths):
 snakemake --use-conda --use-envmodules --resources chrome=1 --conda-prefix /path/to/envs --configfile config/config.yaml --profile ~/plastidpipeline/resources
